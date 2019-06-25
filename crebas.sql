@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/6/25 10:05:30                           */
+/* Created on:     2019/6/25 10:38:04                           */
 /*==============================================================*/
 
 
@@ -37,10 +37,10 @@ create table city
 /*==============================================================*/
 create table guest
 (
-   g_id                 varchar(20) not null,
-   u_id                 varchar(20),
-   g_name               varchar(20) not null,
-   g_phone              varchar(20) not null,
+   g_id                 int not null,
+   u_id                 varchar(20) not null,
+   g_name               varchar(16) not null,
+   g_phone              varchar(16) not null,
    primary key (g_id)
 );
 
@@ -50,22 +50,22 @@ create table guest
 create table hotel
 (
    hotel_id             int not null,
-   cit_city_id          int,
-   city_id              int not null,
+   city_id              int,
    hotel_name           varchar(128) not null,
-   addressline1         varchar(128) not null,
-   hotel_phone          varchar(16),
+   addressline          varchar(128) not null,
    photo1               varchar(256),
    photo2               varchar(256),
    photo3               varchar(256),
    photo4               varchar(256),
    photo5               varchar(256),
-   star                 varchar(4) not null,
-   checkin              time not null,
-   checkout             time not null,
-   longitude            float,
-   latitude             float,
-   overview             text
+   star_rating          decimal(2,1) not null,
+   checkin              time,
+   checkout             time,
+   longitude            double not null,
+   latitude             double not null,
+   overview             text not null,
+   rates_from           int not null,
+   rating_average       decimal(3,1),
    primary key (hotel_id)
 );
 
@@ -86,7 +86,6 @@ create table r_img
 (
    room_img_id          int not null,
    room_id              int,
-   title                varchar(30),
    img                  varchar(128) not null,
    primary key (room_img_id)
 );
@@ -105,7 +104,7 @@ create table r_order
    quantity             int not null,
    total_price          int not null,
    g_name               varchar(20) not null,
-   g_phone              varchar(11) not null,
+   g_phone              varchar(16) not null,
    o_status             varchar(10) not null,
    primary key (o_id)
 );
@@ -130,9 +129,9 @@ create table room
 create table room_quantity
 (
    room_id              int not null,
-   date                 date not null,
+   r_date                 date not null,
    remain               int not null,
-   primary key (room_id, date)
+   primary key (room_id, r_date)
 );
 
 /*==============================================================*/
@@ -142,14 +141,14 @@ create table user
 (
    u_id                 varchar(20) not null,
    u_name               varchar(20) not null,
-   password             char(20) not null,
+   u_password             char(20) not null,
    primary key (u_id)
 );
 
 alter table guest add constraint FK_u_g foreign key (u_id)
       references user (u_id) on delete restrict on update restrict;
 
-alter table hotel add constraint FK_c_h foreign key (cit_city_id)
+alter table hotel add constraint FK_c_h foreign key (city_id)
       references city (city_id) on delete restrict on update restrict;
 
 alter table r_img add constraint FK_r_img foreign key (room_id)
