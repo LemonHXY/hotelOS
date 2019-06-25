@@ -2,7 +2,9 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2019/6/25 10:38:04                           */
 /*==============================================================*/
-
+drop database if exists hos;
+create database hos;
+use  hos;
 
 drop table if exists city;
 
