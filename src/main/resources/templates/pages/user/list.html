@@ -8,26 +8,24 @@
     <title>Document</title>
 </head>
 <body>
-通过姓名查找: <input type="text" id="keyword"> &nbsp;&nbsp;<button onclick="search()">搜索!</button>
+通过id查找: <input type="text" id="keyword"> &nbsp;&nbsp;<button onclick="search()">搜索!</button>
 <table border="1">
     <thead>
         <th>Id</th>
         <th>Name</th>
-        <th>Age</th>
         <th>操作</th>
     </thead>
     <tbody>
     <tr th:each="user: ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
-        <td th:text="${user.age}"></td>
     </tr>
     </tbody>
 </table>
 <script>
     function search() {
         var elem = document.getElementById("keyword");
-        window.location.href = "/user?name=" + elem.value;
+        window.location.href = "/index?id=" + elem.value;
     }
 </script>
 </body>

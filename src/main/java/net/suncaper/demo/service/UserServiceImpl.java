@@ -25,18 +25,17 @@ public  class UserServiceImpl implements UserService {
     private GuestMapper guestMapper;
 
     @Override
-    public List<User> findUser(String uid) {
+    public List<User> findUser(int id) {
         UserExample example = new UserExample();
-        if(uid != null && !uid.equals("")) {
-            example.createCriteria().andUIdEqualTo(uid);//Like("%" + name + "%");
+        if(id>0) {
+            example.createCriteria().andUIdEqualTo(id);//Like("%" + name + "%");
         }
-
         return userMapper.selectByExample(example);
     }
 
     @Override
     public void saveUser(User user) {
-        if(user.getuId() == null || user.getuId().equals("")) {
+        if(user.getuId() == null || user.getuId()<0) {
 
         } else {
             userMapper.insert(user);
@@ -44,8 +43,13 @@ public  class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(String id) {
+    public void deleteUserById(int id) {
         userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public User findUserByUIid(int id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 
 
@@ -56,9 +60,4 @@ public  class UserServiceImpl implements UserService {
         return guestMapper.selectByExample(example);
     }
 
-
-
-    public User findUserByUIid(String id) {
-        return userMapper.selectByPrimaryKey(id);
-    }
 }
