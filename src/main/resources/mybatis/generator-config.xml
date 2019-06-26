@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!--Official Plugins-->
+        <!--Generate equals and hash code-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/hos?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
+                        userId="root"
+                        password="admin">
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="net.suncaper.demo.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/mybatis">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="net.suncaper.demo.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="hos" tableName="city" domainObjectName="City">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="guest" domainObjectName="Guest">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="hotel" domainObjectName="Hotel">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="manager" domainObjectName="Manager">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="r_img" domainObjectName="R_img">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="r_order" domainObjectName="R_order">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="room" domainObjectName="Room">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="room_quantity" domainObjectName="Room_quantity">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="user" domainObjectName="User">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+
+    </context>
+</generatorConfiguration>
