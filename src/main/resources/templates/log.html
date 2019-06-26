@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+    <body>
+    <form method="post"  action="/index/log" th:object="${user}">
+        <table>
+            <tr>
+                <td>id：</td>
+                <td><input type="text" name="uId" th:field="*{uId}"/></td>
+            </tr>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text"  name="uName" th:field="*{uName}"/></td>
+            </tr>
+            <tr>
+                <td>密  码：</td>
+                <td><input type="text"  name="uPassword" th:field="*{uPassword}"/></td>
+            </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="提交" onclick=myfun_submit() />
+            </td>
+            <td>
+                <input type="submit" value="重置" onclick=myfun_reset() />
+            </td>
+        </tr>
+    </table>
+    </form>
+<script type="text/javascript">
+    function myfun_submit(){
+        var user_val = document.getElementById("uId").value;
+        var password_val = document.getElementById("uPassword").value;
+        if(user_val==""){
+            alert("用户名不能为空！！");
+        }else if(password_val==""){
+            alert("密码不能为空！！！");
+        }
+    }
+    function myfun_reset(){
+        document.getElementById("uId").value = "";
+        document.getElementById("uName").value = "";
+        document.getElementById("uPassword").value = "";
+    }
+</script>
+</body>
+</html>
