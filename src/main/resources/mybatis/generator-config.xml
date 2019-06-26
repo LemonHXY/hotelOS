@@ -12,7 +12,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/hos?useUnicode=yes&amp;characterEncoding=UTF-8&amp;useSSL=false"
                         userId="root"
-                        password="yellow2019hxy">
+                        password="admin">
             <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
@@ -69,5 +69,38 @@
             <property name="constructorBased" value="true"/>
             <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
         </table>
+        <table schema="hos" tableName="guest" domainObjectName="Guest">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="hotel" domainObjectName="Hotel">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="manager" domainObjectName="Manager">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="r_img" domainObjectName="R_img">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="r_order" domainObjectName="R_order">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="room" domainObjectName="Room">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="room_quantity" domainObjectName="Room_quantity">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+        <table schema="hos" tableName="user" domainObjectName="User">
+            <property name="constructorBased" value="true"/>
+            <!--<generatedKey column="id" sqlStatement="select uuid_short()" identity="false"/>-->
+        </table>
+
     </context>
 </generatorConfiguration>
