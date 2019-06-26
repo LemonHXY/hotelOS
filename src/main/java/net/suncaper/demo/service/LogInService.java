@@ -8,5 +8,5 @@ public interface LogInService {
 
     void saveUser(User user);
 
-    public List<User> findUser(String name);
+    List<User> findUser(String name);
 }
