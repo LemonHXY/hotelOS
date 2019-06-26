@@ -33,7 +33,7 @@ public class LogInController {
 
     @PostMapping("/log2")
     public String SaveUser(User user) {
-//        logInService.saveUser(user);
+        logInService.saveUser(user);
         return "redirect:/123/log2";
     }
 

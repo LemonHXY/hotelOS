@@ -12,16 +12,17 @@ import java.util.List;
 @Service
 public class LoginServicelmpl implements LogInService {
 
+    @Autowired
     private UserMapper userMapper;
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userMapper.insert(user);
     }
 
     @Override
     public List<User> findUser(String name) {
         UserExample example = new UserExample();
-        if(name != null && !name.equals("")) {
+        if (name != null && !name.equals("")) {
             example.createCriteria().andUNameLike("%" + name + "%");
         }
         return userMapper.selectByExample(example);
