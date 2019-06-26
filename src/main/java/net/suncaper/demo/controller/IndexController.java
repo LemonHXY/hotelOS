@@ -5,11 +5,7 @@ import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/index")
@@ -17,17 +13,34 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/use")
-    public String useP( Model model) {
-        return "/pages/user";
-    }
+    //@GetMapping("/use")
+    //public String useP( Model model) {
+    //    return "/pages/user";
+    //}
 
     @RequestMapping
+    public String userPage() {
+        return "/index.html";
+    }
+    @GetMapping("/log")
+    public String editLog(Model model) {
+        model.addAttribute("user",new User() );
+        return "/log";
+    }
+
+    @PostMapping("/log")
+    public String greetingSubmit(User user1) {
+
+        System.out.print(user1.getuId());
+
+        return "redirect:/index";
+    }
+    /*@RequestMapping
     public String userPage(Model model,@RequestParam(value = "id", required = false) int id) {
         List<User> users = userService.findUser(id);
         model.addAttribute("user", users);
         return "pages/user/list.html";
-    }
+    }*/
     /*
     @GetMapping("/add")
     public String addPage( Model model) {
