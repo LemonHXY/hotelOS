@@ -1,6 +1,6 @@
 package net.suncaper.demo.controller;
 
-//import net.suncaper.demo.domain.Customer;
+import net.suncaper.demo.domain.Customer;
 import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/add")
-    public String addPage( Model model) {
+    public String addPage(Model model) {
         model.addAttribute("user", new Customer());
         return "/pages/user/add-user";
     }
@@ -29,13 +29,10 @@ public class UserController {
 
     @PostMapping("/add")
     public String saveUser(Customer customer) {
-        Customer c=userService.findUserById(customer.getId());
-        if(c.getId()>0)
-        return "redirect:/user";
         userService.saveCustomer(customer);
+
         return "redirect:/user";
     }
-
 
     @GetMapping("/delete")
     public String deleteUserById(int id) {
@@ -44,10 +41,9 @@ public class UserController {
     }
 
     @RequestMapping
-    public String userPage(Model model,@RequestParam(value = "name", required = false) String name) {
+    public String userPage(Model model, @RequestParam(value = "name", required = false) String name) {
         List<Customer> users = userService.findUser(name);
         model.addAttribute("users", users);
-
         return "pages/user/list.html";
     }
 }

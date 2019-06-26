@@ -8,19 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-通过姓名查找: <input type="text" id="keyword"> &nbsp;&nbsp;<button onclick="search()">搜索!</button>
 <table border="1">
     <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>操作</th>
+    <th>Id</th>
+    <th>Name</th>
+    <th>password</th>
     </thead>
     <tbody>
-    <tr th:each="user: ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.age}"></td>
+    <tr  th:each="user: ${users}">
+        <td th:text="${user.u_id}"></td>
+        <td th:text="${user.u_name}"></td>
+        <td th:text="${user.u_password}"></td>
     </tr>
     </tbody>
 </table>

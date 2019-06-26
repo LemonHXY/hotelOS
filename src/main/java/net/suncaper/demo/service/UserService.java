@@ -1,16 +1,16 @@
 package net.suncaper.demo.service;
 
-import net.suncaper.demo.domain.User;
+import net.suncaper.demo.domain.Customer;
 
 import java.util.List;
 
 
 public interface UserService {
-     public List<User> findUser(String uid);
+     public List<Customer> findUser(String name);
 
-     void saveUser(User customer);
+     void saveCustomer(Customer customer);
 
      void deleteUserById(int id);
 
-     public User findUserByUIid(int id);
+     public Customer findUserById(int id);
 }

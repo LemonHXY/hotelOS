@@ -1,12 +1,8 @@
 package net.suncaper.demo.service;
 
-//import net.suncaper.demo.domain.Customer;
-//import net.suncaper.demo.domain.CustomerExample;
-import net.suncaper.demo.domain.User;
-import net.suncaper.demo.domain.UserExample;
-import net.suncaper.demo.mapper.UserMapper;
-
-//import net.suncaper.demo.mapper.CustomerMapper;
+import net.suncaper.demo.domain.Customer;
+import net.suncaper.demo.domain.CustomerExample;
+import net.suncaper.demo.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,34 +11,35 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserMapper userMapper;
+    private CustomerMapper customerMapper;
 
     @Override
-    public List<User> findUser(String uid) {
-        UserExample example = new UserExample();
-        if(uid != null && !uid.equals("")) {
-            example.createCriteria().andUIdEqualTo(uid);//Like("%" + name + "%");
+    public List<Customer> findUser(String name) {
+        CustomerExample example = new CustomerExample();
+        if(name != null && !name.equals("")) {
+            example.createCriteria().andNameLike("%" + name + "%");
         }
 
-        return userMapper.selectByExample(example);
+        return customerMapper.selectByExample(example);
     }
 
     @Override
-    public void saveUser(User user) {
-        if(user.getuId() == null || user.getuId().equals("")) {
+    public void saveCustomer(Customer customer) {
 
-        } else {
-            userMapper.insert(user);
-        }
+      //  if(customer.getId() == null || customer.getId().equals("")) {
+            customerMapper.insert(customer);
+   //     } else {
+   //         customerMapper.updateByPrimaryKey(customer);
+  //      }
     }
 
     @Override
-    public void deleteUserByUid(String id) {
-        userMapper.deleteByPrimaryKey(id);
+    public void deleteUserById(int id) {
+        customerMapper.deleteByPrimaryKey(id);
     }
 
 
-    public User findUserById(String id) {
-        return userMapper.selectByPrimaryKey(id);
+    public Customer findUserById(int id) {
+        return customerMapper.selectByPrimaryKey(id);
     }
 }
