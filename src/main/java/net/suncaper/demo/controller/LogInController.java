@@ -22,8 +22,6 @@ public class LogInController {
     }
 
 
-
-
     @GetMapping("/log2")
     public String SaveUserPage(Model model) {
         System.out.println("nihao");
@@ -36,8 +34,6 @@ public class LogInController {
         logInService.saveUser(user);
         return "redirect:/123/log2";
     }
-
-
 
 
 
