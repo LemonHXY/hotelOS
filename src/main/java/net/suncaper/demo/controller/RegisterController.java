@@ -18,7 +18,6 @@ public class RegisterController {
     //显示注册页面
     @GetMapping("/get")
     public String RegisterPage(Model model) {
-        System.out.println("1");
         model.addAttribute("user", new User());
         return "/register";
     }
@@ -27,7 +26,6 @@ public class RegisterController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/post")
     public String SaveUser(User user, Model model) {
-        System.out.println("2");
         model.addAttribute("user", new User());
         userService.saveUser(user);
         return "redirect:/userorder/get";
