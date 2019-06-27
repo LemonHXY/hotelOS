@@ -1,187 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<title>麦味·酒店预订</title>
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-    
-    
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+    <title>麦味·酒店预订</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-		<link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons/css/ionicons.min.css">
-    
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    
-    <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
-	
-	<link rel="stylesheet" href="assets/css/bootstrap-datepicker.css">
 
-    <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+    <link href="/https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/select2.css">
-    
+    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="assets/css/helpers.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
 
-<style type="text/css">
-table,th,td
-{
-border:1px solid #E4E4E4;
-}
-table
-  {
-  width:100%;
-  }
+    <link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
 
-</style>
+    <link rel="stylesheet" href="/assets/css/bootstrap-datepicker.css">
 
-	</head>
-	<body>
-  
+    <link rel="stylesheet" href="/assets/fonts/fontawesome/css/font-awesome.min.css">
 
-    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">My Way</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
-          <span><i class="ion-navicon"></i></span>
+    <link rel="stylesheet" href="/assets/css/select2.css">
+
+
+    <link rel="stylesheet" href="/assets/css/helpers.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid #E4E4E4;
+        }
+
+        table {
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!--标题栏-->
+<nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/index">My Way</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
+                aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="ion-navicon"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
-            <li class="nav-item active"><a class="nav-link" href="hotel_search.html">酒店搜索</a></li>
-            <li class="nav-item"><a class="nav-link" href="enter.html" onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
-            <li class="nav-item"><a class="nav-link" href="enter.html">登录</a></li>
-            <li class="nav-item"><a class="nav-link" href="register.html">注册</a></li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder/get"
+                                        onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+            </ul>
         </div>
-      </div>
-    </nav>
-    
+    </div>
+</nav>
 
-    <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
-      <div class="overlay"></div>
-      <div class="container" class="probootstrap-form">
+<!--搜索框-->
+<section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
+         data-stellar-background-ratio="0.5" id="section-home">
+    <div class="overlay"></div>
+    <div class="container probootstrap-form">
         <!-- <div class="row align-items-center"> -->
-          <!-- <div class="col-md"> -->
+        <!-- <div class="col-md"> -->
+        <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
 
-          <div class="col-md probootstrap-animate">
-            <form action="#" class="probootstrap-form">
-              <div class="form-group">
-                <div class="row mb-3">
-                  <div class="col-md">
+            <div class="media-body">
+
+
+                <form action="#" class="probootstrap-form">
                     <div class="form-group">
-                      <label for="city">城市</label>
-					  <div>
-                      <label for="city" style="width: 100%;">
-                        <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;">
-						  <option value="成都">成都</option>
-                          <option value="北京">北京</option>
-                          <option value="上海">上海</option>
-                          <option value="深圳">深圳</option>
-                          <option value="杭州">杭州</option>
-                          <option value="南京">南京</option>
-                          <option value="武汉">武汉</option>
-                          <option value="昆明">昆明</option>
-                        </select>
-                      </label>
-					  </div>
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="city">城市</label>
+                                    <div>
+                                        <label for="city" style="width: 100%;">
+                                            <select class="js-example-basic-single js-states form-control" id="city"
+                                                    style="width: 100%;">
+                                                <option value="成都">成都</option>
+                                                <option value="北京">北京</option>
+                                                <option value="上海">上海</option>
+                                                <option value="深圳">深圳</option>
+                                                <option value="杭州">杭州</option>
+                                                <option value="南京">南京</option>
+                                                <option value="武汉">武汉</option>
+                                                <option value="昆明">昆明</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="hotel_keyword">酒店关键字</label>
+                                    <div>
+                                        <label for="hotel_keyword">
+                                            <input type="text" class="form-control" id="hotel_keyword"
+                                                   name="hotel_keyword" style="width: 100%;" placeholder="">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="probootstrap-date-arrival">入住日期</label>
+                                    <div class="probootstrap-date-wrap">
+                                        <span class="icon ion-calendar"></span>
+                                        <input type="text" id="probootstrap-date-arrival" name="arr_date"
+                                               class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="probootstrap-date-departure">离店日期</label>
+                                    <div class="probootstrap-date-wrap">
+                                        <span class="icon ion-calendar"></span>
+                                        <input type="text" id="probootstrap-date-departure" name="dep_date"
+                                               class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <br>
+                                <input type="submit" value="搜索" class="btn btn-primary btn-block">
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                        </div>
+
                     </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-group">
-                      <label for="hotel_keyword">酒店关键字</label>
-					  <div>
-                        <label for="hotel_keyword">
-						<input type="text" class="form-control" id="hotel_keyword" name="hotel_keyword" style="width: 100%;" placeholder="">
-                      </label>
-					  </div>
-                    </div>
-                  </div>
-				  <div class="col-md">
-                    <div class="form-group">
-                      <label for="probootstrap-date-arrival">入住日期</label>
-                      <div class="probootstrap-date-wrap">
-                        <span class="icon ion-calendar"></span> 
-                        <input type="text" id="probootstrap-date-arrival" name="arr_date" class="form-control" placeholder="">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-group">
-                      <label for="probootstrap-date-departure">离店日期</label>
-                      <div class="probootstrap-date-wrap">
-                        <span class="icon ion-calendar"></span> 
-                        <input type="text" id="probootstrap-date-departure" name="dep_date" class="form-control" placeholder="">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md">
-				  	<br>
-                    <input type="submit" value="搜索" class="btn btn-primary btn-block">
-                  </div>
-				  </div>
-                  
-				  
-				  <div class="row mb-3">
-				  </div>
-				  
-				  </div>
-            </form>
-          </div>
+                </form>
 
 
-        
-		  
-		  <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
-		  		  
-		  <div class="media-body">
-    		  <table>
-		        <thead>
-		          <th>图片</th>
-		          <th>酒店名</th>
-		          <th>地址</th>
-		          <th>星级</th>
-		          <th>价格</th>
-		          <th>评分</th>
-		          <th>详情</th>
-		          </thead>
-		          <tbody>
-		          </tbody>
-		          </table>
-			  <!-- </div>  -->
-        <!-- </div> -->
-      </div>
-	  </div>
-	  </div>
+                <table>
+                    <thead>
+                    <th>图片</th>
+                    <th>酒店名</th>
+                    <th>地址</th>
+                    <th>星级</th>
+                    <th>价格</th>
+                    <th>评分</th>
+                    <th>详情</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- </div>  -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
 
-    	  </br></br></br></br></br></br></br>
-	<div class="col-md-12 text-center">
-            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>   
-    </section>
-    <!-- END section -->
-    
-    <script src="assets/js/jquery.min.js"></script>
-    
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    
-	    <script src="assets/js/bootstrap-datepicker.js"></script>
-	
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/jquery.easing.1.3.js"></script>
+    </br></br></br></br></br></br></br>
+    <div class="col-md-12 text-center">
+        <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+    </div>
+</section>
+<!-- END section -->
 
-    <script src="assets/js/select2.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 
-    <script src="assets/js/main.js"></script>
-	</body>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+
+<script src="/assets/js/bootstrap-datepicker.js"></script>
+
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+
+<script src="/assets/js/select2.min.js"></script>
+
+<script src="/assets/js/main.js"></script>
+</body>
 </html>
