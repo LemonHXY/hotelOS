@@ -40,12 +40,11 @@ create table city
 create table guest
 (
    g_id                 int not null,
-   u_id                 varchar(20) not null,
+   u_id                 int not null,
    g_name               varchar(16) not null,
    g_phone              varchar(16) not null,
    primary key (g_id)
 );
-
 /*==============================================================*/
 /* Table: hotel                                                 */
 /*==============================================================*/
@@ -70,7 +69,6 @@ create table hotel
    rating_average       decimal(3,1),
    primary key (hotel_id)
 );
-
 /*==============================================================*/
 /* Table: manager                                               */
 /*==============================================================*/
@@ -80,7 +78,6 @@ create table manager
    m_password           varchar(20) not null,
    primary key (m_id)
 );
-
 /*==============================================================*/
 /* Table: r_img                                                 */
 /*==============================================================*/
@@ -91,15 +88,14 @@ create table r_img
    img                  varchar(128) not null,
    primary key (room_img_id)
 );
-
 /*==============================================================*/
 /* Table: r_order                                               */
 /*==============================================================*/
 create table r_order
 (
    o_id                 int not null,
-   u_id                 varchar(20),
-   room_id              int,
+   u_id                 int not null,
+   room_id              int not null,
    o_time               datetime not null,
    arr_date             date not null,
    dep_date             date not null,
@@ -110,7 +106,6 @@ create table r_order
    o_status             varchar(10) not null,
    primary key (o_id)
 );
-
 /*==============================================================*/
 /* Table: room                                                  */
 /*==============================================================*/
@@ -124,7 +119,6 @@ create table room
    amout                int not null,
    primary key (room_id)
 );
-
 /*==============================================================*/
 /* Table: room_quantity                                         */
 /*==============================================================*/
@@ -135,17 +129,34 @@ create table room_quantity
    remain               int not null,
    primary key (room_id, r_date)
 );
-
 /*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
 create table user
 (
-   u_id                 varchar(20) not null,
+   u_id                 int not null,
    u_name               varchar(20) not null,
    u_password             char(20) not null,
    primary key (u_id)
 );
+
+alter table user CONVERT TO CHARACTER SET utf8;
+
+alter table room_quantity CONVERT TO CHARACTER SET utf8;
+
+alter table room CONVERT TO CHARACTER SET utf8;
+
+alter table r_order CONVERT TO CHARACTER SET utf8;
+
+alter table r_img CONVERT TO CHARACTER SET utf8;
+
+alter table manager CONVERT TO CHARACTER SET utf8;
+
+alter table hotel CONVERT TO CHARACTER SET utf8;
+
+alter table city CONVERT TO CHARACTER SET utf8;
+
+alter table  guest CONVERT TO CHARACTER SET utf8;
 
 alter table guest add constraint FK_u_g foreign key (u_id)
       references user (u_id) on delete restrict on update restrict;
