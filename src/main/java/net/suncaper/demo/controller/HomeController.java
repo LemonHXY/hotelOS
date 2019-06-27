@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({"/enter.html","enter"})
-public class Enter {
+@RequestMapping({"index","/"})
+public class HomeController {
     @Autowired
     private UserService userService;
 
@@ -19,10 +19,8 @@ public class Enter {
     //}
 
     @GetMapping
-    public String userPage(Model model) {
-        model.addAttribute("user",new User() );
-        model.addAttribute("msg1","欢迎登陆");
-        return "/enter.html";
+    public String HomePage() {
+        return "/index.html";
     }
 
 
@@ -30,7 +28,7 @@ public class Enter {
     public String greetingSubmit(User user1,Model model) {
         User user=userService.findUserByUIid(user1.getuId());
         if(user!=null&&user.getuPassword()==user1.getuPassword())
-            return "redirect:/index";
+            return "redirect:/index1";
         else{
 //            model.addAttribute("user",new User() );
 //            model.addAttribute("msg1","密码错误");

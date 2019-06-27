@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({"/index","/index.html"})
-public class IndexController {
+@RequestMapping({"/search"})
+public class SearchController {
     @Autowired
     private UserService userService;
 
@@ -18,36 +18,25 @@ public class IndexController {
     //    return "/pages/user";
     //}
 
-    @RequestMapping
-    public String userPage() {
-        return "/index.html";
-    }
-    @GetMapping("/log")
-    public String editLog(Model model) {
-        model.addAttribute("user",new User() );
-        return "/enter.html";
+    @GetMapping("/get")
+    public String SearchPage(Model model) {
+        model.addAttribute("user",new User());
+        return "/hotel_search.html";
     }
 
-    @GetMapping("/enter")
-    public String enter(Model model) {
-        //model.addAttribute("user",new User() );
-        return "/enter.html";
+
+    @PostMapping("/post")
+    public String greetingSubmit(User user1, Model model) {
+//        User user=userService.findUserByUIid(user1.getuId());
+//        if(user!=null&&user.getuPassword()==user1.getuPassword())
+//            return "redirect:/index1";
+//        else{
+////            model.addAttribute("user",new User() );
+////            model.addAttribute("msg1","密码错误");
+        System.out.println("arrival");
+        return "redirect:/search/get";
     }
-
-    @PostMapping("/log")
-    public String greetingSubmit(User user1) {
-
-        System.out.print(user1.getuId());
-
-        return "redirect:/index";
-    }
-    @PostMapping("/search")
-    public String searchHotel() {
-
-        System.out.println("hello");
-
-        return "redirect:/index/log";
-    }
+}
     /*@RequestMapping
     public String userPage(Model model,@RequestParam(value = "id", required = false) int id) {
         List<User> users = userService.findUser(id);
@@ -90,5 +79,4 @@ public class IndexController {
 
         return "pages/user/list.html";
     }*/
-}
 
