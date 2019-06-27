@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 
 		<meta charset="utf-8">
@@ -63,37 +63,66 @@
           </div>
           <div class="col-md probootstrap-animate">
 	  
-            <form action="#" class="probootstrap-form">
+            <form action="/register/get" class="probootstrap-form" method="post" th:object="${user}" id="reg">
               
 			  <div class="form-group">
-                <label for="u_id" class="sr-only sr-only-focusable">用户名</label>
-				<input type="text" class="form-control" id="u_id" name="u_id" placeholder="用户名（请输入字母数字）">
+                <label for="u_id" class="sr-only sr-only-focusable">用户名id</label>
+				<input type="text" class="form-control" id="u_id" name="uId" placeholder="建议手机号（不长于11位）" th:filed="*{uId}">
+                  <span th:text="  ${msg1} + '!'"></span>
               </div>
 			  
 			  <div class="form-group">
-                <label for="u_name" class="sr-only sr-only-focusable">昵称</label>
-				<input type="text" class="form-control" id="u_name" name="u_name" placeholder="昵称（请输入您希望我们对您的称呼）">
-              </div>
-			  
-			  <div class="form-group">
-                <label for="u_password" class="sr-only sr-only-focusable">密码</label>
-				<input type="password" class="form-control" id="u_password" name="u_password" placeholder="请输入密码">
+                <label for="u_name" class="sr-only sr-only-focusable">姓名</label>
+				<input type="text" class="form-control" id="u_name" name="uName" placeholder="用户姓名" th:filed="*{uName}">
               </div>
 			  
 			  <div class="form-group">
                 <label for="u_password" class="sr-only sr-only-focusable">密码</label>
-				<input type="password" class="form-control" id="u_password1" name="u_password" placeholder="请确认密码">
+				<input type="password" class="form-control" id="u_password" name="uPassword" placeholder="请输入密码" th:filed="*{uPassword}">
+              </div>
+			  
+			  <div class="form-group">
+                <label for="u_password" class="sr-only sr-only-focusable">请再次输入密码</label>
+				<input type="password" class="form-control" id="u_password1"  placeholder="请确认密码" onkeyup="firstCheck()" >
+                  <span id="check"></span>
               </div>
 		                 
 			<div class="row mb-3">
                   <div class="col-md">
                     <div class="form-group">
 					<label >已有账号？请 <a class="ex2" href="/enter.html" color="black">登录</a> 。</label>
-					<input type="submit" value="注册" class="btn btn-primary btn-block">					
+					<input type="submit" value="注册" class="btn btn-primary btn-block" onclick="secondCheck()">
             </div>
           </div>
          </div>
-
+                <script>
+                    function firstCheck() {
+                        var pwd1 = document.getElementById("u_password").value;
+                        var pwd2 = document.getElementById("u_password1").value;
+                        if(pwd1!=pwd2)
+                            document.getElementById("check").innerHTML="<font color='red'>两次密码不相同</font>";
+                        else
+                        {
+                            document.getElementById("check").innerHTML="<font color='green'>两次密码相同</font>";
+                        }
+                    }
+                </script>
+                <script>
+                    function secondCheck() {
+                        var pwd1 = document.getElementById("u_password").value;
+                        var pwd2 = document.getElementById("u_password1").value;
+                        if(pwd1!=pwd2)
+                        {
+                            document.getElementById("check").innerHTML="<font color='red'>两次密码不相同</font>";
+                        }
+                        else
+                        {
+                            document.getElementById("check").innerHTML="<font color='green'>两次密码相同</font>";
+                            var form = document.getElementById('reg');
+                            form.submit();
+                        }
+                    }
+                </script>
           </div> 
 		  </form>
         </div>

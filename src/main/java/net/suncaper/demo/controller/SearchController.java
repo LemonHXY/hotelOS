@@ -1,5 +1,6 @@
 package net.suncaper.demo.controller;
 
+import net.suncaper.demo.domain.City;
 import net.suncaper.demo.domain.Hotel;
 import net.suncaper.demo.domain.MySearch;
 import net.suncaper.demo.service.HotelService;
@@ -30,7 +31,13 @@ public class SearchController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/get")
     public String greetingSubmit(MySearch mySearch, Model model) {
-        List<Hotel> c=hotelService.findHotelByCityId(hotelService.finCityByString(mySearch.getCity()).getCityId());
+        City temp=hotelService.finCityByString(mySearch.getCity());
+        if(temp==null)
+        {
+            model.addAttribute("search",new MySearch());
+            return "/hotel_search.html";
+        }
+        List<Hotel>  c=hotelService.findHotelByCityId(temp.getCityId());
         model.addAttribute("search",new MySearch());
         model.addAttribute("hotels",c);
         return "/hotel_search.html";

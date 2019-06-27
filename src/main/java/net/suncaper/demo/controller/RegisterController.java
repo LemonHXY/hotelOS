@@ -9,22 +9,37 @@ import org.springframework.web.bind.annotation.*;
 
 //注册控制器
 @Controller
-@RequestMapping({"register"})
+@RequestMapping("/register")
 public class RegisterController {
     @Autowired
     private UserService userService;
 
     //  显示搜索界面
     @GetMapping("/get")
-    public String SearchPage(Model model) {
+    public String getRegister(Model model) {
+        model.addAttribute("msg1","注册后不可修改");
         model.addAttribute("user",new User());
         return "/register.html";
     }
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/post")
-    public String greetingSubmit(User user1, Model model) {
-        return "redirect:/search/get";
+    @PostMapping("/get")
+    public String saveUser(User user1, Model model) {
+
+        model.addAttribute("user",new User());
+        User temp=userService.findUserByUIid(user1.getuId());
+        if(temp==null)
+        {
+            userService.saveUser(user1);
+            return "redirect:/search/get";
+        }
+        else
+        {
+            model.addAttribute("msg1","该id已被使用");
+            model.addAttribute("user",new User());
+            return "/register.html";
+        }
+
     }
 }
