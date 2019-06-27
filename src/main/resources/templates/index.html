@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 
 		<meta charset="utf-8">
@@ -61,7 +61,7 @@
 			</br></br></br></br></br>
           </div>
           <div class="col-md probootstrap-animate">
-            <form action="/index/search" class="probootstrap-form" method='post' >
+            <form action="/index/search" class="probootstrap-form" method='post' th:object="${search}">
               <div class="form-group">
                 <div class="row mb-3">
                   <div class="col-md">
@@ -71,7 +71,7 @@
 					  <span class="ion-location" ></span>
 
                       <label for="city" style="width: 100%;">
-                        <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;">
+                        <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;"  name="city" th:field="*{city}">
 						  <option value="成都">成都</option>
                           <option value="北京">北京</option>
                           <option value="上海">上海</option>
@@ -90,7 +90,7 @@
                     <div class="form-group">
                       <label for="hotel_keyword">酒店关键字</label>
                         <label for="hotel_keyword" style="width: 100%;">
-						<input type="text" class="form-control" id="hotel_keyword" name="hotel_keyword" placeholder="如锦江、如家">
+						<input type="text" class="form-control" id="hotel_keyword" name="hotel_keyword" placeholder="如锦江、如家" th:field="*{hotelName}">
                       </label>
                     </div>
                   </div>
@@ -104,7 +104,7 @@
                       <label for="probootstrap-date-arrival">入住日期</label>
                       <div class="probootstrap-date-wrap">
                         <span class="icon ion-calendar"></span> 
-                        <input type="text" id="probootstrap-date-arrival" name="arr_date" class="form-control" placeholder="">
+                        <input type="text" id="probootstrap-date-arrival" name="arr_date" class="form-control" placeholder=""   th:field="*{arr_date}">
                       </div>
                     </div>
                   </div>
@@ -113,7 +113,7 @@
                       <label for="probootstrap-date-departure">离店日期</label>
                       <div class="probootstrap-date-wrap">
                         <span class="icon ion-calendar"></span> 
-                        <input type="text" id="probootstrap-date-departure" name="dep_date" class="form-control" placeholder="">
+                        <input type="text" id="probootstrap-date-departure" name="dep_date" class="form-control" placeholder="" th:field="*{dep_date}">
                       </div>
                     </div>
                   </div>
