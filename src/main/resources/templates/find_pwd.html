@@ -68,7 +68,7 @@
           </div>
           <div class="col-md probootstrap-animate">
 	  
-            <form action="#" class="probootstrap-form">
+            <form action="#" class="probootstrap-form"  method='post' onsubmit="return check();">
               
 			  <div class="form-group">
                 <label for="u_password" class="sr-only sr-only-focusable">密码</label>
@@ -111,5 +111,21 @@
     <script src="assets/js/select2.min.js"></script>
 
     <script src="assets/js/main.js"></script>
+
+    <script>
+
+        function check(){
+            var password1=document.getElementById("u_password").value;
+            var password2=document.getElementById("u_password1").value;
+            if(password1!=password2){
+
+                alert("密码不一致请核查");
+                return false;
+            }
+            else
+                return ture;
+        }
+
+    </script>
 	</body>
 </html>
