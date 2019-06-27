@@ -14,10 +14,10 @@ public class SearchController {
     @Autowired
     private UserService userService;
 
-//  显示搜索界面
+    //  显示搜索界面
     @GetMapping("/get")
     public String SearchPage(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
         return "/hotel_search.html";
     }
 

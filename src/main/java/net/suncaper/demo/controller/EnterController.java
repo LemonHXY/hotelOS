@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 //登陆控制器
-//已实现
 @Controller
 @RequestMapping({"enter"})
 public class EnterController {
@@ -18,8 +17,8 @@ public class EnterController {
 
     @GetMapping
     public String userPage(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("msg1", "欢迎登陆");
+//        model.addAttribute("user", new User());
+//        model.addAttribute("msg1", "欢迎登陆");
         return "/enter.html";
     }
 
@@ -30,8 +29,8 @@ public class EnterController {
         if (user != null && user.getuPassword() == user1.getuPassword())
             return "redirect:/index";
         else {
-            model.addAttribute("user", new User());
-            model.addAttribute("msg1", "密码错误");
+//            model.addAttribute("user",new User() );
+            model.addAttribute("msg1","密码错误");
             return "/enter.html";
         }
     }
