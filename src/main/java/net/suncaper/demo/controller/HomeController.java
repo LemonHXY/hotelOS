@@ -7,46 +7,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+//主页控制器
 @Controller
-@RequestMapping({"/index","/index.html"})
-public class IndexController {
+@RequestMapping({"index","/"})
+public class HomeController {
     @Autowired
     private UserService userService;
 
-    //@GetMapping("/use")
-    //public String useP( Model model) {
-    //    return "/pages/user";
-    //}
 
-    @RequestMapping
-    public String userPage() {
+    @GetMapping
+    public String HomePage() {
         return "/index.html";
     }
-    @GetMapping("/log")
-    public String editLog(Model model) {
-        model.addAttribute("user",new User() );
-        return "/enter.html";
-    }
 
-    @GetMapping("/enter")
-    public String enter(Model model) {
-        //model.addAttribute("user",new User() );
-        return "/enter.html";
-    }
 
-    @PostMapping("/log")
-    public String greetingSubmit(User user1) {
-
-        System.out.print(user1.getuId());
-
-        return "redirect:/index";
-    }
-    @PostMapping("/search")
-    public String searchHotel() {
-
-        System.out.println("hello");
-
-        return "redirect:/index/log";
+    @PostMapping("/login")
+    public String greetingSubmit(User user1,Model model) {
+        User user=userService.findUserByUIid(user1.getuId());
+        if(user!=null&&user.getuPassword()==user1.getuPassword())
+            return "redirect:/index1";
+        else{
+//            model.addAttribute("user",new User() );
+//            model.addAttribute("msg1","密码错误");
+            return "/enter.html";}
     }
     /*@RequestMapping
     public String userPage(Model model,@RequestParam(value = "id", required = false) int id) {
@@ -91,4 +74,3 @@ public class IndexController {
         return "pages/user/list.html";
     }*/
 }
-
