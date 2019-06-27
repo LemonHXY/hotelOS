@@ -7,18 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//搜索控制器
+//注册控制器
 @Controller
-@RequestMapping({"search"})
-public class SearchController {
+@RequestMapping({"register"})
+public class RegisterController {
     @Autowired
     private UserService userService;
 
-//  显示搜索界面
+    //  显示搜索界面
     @GetMapping("/get")
     public String SearchPage(Model model) {
         model.addAttribute("user",new User());
-        return "/hotel_search.html";
+        return "/register.html";
     }
 
     //待修改
