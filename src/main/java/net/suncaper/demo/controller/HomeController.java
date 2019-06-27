@@ -7,16 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+//主页控制器
 @Controller
 @RequestMapping({"index","/"})
 public class HomeController {
     @Autowired
     private UserService userService;
 
-    //@GetMapping("/use")
-    //public String useP( Model model) {
-    //    return "/pages/user";
-    //}
 
     @GetMapping
     public String HomePage() {
