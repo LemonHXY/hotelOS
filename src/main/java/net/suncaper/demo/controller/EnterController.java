@@ -17,8 +17,8 @@ public class EnterController {
 
     @GetMapping
     public String userPage(Model model) {
-//        model.addAttribute("user", new User());
-//        model.addAttribute("msg1", "欢迎登陆");
+        model.addAttribute("user", new User());
+        model.addAttribute("msg1", "欢迎登陆");
         return "/enter.html";
     }
 
@@ -26,11 +26,11 @@ public class EnterController {
     @PostMapping("/login")
     public String greetingSubmit(User user1, Model model) {
         User user = userService.findUserByUIid(user1.getuId());
-        if (user != null && user.getuPassword() == user1.getuPassword())
+        if (user != null && user.getuPassword().equals(user1.getuPassword()))
             return "redirect:/index";
         else {
-//            model.addAttribute("user",new User() );
-            model.addAttribute("msg1","密码错误");
+            model.addAttribute("user",new User() );
+            model.addAttribute("msg1", "密码错误");
             return "/enter.html";
         }
     }

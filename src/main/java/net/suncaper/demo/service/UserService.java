@@ -18,4 +18,6 @@ public interface UserService {
      public User findUserByUIid(int id);//通过uid寻找户
 
      public List<Guest> findGuest(User user);//寻找某uid的同伴guest 的信息列表
+
+
 }
