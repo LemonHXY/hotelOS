@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label for="user_password" class="sr-only sr-only-focusable">密码</label>
                         <input type="password" class="form-control" id="user_password" name="uPassword" placeholder="请输入密码" th:field="*{uPassword}">
-                        <td>${msg1}</td>
+                        <span th:text="${msg1}" + !></span>
                     </div>
 
 

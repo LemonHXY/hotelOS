@@ -8,8 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 //登陆控制器
+//已实现
 @Controller
-@RequestMapping({ "enter"})
+@RequestMapping({"enter"})
 public class EnterController {
     @Autowired
     private UserService userService;
@@ -29,8 +30,8 @@ public class EnterController {
         if (user != null && user.getuPassword() == user1.getuPassword())
             return "redirect:/index";
         else {
-//            model.addAttribute("user",new User() );
-//            model.addAttribute("msg1","密码错误");
+            model.addAttribute("user", new User());
+            model.addAttribute("msg1", "密码错误");
             return "/enter.html";
         }
     }

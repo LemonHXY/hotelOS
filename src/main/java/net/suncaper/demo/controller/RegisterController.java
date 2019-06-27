@@ -14,7 +14,7 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-    //  显示搜索界面
+    //  显示注册页面
     @GetMapping("/get")
     public String SearchPage(Model model) {
         model.addAttribute("user",new User());
