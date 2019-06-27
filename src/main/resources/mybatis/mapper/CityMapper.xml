@@ -238,4 +238,7 @@
     set city = #{city,jdbcType=VARCHAR}
     where city_id = #{cityId,jdbcType=INTEGER}
   </update>
+  <select id="findBySting" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM city WHERE city=#{city}
+  </select>
 </mapper>

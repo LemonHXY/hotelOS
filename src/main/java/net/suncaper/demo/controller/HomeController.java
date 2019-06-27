@@ -1,5 +1,6 @@
 package net.suncaper.demo.controller;
 
+import net.suncaper.demo.domain.MySearch;
 import net.suncaper.demo.domain.User;
 import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomePage() {
+    public String HomePage(Model model) {
+        model.addAttribute("search",new MySearch());
         return "/index.html";
     }
 

@@ -1,9 +1,10 @@
 package net.suncaper.demo.mapper;
 
-import java.util.List;
 import net.suncaper.demo.domain.City;
 import net.suncaper.demo.domain.CityExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CityMapper {
     /**
@@ -93,4 +94,6 @@ public interface CityMapper {
      * @mbg.generated Thu Jun 27 16:02:43 CST 2019
      */
     int updateByPrimaryKey(City record);
+
+    City findBySting(String city);
 }
