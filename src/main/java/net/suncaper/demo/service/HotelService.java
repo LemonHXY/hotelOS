@@ -9,4 +9,5 @@ import java.util.List;
 public interface HotelService {
     public List<Hotel> findHotelByCityId(int city);
     public City finCityByString(String name);
+    public List<Hotel> findByCityAndName(String  city,List<String> stringList);
 }
