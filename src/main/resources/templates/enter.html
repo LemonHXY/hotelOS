@@ -29,29 +29,32 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <style>
-        a.ex2:hover, a.ex2:active {
-            color: green;
-            font-size: 150%;
-        }
+        a.ex2:hover,a.ex2:active {color:green;font-size:150%;}
 
     </style>
+
+    <script type="text/javascript">
+        function display_alert()
+        {
+            alert("I am an alert box!!")
+        }
+    </script>
 
 </head>
 <body>
 
 
+
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
     <div class="container">
         <a class="navbar-brand" href="/index">My Way</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
-                aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="ion-navicon"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get"
-                                        onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder/get" onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
                 <li class="nav-item active"><a class="nav-link" href="/enter">登录</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
             </ul>
@@ -61,8 +64,7 @@
 <!-- END nav -->
 
 
-<section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
-         data-stellar-background-ratio="0.5" id="section-home">
+<section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
     <div class="container">
         <div class="row align-items-center">
@@ -75,30 +77,29 @@
                 <form action="/enter/login" class="probootstrap-form" method="post" th:object="${user}">
 
                     <div class="form-group">
-                        <label for="user_id" class="sr-only sr-only-focusable">用户名</label>
-                        <input type="text" class="form-control" id="user_id" name="uId" placeholder="用户名" th:field="*{uId}">
+                        <label for="user_id"  required="true" class="sr-only sr-only-focusable">用户名</label>
+                        <input type="text" required="true"  class="form-control" id="user_id" name="uId" placeholder="用户名" th:field="*{uId}">
                     </div>
 
                     <div class="form-group">
                         <label for="user_password" class="sr-only sr-only-focusable">密码</label>
-                        <input type="password" class="form-control" id="user_password" name="uPassword"
-                               placeholder="请输入密码" th:field="*{uPassword}">
-                        <span th:text="${msg1}" + !></span>
-                    </div>
+                        <input type="password" required="true" class="form-control" id="user_password" name="uPassword" placeholder="请输入密码" th:field="*{uPassword}">
 
+                    </div>
 
                     <div class="row mb-3">
                         <div class="col-md">
                             <div class="form-group">
-                                <label>还没有账号？快去 <a class="ex2" href="/register.html" color="black">注册</a> 吧。</label>
-                                <input type="submit" value="登录" class="btn btn-primary btn-block">
+                                <label>还没有账号？快去 <a class="ex2" href="/register/get" color="black">注册</a> 吧。</label>
+                                <label style="float:right;"><a class="ex2" href="forget_pwd.html">忘记密码？</a></label>
+                                <br>
+                                <label th:text="${msg1}" + !></label>
+                                <input type="submit" value="登录" class="btn btn-primary btn-block"/>
                             </div>
                         </div>
                     </div>
-
                 </form>
-            </div>
-        </div>
+                </div>
     </div>
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
