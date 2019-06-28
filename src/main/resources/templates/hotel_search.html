@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -83,37 +83,37 @@
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
     <div class="container">
-        <!-- <div class="row align-items-center"> -->
-        <!-- <div class="col-md"> -->
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
-
             <div class="media-body">
                 <div class="col-md probootstrap-animate">
-                    <form action="#" class="probootstrap-form">
+                    <form action="/search/get" class="probootstrap-form" method="post" th:object="${search}">
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-md">
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="city" name="city"  th:field="*{city}">城市</label>-->
+                                        <!--<div for="city" class="city-select" id="single-select-1" style="width: 100%;">-->
+                                            <!--<input type="text" id="city" class="form-control"-->
+                                                   <!--placeholder="请选择城市" >-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="city">城市</label>
-                                        <!-- <label for="city" style="width: 100%;"> -->
-                                        <!-- <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;"> -->
-                                        <!-- <option value="成都">成都</option> -->
-                                        <!-- <option value="北京">北京</option> -->
-                                        <!-- <option value="上海">上海</option> -->
-                                        <!-- <option value="深圳">深圳</option> -->
-                                        <!-- <option value="杭州">杭州</option> -->
-                                        <!-- <option value="南京">南京</option> -->
-                                        <!-- <option value="武汉">武汉</option> -->
-                                        <!-- <option value="昆明">昆明</option> -->
-                                        <!-- </select> -->
-                                        <!-- </label> -->
-                                        <div class="city-select" id="single-select-1" style="width: 100%;">
-                                            <!-- <div class="city-input"> -->
-                                            <input type="text" id="city" class="input-search" value="" placeholder="请选择城市"/>
-                                            <!-- </div> -->
+                                        <div>
+                                            <label for="city" style="width: 100%;">
+                                                <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city"  th:field="*{city}">
+                                                    <option value=""></option>
+                                                    <option value="成都">成都</option>
+                                                    <option value="北京">北京</option>
+                                                    <option value="上海">上海</option>
+                                                    <option value="深圳">深圳</option>
+                                                    <option value="杭州">杭州</option>
+                                                    <option value="南京">南京</option>
+                                                    <option value="武汉">武汉</option>
+                                                    <option value="昆明">昆明</option>
+                                                </select>
+                                            </label>
                                         </div>
-
-
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -121,7 +121,7 @@
                                         <label for="hotel_keyword">酒店关键字</label>
                                         <div>
                                             <input type="text" class="form-control" id="hotel_keyword"
-                                                   name="hotel_keyword" placeholder="">
+                                                    placeholder="" name="name" th:field="*{name}">
 
                                         </div>
                                     </div>
@@ -131,8 +131,8 @@
                                         <label for="probootstrap-date-arrival">入住日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-arrival" name="arr_date"
-                                                   class="form-control" placeholder="">
+                                            <input type="text" id="probootstrap-date-arrival"
+                                                   class="form-control" placeholder=""  name="start" th:field="*{start}">
                                         </div>
                                     </div>
                                 </div>
@@ -141,8 +141,8 @@
                                         <label for="probootstrap-date-departure">离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-departure" name="dep_date"
-                                                   class="form-control" placeholder="">
+                                            <input type="text" id="probootstrap-date-departure"
+                                                   class="form-control" placeholder="" name="end" th:field="*{end}">
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +181,6 @@
                                             <option value="3">500-1000元</option>
                                             <option value="4">1000元以上</option>
                                         </select>
-
                                     </div>
                                 </div>
 
@@ -190,55 +189,38 @@
                                            style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
-
                             </div>
                         </div>
                     </form>
 
 
                     <table>
-                        <thead>
-                        <th class="text-center" width="100px">图片</th>
-                        <th>酒店名</th>
-                        <th>酒店地址</th>
-                        <th class="text-center" width="40px">星级</th>
-                        <th class="text-center" width="40px">评分</th>
-                        <th class="text-center" width="40px">价格</th>
-                        <th class="text-center" width="80px">距离</th>
-                        <th class="text-center" width="60px">操作</th>
-                        </thead>
-                        <tbody>
-                        <tr height="70px">
-                            <td align="center" valign="middle"><img
-                                    src="http://pix4.agoda.net/hotelimages/1297/0/bd87a86dccd8e39d308ef076bbcc4b23.jpg?s=312x"
-                                    height="60px"/></td>
-                            <td>成都天府丽都喜来登饭店</td>
-                            <td>No. 15, Section 1, Ren Min Zhong Road</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">7.7</td>
-                            <td class="text-center">515</td>
-
+                        <tr>
+                            <th class="text-center" width="100px">图片</th>
+                            <th>酒店名</th>
+                            <th>酒店地址</th>
+                            <th class="text-center" width="40px">星级</th>
+                            <th class="text-center" width="40px">评分</th>
+                            <th class="text-center" width="40px">价格</th>
+                            <th class="text-center" width="80px">距离</th>
+                            <th class="text-center" width="60px">操作</th>
+                        </tr>
+                        <tr height="70" th:each="hotel: ${hotels}">
+                            <td align="center" valign="middle"><img th:src="${hotel.photo1}" height="60"/></td>
+                            <td th:text="${hotel.hotelName}"></td>
+                            <td th:text="${hotel.addressline}"></td>
+                            <td class="text-center" th:text="${hotel.starRating}"></td>
+                            <td class="text-center" th:text="${hotel.ratingAverage}"></td>
+                            <td class="text-center" th:text="${hotel.ratesFrom}"></td>
                             <td></td>
+                            <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
-                                <button>详情</button>
+                                <!--<button type="button" action="hotel_room.html" >详情</button>-->
+                                <a href="http://localhost:8280/room/get">
+                                    <button>详情</button>
+                                </a>
                             </td>
                         </tr>
-                        <tr height="70">
-                            <td align="center" valign="middle"><img
-                                    src="http://pix2.agoda.net/hotelimages/615/61529/61529_16052713560042797419.jpg?s=312x"
-                                    height="60"/></td>
-                            <td>速8酒店成都春熙店</td>
-                            <td>180 Taisheng South Rd</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">7.7</td>
-                            <td class="text-center">515</td>
-
-                            <td></td>
-                            <td align="center" valign="middle">
-                                <button>详情</button>
-                            </td>
-                        </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -248,6 +230,7 @@
         <div class="col-md-12 text-center">
             <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
         </div>
+
 </section>
 <!-- END section -->
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-     public List<User> findUser(int uid);//通过id寻找一位用户
+     public List<User> findUser(int uid);//通过id寻找一列用户
 
      void saveUser(User customer);//保存用户信息的  id name password
 
