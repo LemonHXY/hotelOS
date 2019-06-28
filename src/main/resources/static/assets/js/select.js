@@ -1,5 +1,5 @@
 function get_options() {
-    $("select").each(function () {
+    $("select1").each(function () {
         $(this).empty();
         var html = "<option value=''>请选择</option>";
         $.each(city, function (i, v) {
