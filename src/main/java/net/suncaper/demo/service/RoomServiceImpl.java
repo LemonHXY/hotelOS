@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class RoomServiceImpl implements RoomService {
+public  class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomMapper roomMapper;
     @Autowired
@@ -22,7 +22,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<Room> findRoomByHotelId(int id) {
-        RoomExample roomExample = new RoomExample();
+        RoomExample roomExample=new RoomExample();
         roomExample.createCriteria().andHotelIdEqualTo(id);
         return roomMapper.selectByExample(roomExample);
     }
@@ -30,11 +30,13 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public boolean saveRoom(Room room) {
         RoomExample example = new RoomExample();
-        if (room.getRoomId() < 2147483647 && room.getRoomId() > -2147483648 && room.getAmout() > 0
-                && room.getHotelId() > 0 && room.getBreakfast().length() > 0 && room.getRoomType().length() > 0 && room.getPrice() > 0) {
+        if(room.getRoomId()<2147483647&&room.getRoomId()>-2147483648&&room.getAmout()>0
+                &&room.getHotelId()>0&&room.getBreakfast().length()>0&&room.getRoomType().length()>0&&room.getPrice()>0)
+        {
             roomMapper.insert(room);
             return true;
-        } else
+        }
+        else
             return false;
     }
 

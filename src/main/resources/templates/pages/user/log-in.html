@@ -9,24 +9,24 @@
 </head>
 <body>
 <form method="post" action="/123/log" th:object="${user}">
-    <table>
-        <tr>
-            <td>序号：</td>
-            <td><input type="text" name="U_id" th:field="*{u_id}"></td>
-        </tr>
-        <tr>
-            <td>用户名：</td>
-            <td><input type="text" name="u_name" th:field="*{u_name}"></td>
-        </tr>
-        <tr>
-            <td>密码：</td>
-            <td><input type="text" name="u_password" th:field="*{u_password}"></td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="提交">
-            </td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <td>序号：</td>
+        <td><input type="text" name="U_id" th:field="*{u_id}"></td>
+    </tr>
+    <tr>
+        <td>用户名：</td>
+        <td><input type="text" name="u_name" th:field="*{u_name}"></td>
+    </tr>
+    <tr>
+        <td>密码：</td>
+        <td><input type="text" name="u_password" th:field="*{u_password}"></td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value = "提交">
+        </td>
+    </tr>
+</table>
 </body>
 </html>

@@ -2,210 +2,180 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2019/6/25 10:38:04                           */
 /*==============================================================*/
-DROP DATABASE IF EXISTS hos;
-CREATE DATABASE hos;
-USE hos;
+drop database if exists hos;
+create database hos;
+use  hos;
 
-DROP TABLE IF EXISTS city;
+drop table if exists city;
 
-DROP TABLE IF EXISTS guest;
+drop table if exists guest;
 
-DROP TABLE IF EXISTS hotel;
+drop table if exists hotel;
 
-DROP TABLE IF EXISTS manager;
+drop table if exists manager;
 
-DROP TABLE IF EXISTS r_img;
+drop table if exists r_img;
 
-DROP TABLE IF EXISTS r_order;
+drop table if exists r_order;
 
-DROP TABLE IF EXISTS room;
+drop table if exists room;
 
-DROP TABLE IF EXISTS room_quantity;
+drop table if exists room_quantity;
 
-DROP TABLE IF EXISTS user;
+drop table if exists user;
 
 /*==============================================================*/
 /* Table: city                                                  */
 /*==============================================================*/
-CREATE TABLE city
+create table city
 (
-  city_id INT         NOT NULL,
-  city    VARCHAR(20) NOT NULL,
-  PRIMARY KEY (city_id)
+   city_id              int not null,
+   city                 varchar(20) not null,
+   primary key (city_id)
 );
 
 /*==============================================================*/
 /* Table: guest                                                 */
 /*==============================================================*/
-CREATE TABLE guest
+create table guest
 (
-  g_id    INT         NOT NULL,
-  u_id    INT         NOT NULL,
-  g_name  VARCHAR(16) NOT NULL,
-  g_phone VARCHAR(16) NOT NULL,
-  PRIMARY KEY (g_id)
+   g_id                 int not null,
+   u_id                 int not null,
+   g_name               varchar(16) not null,
+   g_phone              varchar(16) not null,
+   primary key (g_id)
 );
 /*==============================================================*/
 /* Table: hotel                                                 */
 /*==============================================================*/
-CREATE TABLE hotel
+create table hotel
 (
-  hotel_id       INT           NOT NULL,
-  city_id        INT,
-  hotel_name     VARCHAR(128)  NOT NULL,
-  addressline    VARCHAR(128)  NOT NULL,
-  photo1         VARCHAR(256),
-  photo2         VARCHAR(256),
-  photo3         VARCHAR(256),
-  photo4         VARCHAR(256),
-  photo5         VARCHAR(256),
-  star_rating    DECIMAL(2, 1) NOT NULL,
-  checkin        TIME,
-  checkout       TIME,
-  longitude      DOUBLE        NOT NULL,
-  latitude       DOUBLE        NOT NULL,
-  overview       TEXT          NOT NULL,
-  rates_from     INT           NOT NULL,
-  rating_average DECIMAL(3, 1),
-  PRIMARY KEY (hotel_id)
+   hotel_id             int not null,
+   city_id              int,
+   hotel_name           varchar(128) not null,
+   addressline          varchar(128) not null,
+   photo1               varchar(256),
+   photo2               varchar(256),
+   photo3               varchar(256),
+   photo4               varchar(256),
+   photo5               varchar(256),
+   star_rating          decimal(2,1) not null,
+   checkin              time,
+   checkout             time,
+   longitude            double not null,
+   latitude             double not null,
+   overview             text not null,
+   rates_from           int not null,
+   rating_average       decimal(3,1),
+   primary key (hotel_id)
 );
 /*==============================================================*/
 /* Table: manager                                               */
 /*==============================================================*/
-CREATE TABLE manager
+create table manager
 (
-  m_id       VARCHAR(20) NOT NULL,
-  m_password VARCHAR(20) NOT NULL,
-  PRIMARY KEY (m_id)
+   m_id                 varchar(20) not null,
+   m_password           varchar(20) not null,
+   primary key (m_id)
 );
 /*==============================================================*/
 /* Table: r_img                                                 */
 /*==============================================================*/
-CREATE TABLE r_img
+create table r_img
 (
-  room_img_id INT          NOT NULL,
-  room_id     INT,
-  img         VARCHAR(128) NOT NULL,
-  PRIMARY KEY (room_img_id)
+   room_img_id          int not null,
+   room_id              int,
+   img                  varchar(128) not null,
+   primary key (room_img_id)
 );
 /*==============================================================*/
 /* Table: r_order                                               */
 /*==============================================================*/
-CREATE TABLE r_order
+create table r_order
 (
-  o_id        INT         NOT NULL,
-  u_id        INT         NOT NULL,
-  room_id     INT         NOT NULL,
-  o_time      DATETIME    NOT NULL,
-  arr_date    DATE        NOT NULL,
-  dep_date    DATE        NOT NULL,
-  quantity    INT         NOT NULL,
-  total_price INT         NOT NULL,
-  g_name      VARCHAR(20) NOT NULL,
-  g_phone     VARCHAR(16) NOT NULL,
-  o_status    VARCHAR(10) NOT NULL,
-  PRIMARY KEY (o_id)
+   o_id                 int not null,
+   u_id                 int not null,
+   room_id              int not null,
+   o_time               datetime not null,
+   arr_date             date not null,
+   dep_date             date not null,
+   quantity             int not null,
+   total_price          int not null,
+   g_name               varchar(20) not null,
+   g_phone              varchar(16) not null,
+   o_status             varchar(10) not null,
+   primary key (o_id)
 );
 /*==============================================================*/
 /* Table: room                                                  */
 /*==============================================================*/
-CREATE TABLE room
+create table room
 (
-  room_id   INT         NOT NULL,
-  hotel_id  INT,
-  room_type VARCHAR(30) NOT NULL,
-  breakfast VARCHAR(10) NOT NULL,
-  price     INT         NOT NULL,
-  amout     INT         NOT NULL,
-  PRIMARY KEY (room_id)
+   room_id              int not null,
+   hotel_id             int,
+   room_type            varchar(30) not null,
+   breakfast            varchar(10) not null,
+   price                int not null,
+   amout                int not null,
+   primary key (room_id)
 );
 /*==============================================================*/
 /* Table: room_quantity                                         */
 /*==============================================================*/
-CREATE TABLE room_quantity
+create table room_quantity
 (
-  room_id INT  NOT NULL,
-  r_date  DATE NOT NULL,
-  remain  INT  NOT NULL,
-  PRIMARY KEY (room_id, r_date)
+   room_id              int not null,
+   r_date                 date not null,
+   remain               int not null,
+   primary key (room_id, r_date)
 );
 /*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
-CREATE TABLE user
+create table user
 (
-  u_id       INT         NOT NULL,
-  u_name     VARCHAR(20) NOT NULL,
-  u_password CHAR(20)    NOT NULL,
-  PRIMARY KEY (u_id)
+   u_id                 int not null,
+   u_name               varchar(20) not null,
+   u_password             char(20) not null,
+   primary key (u_id)
 );
 
-ALTER TABLE user
-  CONVERT TO CHARACTER SET utf8;
+alter table user CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE room_quantity
-  CONVERT TO CHARACTER SET utf8;
+alter table room_quantity CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE room
-  CONVERT TO CHARACTER SET utf8;
+alter table room CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE r_order
-  CONVERT TO CHARACTER SET utf8;
+alter table r_order CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE r_img
-  CONVERT TO CHARACTER SET utf8;
+alter table r_img CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE manager
-  CONVERT TO CHARACTER SET utf8;
+alter table manager CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE hotel
-  CONVERT TO CHARACTER SET utf8;
+alter table hotel CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE city
-  CONVERT TO CHARACTER SET utf8;
+alter table city CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE guest
-  CONVERT TO CHARACTER SET utf8;
+alter table  guest CONVERT TO CHARACTER SET utf8;
 
-ALTER TABLE guest
-  ADD CONSTRAINT FK_u_g FOREIGN KEY (u_id)
-REFERENCES user (u_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table guest add constraint FK_u_g foreign key (u_id)
+      references user (u_id) on delete restrict on update restrict;
 
-ALTER TABLE hotel
-  ADD CONSTRAINT FK_c_h FOREIGN KEY (city_id)
-REFERENCES city (city_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table hotel add constraint FK_c_h foreign key (city_id)
+      references city (city_id) on delete restrict on update restrict;
 
-ALTER TABLE r_img
-  ADD CONSTRAINT FK_r_img FOREIGN KEY (room_id)
-REFERENCES room (room_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table r_img add constraint FK_r_img foreign key (room_id)
+      references room (room_id) on delete restrict on update restrict;
 
-ALTER TABLE r_order
-  ADD CONSTRAINT FK_r_o FOREIGN KEY (room_id)
-REFERENCES room (room_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table r_order add constraint FK_r_o foreign key (room_id)
+      references room (room_id) on delete restrict on update restrict;
 
-ALTER TABLE r_order
-  ADD CONSTRAINT FK_u_o FOREIGN KEY (u_id)
-REFERENCES user (u_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table r_order add constraint FK_u_o foreign key (u_id)
+      references user (u_id) on delete restrict on update restrict;
 
-ALTER TABLE room
-  ADD CONSTRAINT FK_h_r FOREIGN KEY (hotel_id)
-REFERENCES hotel (hotel_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table room add constraint FK_h_r foreign key (hotel_id)
+      references hotel (hotel_id) on delete restrict on update restrict;
 
-ALTER TABLE room_quantity
-  ADD CONSTRAINT FK_r_rq FOREIGN KEY (room_id)
-REFERENCES room (room_id)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+alter table room_quantity add constraint FK_r_rq foreign key (room_id)
+      references room (room_id) on delete restrict on update restrict;
 
