@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 //搜索管理
 @Controller
-@RequestMapping({ "userorder" })
+@RequestMapping({"userorder"})
 public class UserOrderController {
     @Autowired
     private UserService userService;
@@ -17,7 +17,7 @@ public class UserOrderController {
     //  显示搜索界面
     @GetMapping("/get")
     public String SearchPage(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
         return "/user_order.html";
     }
 
