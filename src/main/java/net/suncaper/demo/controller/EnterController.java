@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 //登陆控制器
 @Controller
-@RequestMapping({ "enter"})
+@RequestMapping({"enter"})
 public class EnterController {
     @Autowired
     private UserService userService;
@@ -30,7 +30,7 @@ public class EnterController {
             return "redirect:/index";
         else {
             model.addAttribute("user",new User() );
-            model.addAttribute("msg1","密码错误");
+            model.addAttribute("msg1", "密码错误");
             return "/enter.html";
         }
     }

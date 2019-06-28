@@ -8,8 +8,8 @@
 		<title>麦味·酒店预订首页</title>
 		<meta name="description" content="">
 		<meta name="keywords" content="">
-    
-    
+
+
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
 		<link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
@@ -34,14 +34,14 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-              <li class="nav-item"><a class="nav-link" href="/userorder/get" onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+              <li class="nav-item"><a class="nav-link" href="/userorder/get" >我的订单</a></li>
               <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
               <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
           </ul>
@@ -49,7 +49,7 @@
       </div>
     </nav>
     <!-- END nav -->
-    
+
 
     <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5"  id="section-home">
       <div class="overlay"></div>
@@ -71,6 +71,7 @@
 
                       <label for="city" style="width: 100%;">
                         <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;"  name="city"  th:field="*{city}">
+						  <option value=""></option>
 						  <option value="成都">成都</option>
                           <option value="北京">北京</option>
                           <option value="上海">上海</option>
@@ -101,7 +102,7 @@
                     <div class="form-group">
                       <label for="probootstrap-date-arrival" name="start" th:field="*{start}">入住日期</label>
                       <div class="probootstrap-date-wrap">
-                        <span class="icon ion-calendar"></span> 
+                        <span class="icon ion-calendar"></span>
                         <input type="text" id="probootstrap-date-arrival" name="arr_date" class="form-control" placeholder=""  >
                       </div>
                     </div>
@@ -110,15 +111,15 @@
                     <div class="form-group">
                       <label for="probootstrap-date-departure"  name="end" th:field="*{end}">离店日期</label  >
                       <div class="probootstrap-date-wrap">
-                        <span class="icon ion-calendar"></span> 
+                        <span class="icon ion-calendar"></span>
                         <input type="text" id="probootstrap-date-departure" name="dep_date" class="form-control" placeholder="">
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- END row -->
-				
-				<div class="row">			
+
+				<div class="row">
                   <div class="col-md">
                     <input type="submit" value="搜索" class="btn btn-primary btn-block" >
                   </div>
@@ -131,10 +132,10 @@
 	  </br></br></br></br></br></br></br>
 	<div class="col-md-12 text-center">
          <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>   
-   
+    </div>
+
     </section>
-    <!-- END section -->    
+    <!-- END section -->
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>

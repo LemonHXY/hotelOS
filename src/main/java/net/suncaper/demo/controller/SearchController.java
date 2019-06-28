@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Arrays;
 import java.util.List;
 
 //搜索控制器
@@ -20,10 +21,10 @@ public class SearchController {
     @Autowired
     private HotelService hotelService;
 
-//  显示搜索界面
+    //  显示搜索界面
     @GetMapping("/get")
     public String SearchPage(Model model) {
-        model.addAttribute("search",new MySearch());
+        model.addAttribute("search", new MySearch());
         return "/hotel_search.html";
     }
 
@@ -31,15 +32,17 @@ public class SearchController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/get")
     public String greetingSubmit(MySearch mySearch, Model model) {
-        City temp=hotelService.finCityByString(mySearch.getCity());
-        if(temp==null)
-        {
-            model.addAttribute("search",new MySearch());
+        City temp = hotelService.finCityByString(mySearch.getCity());
+        String[] s = mySearch.getName().split("\\s+");
+        List<String> keyWord = Arrays.asList(s);
+        if (temp == null) {
+            model.addAttribute("search", new MySearch());
             return "/hotel_search.html";
         }
-        List<Hotel>  c=hotelService.findHotelByCityId(temp.getCityId());
-        model.addAttribute("search",new MySearch());
-        model.addAttribute("hotels",c);
+        List<Hotel> c = hotelService.findByCityAndName(temp.getCity(), keyWord);
+//        List<Hotel> c = hotelService.findHotelByCityId(temp.getCityId());
+        model.addAttribute("search", new MySearch());
+        model.addAttribute("hotels", c);
         return "/hotel_search.html";
     }
 }

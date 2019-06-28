@@ -1,103 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<title>麦味·个人中心</title>
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-    
-    
+    <title>麦味·个人中心</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+
     <link href="/https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
-		<link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/fonts/ionicons/css/ionicons.min.css">
-    
+
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-    
+
     <link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="/assets/fonts/fontawesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/assets/css/select2.css">
-    
+
 
     <link rel="stylesheet" href="/assets/css/helpers.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 
-<style type="text/css">
-table,th,td
-{
-border:1px solid #E4E4E4;
-}
-table
-  {
-  width:100%;
-  }
 
-</style>
+    <script>
+        var ck = function(){
+            var new_name = prompt ("请输入新昵称: ", "");
+            <!-- alert(x); -->
+        }
+        var ck2 = function(){
+            var new_gn = prompt ("请输入常用入住人姓名：","");
+        }
+        var ck2 = function(){
+            var new_gn = prompt ("请输入常用入住人姓名：","");
+            var new_gp = prompt ("请输入常用入住人手机号：","");
+        }
+    </script>
 
-	</head>
-	<body>
-  
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid #E4E4E4;
+        }
 
- 
-    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
-      <div class="container">
+        table {
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+    <div class="container">
         <a class="navbar-brand" href="/index1.html">My Way</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
-          <span><i class="ion-navicon"></i></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
+                aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="ion-navicon"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-              <li class="nav-item"><a class="nav-link" href="/userorder/get" onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
-              <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-              <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder/get"
+                                        onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/enter">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+            </ul>
         </div>
-      </div>
-    </nav>
-	<!-- END nav -->
-    
+    </div>
+</nav>
+<!-- END nav -->
 
-    <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row align-items-center text-center">
-          <div class="col-md">
-            <h2 class="heading mb-2 display-4 font-light probootstrap-animate">Our Services</h2>
-             
-            <p class="lead mb-5 probootstrap-animate">
-              
+<section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');data-stellar-background-ratio="0.5" id="section-home">
+<div class="overlay"></div>
+<div class="container">
 
-            </p>
-              <a href="/https://themewagon.com/theme_tag/free/" target="_blank" role="button" class="btn btn-primary p-3 mr-3 pl-5 pr-5 text-uppercase d-lg-inline d-md-inline d-sm-block d-block mb-3">More Templates Here</a> 
-            </p>
-          </div> 
+    <h2 class="display-4 border-bottom probootstrap-section-heading text-center">个人中心</h2>
+
+    <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
+        <div class="media-body">
+
+            <div class="col-md text-center">
+                个人信息
+            </div>
+            <div class="col-md-5 probootstrap-form" style="margin:auto;">
+                <p style="color:black;">用户名：123</p>
+                <p style="color:black;">昵&nbsp;&nbsp;&nbsp;称：123</p>
+                <br>
+                <div style="float:right;">
+                    <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"  onclick="ck1();">修改密码</button>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+                <div style="float:right;">
+                    <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"  onclick="ck();">修改昵称</button>
+                </div>
+            </div>
+            <br>
+            <div class="col-md text-center">
+                常用联系人
+            </div>
+            <div class="col-md-9 probootstrap-form" style="margin:auto;">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>手机号</th>
+                    <th>删除</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <br>
+                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;" onclick="ck2();">添加常用入住人</button>
+            </div>
+
+            <div class="col-md">
+                <br>
+                <br>
+                <a class="ex2" style="float:right;" href="index1.html">返回首页</a></label>
+            </div>
         </div>
-      </div>
-    	  </br></br></br></br></br></br></br>
-	<div class="col-md-12 text-center">
-            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>   
-    </section>
-    <!-- END section -->
-        
-    <script src="/assets/js/jquery.min.js"></script>
-    
-    <script src="/assets/js/popper.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/owl.carousel.min.js"></script>
-    
-    <script src="/assets/js/jquery.waypoints.min.js"></script>
-    <script src="/assets/js/jquery.easing.1.3.js"></script>
 
-    <script src="/assets/js/select2.min.js"></script>
+    </div>
+</div>
+</br></br></br></br></br></br></br>
+<div class="col-md-12 text-center">
+    <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+</div>
+</section>
 
-    <script src="/assets/js/main.js"></script>
-	</body>
+<script src="/assets/js/jquery.min.js"></script>
+
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+
+<script src="/assets/js/select2.min.js"></script>
+
+<script src="/assets/js/main.js"></script>
+</body>
 </html>
