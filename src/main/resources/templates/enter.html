@@ -33,6 +33,13 @@
 
     </style>
 
+    <script type="text/javascript">
+        function display_alert()
+        {
+            alert("I am an alert box!!")
+        }
+    </script>
+
 </head>
 <body>
 
@@ -70,30 +77,30 @@
                 <form action="/enter/login" class="probootstrap-form" method="post" th:object="${user}">
 
                     <div class="form-group">
-                        <label for="user_id" class="sr-only sr-only-focusable">用户名</label>
-                        <input type="text" class="form-control" id="user_id" name="uId" placeholder="用户名" th:field="*{uId}">
+                        <label for="user_id"  required="true" class="sr-only sr-only-focusable">用户名</label>
+                        <input type="text" required="true"  class="form-control" id="user_id" name="uId" placeholder="用户名" th:field="*{uId}">
                     </div>
 
                     <div class="form-group">
                         <label for="user_password" class="sr-only sr-only-focusable">密码</label>
-                        <input type="password" class="form-control" id="user_password" name="uPassword" th:placeholder="请输入密码" th:field="*{uPassword}">
-                        <!--<script th:inline="javascript" type="text/javascript">  alert(${msg1});</script>-->
-                        <span th:text="  ${msg1} + '!'"></span>
+                        <input type="password" required="true" class="form-control" id="user_password" name="uPassword" placeholder="请输入密码" th:field="*{uPassword}">
+
                     </div>
 
 
                     <div class="row mb-3">
                         <div class="col-md">
                             <div class="form-group">
-                                <label >还没有账号？快去 <a class="ex2" href="/register.html" color="black">注册</a> 吧。</label>
-                                <input type="submit" value="登录" class="btn btn-primary btn-block">
+                                <label>还没有账号？快去 <a class="ex2" href="/register/get" color="black">注册</a> 吧。</label>
+                                <label style="float:right;"><a class="ex2" href="forget_pwd.html">忘记密码？</a></label>
+                                <br>
+                                <label th:text="${msg1}" + !></label>
+                                <input type="submit" value="登录" class="btn btn-primary btn-block"/>
                             </div>
                         </div>
                     </div>
-
-            </div>
-            </form>
-        </div>
+                </form>
+                </div>
     </div>
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">

@@ -6,7 +6,9 @@ import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 //主页控制器
 @Controller
@@ -17,8 +19,10 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomePage(Model model) {
+    public String HomePage(User user1,Model model ) {
+
         model.addAttribute("search",new MySearch());
+
         return "/index.html";
     }
 
