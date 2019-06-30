@@ -25,6 +25,6 @@ public class UserOrderController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/post")
     public String greetingSubmit(User user1, Model model) {
-        return "redirect:/search/get";
+        return "redirect:/userorder/get";
     }
 }
