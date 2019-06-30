@@ -75,7 +75,7 @@
                         <label for="u_id" class="sr-only sr-only-focusable">用户名id</label>
                         <input type="text" class="form-control" id="u_id" name="uId" placeholder="建议手机号（不长于11位）"
                                th:filed="*{uId}">
-                        <span th:text="  ${msg1} + '!'"></span>
+                        <p> &nbsp;<span th:text="${msg1} + '!'"></span></p>
                     </div>
 
                     <div class="form-group">
@@ -132,13 +132,12 @@
                             }
                         }
                     </script>
-            </div>
             </form>
         </div>
     </div>
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
-        <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
     </div>
 </section>
 <!-- END section -->
