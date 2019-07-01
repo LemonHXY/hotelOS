@@ -140,28 +140,29 @@
     </div>
 
     <div class="container">
-       <!-- <div class="col-md-12 probootstrap-form" style="margin:auto;">-->
+        <!-- <div class="col-md-12 probootstrap-form" style="margin:auto;">-->
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
-              <!--  <div class="col-md probootstrap-animate">-->
-            <table>
-                <tr>
-                    <td width="500px">酒店名：&nbsp<span>xxx</span></td>
-                    <td width="100px">星级：&nbsp<span>xx</span></td>
-                    <td width="100px">评分：&nbsp<span>xx</span></td>
-                </tr>
+                <!--  <div class="col-md probootstrap-animate">-->
                 <table>
                     <tr>
-                        <td>地址：&nbsp<span>xx</span><p id="demo"></p></td>
-                        <td width="120px"><button class="ion-location" onclick="getLocation()" style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">&nbsp&nbsp查看地图</button></td>
+                        <td width="500px">酒店名：&nbsp<span>xxx</span></td>
+                        <td width="100px">星级：&nbsp<span>xx</span></td>
+                        <td width="100px">评分：&nbsp<span>xx</span></td>
                     </tr>
-                </table>
-                <table>
                     <tr>
-                        <td>详情：&nbsp<span>xx</span></td>
+                        <td colspan="2">地址：&nbsp<span>xx</span>
+                            <p id="demo"></p></td>
+                        <td>
+                            <button class="ion-location" onclick="getLocation()"
+                                    style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">&nbsp&nbsp查看地图
+                            </button>
+                        </td>
                     </tr>
+                        <tr>
+                            <td colspan="3">详情：&nbsp<span>xx</span></td>
+                        </tr>
                 </table>
-            </table>
                 <form action="#" class="probootstrap-form" style="padding: 20px;margin-bottom: 0px;" method="post">
                     <div class="form-group">
                         <div class="row mb-3">
@@ -171,7 +172,7 @@
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
                                         <input type="text" id="probootstrap-date-arrival"
-                                               class="form-control" placeholder=""  name="start">
+                                               class="form-control" placeholder="" name="start">
                                     </div>
                                 </div>
                             </div>
@@ -194,22 +195,24 @@
                         </div>
                     </div>
                 </form>
-            <table>
-                <tr>
-                    <th>房间类型</th>
-                    <th>早餐</th>
-                    <th>价格</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-                <tr>
-                    <td>豪华大床房</td>
-                    <td>无早</td>
-                    <td>329元/晚</td>
-                    <td>可预订</td>
-                    <td><button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">预订</button></td>
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        <th>房间类型</th>
+                        <th>早餐</th>
+                        <th>价格</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>豪华大床房</td>
+                        <td>无早</td>
+                        <td>329元/晚</td>
+                        <td>可预订</td>
+                        <td>
+                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">预订</button>
+                        </td>
+                    </tr>
+                </table>
 
                 <br>
                 <div class="col-md">
@@ -219,8 +222,9 @@
                     <br>
                     <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
                 </div>
+            </div>
         </div>
-            </div></div>
+    </div>
     </div>
 
 
@@ -246,24 +250,22 @@
 
 <script src="/assets/js/main.js"></script>
 
-<script>
-    var x=document.getElementById("demo");
-    function getLocation()
-    {
-        if (navigator.geolocation)
-        {
+<!--<script>
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         }
-        else
-        {
-            x.innerHTML="该浏览器不支持获取地理位置。";
+        else {
+            x.innerHTML = "该浏览器不支持获取地理位置。";
         }
     }
-    function showPosition(position)
-    {
-        x.innerHTML="纬度: " + position.coords.latitude +
+
+    function showPosition(position) {
+        x.innerHTML = "纬度: " + position.coords.latitude +
             "<br>经度: " + position.coords.longitude;
     }
-</script>
+</script>-->
 </body>
 </html>
