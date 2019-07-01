@@ -1,17 +1,12 @@
 package net.suncaper.demo.domain;
 
-import net.suncaper.demo.mapper.HotelMapper;
-import net.suncaper.demo.mapper.R_orderMapper;
-import net.suncaper.demo.mapper.RoomMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Date;
-import java.util.List;
 
 public class OrderOutput {
 
 
     private String HotelName;
+    private int oId;
     private String roomType;
     private Date arrDate;
     private Date depDate;
@@ -58,6 +53,12 @@ public class OrderOutput {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public int getoId() {
+        return oId;
+    }
+
+    public void setoId(int oId) { this.oId =oId; }
 
     public int getTotalPrice() {
         return totalPrice;

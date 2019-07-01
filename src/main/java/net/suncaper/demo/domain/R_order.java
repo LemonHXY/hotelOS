@@ -1,6 +1,5 @@
 package net.suncaper.demo.domain;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class R_order {

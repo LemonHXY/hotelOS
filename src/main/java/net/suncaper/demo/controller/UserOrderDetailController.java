@@ -8,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-//详情页面控制器
+//从用户订单列表进入的订单详情页面
 @Controller
 @RequestMapping("/orderdetail")
 public class UserOrderDetailController {
@@ -18,17 +19,16 @@ public class UserOrderDetailController {
     private UserService userService;
 
     //
-    @GetMapping("/get")
-    public String getRegister(Model model) {
+    @GetMapping()
+    public String getRegister(Model model , HttpServletRequest request) {
         model.addAttribute("", new User());
         return "/user_order_detail.html";
     }
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/get")
+    @PostMapping()
     public String saveUser(List<Hotel> d, Model model) {
-
         return "redirect:orderdetail/get";
 
     }

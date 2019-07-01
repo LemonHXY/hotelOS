@@ -83,8 +83,8 @@
             <div class="media-body">
                 <table>
                     <tr>
-                    <!--<th>酒店名</th>-->
-                    <!--<th>房型</th>-->
+                    <th>酒店名</th>
+                    <th>房型</th>
                     <th>入住</th>
                     <th>离店</th>
                     <th>间数</th>
@@ -93,17 +93,24 @@
                     <th>详情</th>
                     </tr>
                     <tr th:each="r_order : ${orders}" >
-                        <td class="text-center" th:text="${hotel.hotelName}"></td>
-                        <td class="text-center" th:text="${room.roomType}"></td>
+                        <td class="text-center" th:text="${r_order.hotelName}"></td>
+                        <td class="text-center" th:text="${r_order.roomType}"></td>
                         <td class="text-center" th:text="${r_order.arrDate}"></td>
                         <td class="text-center" th:text="${r_order.depDate}"></td>
                         <td class="text-center" th:text="${r_order.quantity}"></td>
                         <td class="text-center" th:text="${r_order.totalPrice}"></td>
                         <td class="text-center" th:text="${r_order.oStatus}"></td>
                         <td align="center" valign="middle">
-                            <a href="http://localhost:8280/orderdetail/get">
+                           <!-- <a href="http://localhost:8280/orderdetail/get">
                                 <button>详情</button>
-                            </a>
+                            </a>-->
+                            <button  onclick="mysub">详情</button>
+                            <script th:inline="javascript">
+                                function mysub() {
+                                    var oId=[[${r_order.oId}]];
+                                    window.location.href = encodeURI("http://localhost:8280/orderdetail?oId=" + oId);
+                                }
+                            </script>
                         </td>
                     </tr>
                 </table>

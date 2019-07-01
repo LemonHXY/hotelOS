@@ -1,5 +1,34 @@
 package net.suncaper.demo.service;
+/*
+HEAD<<<<<<< HEAD
+import net.suncaper.demo.domain.R_order;
+import net.suncaper.demo.domain.R_orderExample;
+import net.suncaper.demo.mapper.R_orderMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
+public class OrderServicelmpl implements OrderService{
+    @Autowired
+    R_orderMapper orderMapper;
+
+*//*    @Override
+    public boolean creatOneOrder(R_order order) {
+        orderMapper.insert(order);
+        return false;
+    }*//*
+
+    @Override
+    public List<R_order> findByUserId(int uId) {
+        R_orderExample example=new R_orderExample();
+        example.createCriteria().andUIdEqualTo(uId);
+        return  orderMapper.selectByExample(example);
+    }
+}
+
+=======*/
 import net.suncaper.demo.domain.Hotel;
 import net.suncaper.demo.domain.OrderOutput;
 import net.suncaper.demo.domain.R_order;
@@ -13,15 +42,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderServicelmpl implements OrderService{
+public class OrderServicelmpl  implements OrderService{
     @Autowired
     private R_orderMapper r_orderMapper;
     @Autowired
     private HotelMapper hotelMapper;
     @Autowired
     private RoomMapper roomMapper;
-
-    @Override
+    
     public OrderOutput GetOrderLists(int oId){
         OrderOutput orderOutput = new OrderOutput();
 
@@ -33,6 +61,7 @@ public class OrderServicelmpl implements OrderService{
 
         orderOutput.setHotelName(hotel.getHotelName());
         orderOutput.setRoomType(room.getRoomType());
+        orderOutput.setoId(r_order.getoId());
         orderOutput.setArrDate(r_order.getArrDate());
         orderOutput.setDepDate(r_order.getDepDate());
         orderOutput.setQuantity(r_order.getQuantity());
@@ -44,11 +73,7 @@ public class OrderServicelmpl implements OrderService{
 
     @Override
     public List<OrderOutput> GetOrderListsAll(int uId) {
-        OrderOutput orderOutput = new OrderOutput();
-//        R_order r_order = r_orderMapper.
-
         return null;
-
     }
-
 }
+

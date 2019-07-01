@@ -29,6 +29,7 @@ public  class UserServiceImpl implements UserService {
         UserExample example = new UserExample();
         if(id>0) {
             example.createCriteria().andUIdEqualTo(id);//Like("%" + name + "%");
+
         }
         return userMapper.selectByExample(example);
     }
