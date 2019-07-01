@@ -28,8 +28,6 @@ public class RoomController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/get")
     public String saveUser(List<Hotel> d, Model model) {
-
         return "redirect:room/get";
-
     }
 }

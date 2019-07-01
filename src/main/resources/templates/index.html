@@ -71,10 +71,17 @@
                                               <span class="ion-location" ></span>
                         -->
 
-                      <label for="city" style="width: 100%;">
-                        <select1 required="true" class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city" th:field="*{city}">
-                            <option value="">请选择</option>
-                        </select1>
+                      <label for="city" style="width: 100%;" name="city" th:field="*{city}">
+                          <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;">
+                              <option value="成都">成都</option>
+                              <option value="北京">北京</option>
+                              <option value="上海">上海</option>
+                              <option value="深圳">深圳</option>
+                              <option value="杭州">杭州</option>
+                              <option value="南京">南京</option>
+                              <option value="武汉">武汉</option>
+                              <option value="昆明">昆明</option>
+                          </select>
                       </label>
                     </div>
                   </div>
@@ -144,12 +151,12 @@
     <script src="/assets/js/main.js"></script>
 
 
-    <script src="/assets/js/area.js"></script><!--所有城市数据-->
-    <script src="/assets/js/select.js"></script><!--默认调用方法-->
-    <script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
+<!--    <script src="/assets/js/area.js"></script>&lt;!&ndash;所有城市数据&ndash;&gt;
+    <script src="/assets/js/select.js"></script>&lt;!&ndash;默认调用方法&ndash;&gt;
+    <script src="/assets/verSelector/verSelect.js"></script>&lt;!&ndash;封装插件&ndash;&gt;
     <script>
         new verSelector(); //启动插件
-    </script>
+    </script>-->
 
 	</body>
 </html>
