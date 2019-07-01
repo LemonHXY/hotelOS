@@ -1,30 +1,39 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.User;
-import net.suncaper.demo.service.UserService;
+import net.suncaper.demo.service.OrderServicelmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-//搜索管理
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+
+//用户订单管理
 @Controller
-@RequestMapping({ "userorder" })
+@RequestMapping({"userorder"})
 public class UserOrderController {
     @Autowired
-    private UserService userService;
+    private OrderServicelmpl orderServicelmpl;
 
-    //  显示搜索界面
+    //显示订单界面
     @GetMapping("/get")
-    public String SearchPage(Model model) {
-        model.addAttribute("user",new User());
+    public String SearchPage(Model model, HttpServletRequest request) {
+        Cookie[] cookies=request.getCookies();
+        int oId = 1;
+        for (Cookie cookie:cookies)
+        {
+            if(cookie.getName().equals("uId"))
+            {
+                oId=Integer.parseInt(cookie.getValue());
+            }
+        }
+       model.addAttribute("orders", orderServicelmpl.GetOrderLists(oId));
+
+
         return "/user_order.html";
     }
 
-    //待修改
-    //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/post")
-    public String greetingSubmit(User user1, Model model) {
-        return "redirect:/search/get";
-    }
 }

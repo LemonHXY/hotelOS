@@ -63,7 +63,7 @@
           </div>
           <div class="col-md probootstrap-animate">
 	  
-            <form action="/register/get" class="probootstrap-form" method="post" th:object="${user}" id="reg">
+            <form action="/register" class="probootstrap-form" method="post" th:object="${user}" id="reg">
               
 			  <div class="form-group">
                 <label for="u_id" class="sr-only sr-only-focusable">用户名id</label>
@@ -89,6 +89,22 @@
 		                 
 			<div class="row mb-3">
                   <div class="col-md">
+
+            <div class="col-md">
+                <h2 class="heading mb-2 display-4 font-light probootstrap-animate text-center">欢迎注册麦味！</h2>
+                </br></br></br></br></br>
+            </div>
+            <div class="col-md probootstrap-animate">
+
+                <form action="/register/get" class="probootstrap-form" method="post" th:object="${user}" id="reg">
+
+                    <div class="form-group">
+                        <label for="u_id" class="sr-only sr-only-focusable">用户名id</label>
+                        <input type="text" class="form-control" id="u_id" name="uId" placeholder="建议手机号（不长于11位）"
+                               th:filed="*{uId}">
+                        <p> &nbsp;<span th:text="${msg1} + '!'"></span></p>
+                    </div>
+
                     <div class="form-group">
 					<label >已有账号？请 <a class="ex2" href="/enter.html" color="black">登录</a> 。</label>
 					<input type="submit" value="注册" class="btn btn-primary btn-block" onclick="secondCheck()">
@@ -147,4 +163,30 @@
 
     <script src="/assets/js/main.js"></script>
 	</body>
+=======
+                    </script>
+            </form>
+        </div>
+    </div>
+    </br></br></br></br></br></br></br>
+    <div class="col-md-12 text-center">
+        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+    </div>
+</section>
+<!-- END section -->
+
+<script src="/assets/js/jquery.min.js"></script>
+
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+
+<script src="/assets/js/select2.min.js"></script>
+
+<script src="/assets/js/main.js"></script>
+</body>
+>>>>>>> 1e940b868ec3d1b396c7b827f93d8e58045dcb40
 </html>

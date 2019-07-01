@@ -205,28 +205,24 @@
                             <th class="text-center" width="80px">距离</th>
                             <th class="text-center" width="60px">操作</th>
                         </tr>
-                        <tr th:each="hotel: ${hotels}">
+                        <tr height="70" th:each="hotel: ${hotels}">
                             <td align="center" valign="middle"><img th:src="${hotel.photo1}" height="60"/></td>
-                            <td class="text-center" th:text="${hotel.hotelName}"></td>
-                            <td class="text-center" th:text="${hotel.addressline}"></td>
+                            <td th:text="${hotel.hotelName}"></td>
+                            <td th:text="${hotel.addressline}"></td>
                             <td class="text-center" th:text="${hotel.starRating}"></td>
                             <td class="text-center" th:text="${hotel.ratingAverage}"></td>
                             <td class="text-center" th:text="${hotel.ratesFrom}"></td>
                             <td></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
-                                <button type="button" value="详情"   onclick="more()" ></button>
+                                <!--<button type="button" action="hotel_room.html" >详情</button>-->
+                                <a href="http://localhost:8280/room/get">
+                                    <button>详情</button>
+                                </a>
                             </td>
-                            <script th:inline="javascript">
-                                function more(){
-                                    var id= [[${hotel.hotelId}]];
-                                    window.location.href="/search/get?hotelId="+id;
-                                }
-                            </script>
                         </tr>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

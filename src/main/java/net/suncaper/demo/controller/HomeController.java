@@ -19,7 +19,7 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomePage(User user1,Model model ) {
+    public String HomePage(Model model ) {
 
         model.addAttribute("search",new MySearch());
 

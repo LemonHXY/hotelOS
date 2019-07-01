@@ -15,7 +15,7 @@ public class RegisterController {
     private UserService userService;
 
     //  显示搜索界面
-    @GetMapping("/get")
+    @GetMapping()
     public String getRegister(Model model) {
         model.addAttribute("msg1","注册后不可修改");
         model.addAttribute("user",new User());
@@ -24,7 +24,7 @@ public class RegisterController {
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/get")
+    @PostMapping()
     public String saveUser(User user1, Model model) {
 
         model.addAttribute("user",new User());

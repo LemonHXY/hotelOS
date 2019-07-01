@@ -29,7 +29,6 @@ public class SearchController {
         return "/hotel_search.html";
     }
 
-    //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/get")
     public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) {

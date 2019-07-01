@@ -34,14 +34,14 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-              <li class="nav-item"><a class="nav-link" href="/userorder/get" onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+              <li class="nav-item"><a class="nav-link" href="/userorder/get" >我的订单</a></li>
               <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
               <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
           </ul>
@@ -66,23 +66,16 @@
                   <div class="col-md">
                     <div class="form-group">
                       <label for="city">城市</label>
-					  &nbsp;
-					  <span class="ion-location" ></span>
+<!--
+                                              &nbsp;
+                                              <span class="ion-location" ></span>
+                        -->
 
                       <label for="city" style="width: 100%;">
-                        <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;"  name="city"  th:field="*{city}">
-						  <option value="成都">成都</option>
-                          <option value="北京">北京</option>
-                          <option value="上海">上海</option>
-                          <option value="深圳">深圳</option>
-                          <option value="杭州">杭州</option>
-                          <option value="南京">南京</option>
-                          <option value="武汉">武汉</option>
-                          <option value="昆明">昆明</option>
-                        </select>
+                        <select1 required="true" class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city" th:field="*{city}">
+                            <option value="">请选择</option>
+                        </select1>
                       </label>
-
-
                     </div>
                   </div>
                   <div class="col-md">
@@ -130,7 +123,7 @@
       </div>
 	  </br></br></br></br></br></br></br>
 	<div class="col-md-12 text-center">
-         <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
     </div>
 
     </section>
@@ -149,5 +142,14 @@
     <script src="/assets/js/select2.min.js"></script>
 
     <script src="/assets/js/main.js"></script>
+
+
+    <script src="/assets/js/area.js"></script><!--所有城市数据-->
+    <script src="/assets/js/select.js"></script><!--默认调用方法-->
+    <script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
+    <script>
+        new verSelector(); //启动插件
+    </script>
+
 	</body>
 </html>
