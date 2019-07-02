@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 
 //用户订单管理页面
 @Controller
-@RequestMapping({"userorder"})
+@RequestMapping({"/userorder"})
 public class UserOrderController {
     @Autowired
     private OrderServicelmpl orderServicelmpl;
 
     //显示订单界面
-    @GetMapping("/get")
+    @GetMapping
     public String SearchPage(Model model, HttpServletRequest request) {
         Cookie[] cookies=request.getCookies();
         int uId = 1;
@@ -31,8 +31,6 @@ public class UserOrderController {
             }
         }
        model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
-
-
         return "/user_order.html";
     }
 

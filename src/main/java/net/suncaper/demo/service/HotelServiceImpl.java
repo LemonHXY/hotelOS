@@ -27,6 +27,11 @@ public  class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public Hotel findHotelByKey(int hotelId) {
+        return hotelmapper.selectByPrimaryKey(hotelId);
+    }
+
+    @Override
     public City finCityByString(String name) {
 
     return citymapper.findBySting(name);

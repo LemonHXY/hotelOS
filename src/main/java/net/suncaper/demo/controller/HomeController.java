@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 //主页控制器
 @Controller
 @RequestMapping({"index","/"})
@@ -19,7 +21,7 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomePage(Model model ) {
+    public String HomePage(Model model, HttpServletRequest request) {
 
         model.addAttribute("search",new MySearch());
 
