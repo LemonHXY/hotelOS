@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 
 </head>
-<body>
+<body onload="initdate()">
 
 
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
@@ -93,8 +93,8 @@
                                     <label for="probootstrap-date-arrival" name="start" th:field="*{start}">入住日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input type="text" id="probootstrap-date-arrival" name="arr_date"
-                                               class="form-control" placeholder="">
+                                        <input type="text" required="true" id="probootstrap-date-arrival" name="arr_date"
+                                               class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                     <label for="probootstrap-date-departure" name="end" th:field="*{end}">离店日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input type="text" id="probootstrap-date-departure" name="dep_date"
+                                        <input type="text" required="true" id="probootstrap-date-departure" name="dep_date"
                                                class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -151,19 +151,36 @@
     new verSelector(); //启动插件
 </script>
 
-<script>
-/*    $("#city").change(function () {
-        alert($("#city").val());
-    })*/
-
-$("#submit").onclick(function () {
-    if($("#probootstrap-date-arrival").val()==""){
-        alert()
+<!--<script>
+    $("#probootstrap-date-arrival").change(function () {
+    if($("#city").value=""){
     }
+    })
+</script>-->
 
-})
+<script>
+    /*    var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDay();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var date1 = year + "-" + month + "-" + day;
+        function initdate(){
+            document.getElementById("probootstrap-date-arrival").value = date1
+        }*/
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + 1);
+
+    $("#probootstrap-date-arrival").datepicker(
+        'setDate', date1
+    );
+    $("#probootstrap-date-departure").datepicker(
+        'setDate', date2
+    );
+
 </script>
-
 
 </body>
 </html>

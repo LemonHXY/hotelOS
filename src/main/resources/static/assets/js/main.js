@@ -181,6 +181,33 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 	};
 	datePicker();
 
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + 1);
+    var date3 = new Date(date2);
+    date3.setDate(date2.getDate() + 29);
+
+    $('#probootstrap-date-departure').datepicker('setStartDate', date2);
+    $('#probootstrap-date-departure').datepicker('setEndDate', date3);
+
+    $('#probootstrap-date-arrival').datepicker({
+        todayBtn: "linked",
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var date4=new Date(e.date);
+        date4.setDate(e.date.getDate() + 1);
+        var startTime = date4;
+        $('#probootstrap-date-departure').datepicker('setStartDate', startTime);
+    });		//结束时间：
+    $('#probootstrap-date-departure').datepicker({
+        todayBtn: "linked",
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var date4=new Date(e.date);
+        date4.setDate(e.date.getDate() - 1);
+        var endTime = date4;
+        $('#probootstrap-date-arrival').datepicker('setEndDate', endTime);
+    });
 
 });
 

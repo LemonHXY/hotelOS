@@ -58,7 +58,7 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/userorder/get">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder/get">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
             </ul>
@@ -136,18 +136,6 @@
 
         </div>
     </div>
-    <!--
-        <div style="float:right;">
-            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                    onclick="ck1();">修改密码
-            </button>
-            &nbsp;&nbsp;&nbsp;
-        </div>
-        <div style="float:right;">
-            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                    onclick="ck();">修改昵称
-            </button>
-        </div>-->
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
         <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
@@ -170,18 +158,18 @@
 
 <script type="text/javascript">
     function buy() {
-        btn1 = document.getElementById("btn1")
-        quan = document.getElementById("quantity")
-        gname = document.getElementById("gname")
-        gphone = document.getElementById("gphone")
-        gbtn = document.getElementById("gbtn")
-        order = document.getElementById("order")
+        var btn1 = document.getElementById("btn1");
+        var quan = document.getElementById("quantity");
+        var gname = document.getElementById("gname");
+        var gphone = document.getElementById("gphone");
+        var gbtn = document.getElementById("gbtn");
+        var order = document.getElementById("order");
         if (btn1.value.match("确认订单")) {
             if (gname.value == "") {
-                alert("请填写入住人姓名！");
+                window.alert("请填写入住人姓名！");
             }
             else if (gphone.value == "") {
-                alert("请填写入住人手机号！");
+                window.alert("请填写入住人手机号！");
             }
             else {
                 btn1.value = "支付";
