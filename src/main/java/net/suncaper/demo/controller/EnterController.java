@@ -52,7 +52,7 @@ public class EnterController {
             return "redirect:/index";
         }
         else {
-            model.addAttribute("user",new User() );
+            model.addAttribute("user",new User());
             model.addAttribute("msg1", "密码错误");
             return "/enter.html";
         }

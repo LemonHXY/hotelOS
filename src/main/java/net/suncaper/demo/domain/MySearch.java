@@ -1,15 +1,17 @@
 package net.suncaper.demo.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MySearch {
 
     private String city;
     private String name;
-    private Date start;
+
+    private String start;
+
     private Date end;
 
-    public MySearch(String city, String name, Date start, Date end) {
+    public MySearch(String city, String name, String start, Date end) {
         this.city = city;
         this.name = name;
         this.start = start;
@@ -28,12 +30,12 @@ public class MySearch {
         this.name = name == null ? null : name.trim();
     }
 
-    public void setrStart(java.util.Date rDate) {
-        this.start = new Date(rDate.getTime());
+    public void setrStart(String rDate) {
+        this.start =  rDate;
     }
 
-    public void setrEnd(java.util.Date rDate) {
-        this.end = new Date(rDate.getTime());
+    public void setrEnd(Date rDate) {
+        this.end = rDate;
     }
 
     public String getCity() {
@@ -44,7 +46,7 @@ public class MySearch {
         return name;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 

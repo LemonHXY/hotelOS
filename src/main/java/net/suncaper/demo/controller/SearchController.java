@@ -36,6 +36,7 @@ public class SearchController {
     @PostMapping
     public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) {
         City temp=hotelService.finCityByString(mySearch.getCity());
+        String d=mySearch.getStart();
         String []s=mySearch.getName().split("\\s+");
         List<String>  keyWord= Arrays.asList(s);
         if(temp==null)
@@ -49,6 +50,7 @@ public class SearchController {
         model.addAttribute("hotels",c);
         return "/hotel_search.html";
     }
+
     @GetMapping("/room")
     public String SearchPage(Model model,HttpServletRequest request) {
         int hotelId=Integer.parseInt(request.getQueryString());
@@ -59,3 +61,12 @@ public class SearchController {
         return "/hotel_room.html";
     }
 }
+
+
+
+
+
+
+
+
+

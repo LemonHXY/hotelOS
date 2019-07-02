@@ -3,7 +3,7 @@ package net.suncaper.demo.service;
 import net.suncaper.demo.domain.Room;
 import net.suncaper.demo.domain.Room_quantity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
