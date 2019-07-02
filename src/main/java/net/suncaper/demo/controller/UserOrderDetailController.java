@@ -26,7 +26,7 @@ public class UserOrderDetailController {
 
     //
     @GetMapping("/detail")
-    public String getRegister(Model model, HttpServletRequest request) {
+    public String getDetail(Model model, HttpServletRequest request) {
         int oId=Integer.parseInt(request.getQueryString());
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
         model.addAttribute("orderOutput", orderOutput);
@@ -34,9 +34,11 @@ public class UserOrderDetailController {
     }
 
 
-    //退房模块
-    @PostMapping()
-    public String saveUser(List<Hotel> d, Model model) {
-        return "redirect:orderdetail/get";
+    @GetMapping("/delete")
+    public String delete(Model model, HttpServletRequest request) {
+        int oId=Integer.parseInt(request.getQueryString());
+        OrderOutput orderOutput = orderService.GetOrderLists2(oId);
+        model.addAttribute("orderOutput", orderOutput);
+        return "/user_order_detail.html";
     }
 }

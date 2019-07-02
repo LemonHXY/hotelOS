@@ -89,13 +89,6 @@
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-md">
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="city" name="city"  th:field="*{city}">城市</label>-->
-                                        <!--<div for="city" class="city-select" id="single-select-1" style="width: 100%;">-->
-                                            <!--<input type="text" id="city" class="form-control"-->
-                                                   <!--placeholder="请选择城市" >-->
-                                        <!--</div>-->
-                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="city">城市</label>
                                         <div>
@@ -127,17 +120,17 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-arrival">入住日期</label>
+                                        <label for="probootstrap-date-arrival" >入住日期</label >
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
                                             <input type="text" id="probootstrap-date-arrival"
-                                                   class="form-control" placeholder=""  name="start" th:field="*{start}">
+                                                   class="form-control" placeholder="" name="start" th:field="*{start}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-departure">离店日期</label>
+                                        <label for="probootstrap-date-departure" >离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
                                             <input type="text" id="probootstrap-date-departure"
@@ -184,8 +177,7 @@
                                 </div>
 
                                 <div class="col-md">
-                                    <input type="submit" value="   搜     索   "
-                                           style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                                    <input type="submit" value="   搜     索   " onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
                             </div>
@@ -215,14 +207,6 @@
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
                                 <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}"><button>详情</button></a>
-                                <!--<button type="button" action="hotel_room.html" >详情</button>-->
-                                    <!--<button onclick="mysub2()">详情</button>-->
-                                <!--<script th:inline="javascript">-->
-                                    <!--function mysub2() {-->
-                                        <!--var hotelId=[[${hotel.hotelId}]];-->
-                                        <!--window.location.href=encodeURI("http://localhost:8280/search/room?"+hotelId);-->
-                                    <!--}-->
-                                <!--</script>-->
                             </td>
                         </tr>
                     </table>
@@ -256,7 +240,9 @@
 <script src="/assets/js/jquery.js"></script>
 <script type="text/javascript" src="/assets/js/citydata.min.js"></script>
 <script type="text/javascript" src="/assets/js/cityselect-1.0.0.min.js"></script>
-<script type="text/javascript">
+
+
+<!--<script type="text/javascript">
     $(function () {
         // 单选
         var singleSelect1 = $('#single-select-1').citySelect({
@@ -277,6 +263,6 @@
 
         // 单选设置城市
         singleSelect1.setCityVal('北京市');
-    });</script>
+    });</script>-->
 </body>
 </html>
