@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -61,9 +61,9 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
             </ul>
         </div>
     </div>
@@ -82,7 +82,7 @@
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
-    <h2 class="display-4 border-bottom probootstrap-section-heading text-center">酒店详情</h2>
+    <h2 class="display-4 border-bottom probootstrap-section-heading text-center"  th:text="${hotel.hotelName}">酒店详情</h2>
     <div class="row probootstrap-animate">
         <div class="col-md-12">
             <div class="owl-carousel js-owl-carousel">
@@ -91,7 +91,7 @@
                    href="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
                     <span>
-                        <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x">
+                        <img  th:src="${hotel.photo1}"  >
                     </span>
                     <br><br>
                     <em>酒店图片（点击查看大图）</em>
@@ -99,7 +99,7 @@
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
                    target="_blank" href="#">
                     <span>
-                        <img src="http://pix2.agoda.net/hotelimages/103/103872/103872_120914095345333.jpg?s=312x">
+                        <img th:src="${hotel.photo2}">
                     </span>
                     <br><br>
                     <em>酒店图片（点击查看大图）</em>
@@ -108,7 +108,7 @@
                    target="_blank" href="#">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
                     <span>
-                        <img src="http://pix5.agoda.net/hotelimages/615/61529/61529_16052712500042794181.jpg?s=312x">
+                        <img th:src="${hotel.photo3}">
                     </span>
                     <br><br>
                     <em>房间图片（点击查看大图）</em>
@@ -117,7 +117,7 @@
                    target="_blank" href="#">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
                     <span>
-                        <img src="http://pix2.agoda.net/hotelimages/615/61518/61518_15030516280025835350.jpg?s=312x">
+                        <img th:src="${hotel.photo4}">
                     </span>
                     <br><br>
                     <em>房间图片（点击查看大图）</em>
@@ -126,7 +126,7 @@
                    target="_blank" href="#">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
                     <span>
-                        <img src="http://pix3.agoda.net/hotelimages/197/197453/197453_14061315280019843173.jpg?s=312x">
+                        <img th:src="${hotel.photo5}">
                     </span>
                     <br><br>
                     <em>房间图片（点击查看大图）</em>
@@ -139,12 +139,18 @@
 
     <div class="container">
         <div class="col-md-12 probootstrap-form" style="margin:auto;">
-            <table>
-                <tr>
-                    <td>酒店名</td>
+            <table >
+                <tr >
+                    <td >酒店名</td>
                     <td>地址</td>
                     <td>星级</td>
                     <td>评分</td>
+                </tr>
+                <tr >
+                    <td th:text="${hotel.hotelName}">酒店名</td>
+                    <td th:text="${hotel.addressline}">地址</td>
+                    <td th:text="${hotel.starRating}">星级</td>
+                    <td th:text="${hotel.ratingAverage}">评分</td>
                 </tr>
                 <table>
                 <tr>
@@ -154,11 +160,18 @@
             </table>
 
             <table>
-                <tr>
-                    <th>房间类型</th>
-                    <th>早餐</th>
+                <tr >
+                    <th >房间类型</th>
+                    <th >早餐</th>
                     <th>价格</th>
-                    <th>状态</th>
+                    <th >状态</th>
+                    <th>操作</th>
+                </tr>
+                <tr th:each="room:${rooms}">
+                    <th th:text="${room.roomType}">房间类型</th>
+                    <th th:text="${room.breakfast}">早餐</th>
+                    <th th:text="${room.price}">价格</th>
+                    <th >状态</th>
                     <th>操作</th>
                 </tr>
             </table>
@@ -167,7 +180,7 @@
             <div class="col-md">
                 <br>
                 <br>
-                <p><a class="ex2" style="float:right;" href="http://localhost:8280/search/get">返回酒店列表</a></p>
+                <p><a class="ex2" style="float:right;" href="javascript:history.back(-1)">返回酒店列表</a></p>
                 <br>
                 <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
             </div>

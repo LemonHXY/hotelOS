@@ -41,8 +41,14 @@ public class EnterController {
         if (user != null && user.getuPassword().equals(user1.getuPassword())) {
             String userId=user1.getuId().toString();
             Cookie cookie = new Cookie("uId", userId);
+            Cookie cookie1 = new Cookie("uName", user.getuName());
+
             cookie.setPath("/");
+            cookie1.setPath("/");
+
             response.addCookie(cookie);
+            response.addCookie(cookie1);
+
             return "redirect:/index";
         }
         else {

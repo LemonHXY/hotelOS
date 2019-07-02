@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 //详情页面控制器
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/room")
 public class RoomController {
     @Autowired
     private UserService userService;
 
     //  显示搜索界面
-    @GetMapping("/room")
+    @GetMapping
     public String getRegister(Model model) {
         model.addAttribute("", new User());
         return "/register.html";
@@ -23,7 +23,7 @@ public class RoomController {
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/room")
+    @PostMapping
     public String saveUser(User user1, Model model) {
 
         return "redirect:register/room";
