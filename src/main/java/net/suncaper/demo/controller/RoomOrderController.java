@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-//详情页面控制器
+// 确定订单页面
 @Controller
 @RequestMapping("/roomorder")
 public class RoomOrderController {

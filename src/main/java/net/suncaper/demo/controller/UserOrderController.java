@@ -12,7 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 
-//用户订单管理
+//用户订单管理页面
 @Controller
 @RequestMapping({"/userorder"})
 public class UserOrderController {
