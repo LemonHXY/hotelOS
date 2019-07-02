@@ -49,6 +49,7 @@ public class SearchController {
         model.addAttribute("hotels",c);
         return "/hotel_search.html";
     }
+
     @GetMapping("/room")
     public String SearchPage(Model model,HttpServletRequest request) {
         int hotelId=Integer.parseInt(request.getQueryString());
@@ -59,3 +60,12 @@ public class SearchController {
         return "/hotel_room.html";
     }
 }
+
+
+
+
+
+
+
+
+

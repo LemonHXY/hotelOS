@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -78,26 +78,23 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                <div class="col-md-4 probootstrap-form" style="margin:auto;">
-                    <p>酒店名：<span>123</span></p>
-                    <p>地&nbsp;&nbsp;&nbsp;址：<span>123</span></p>
-                    <p><span>豪华大床房</span>&nbsp;<span>无早</span></p>
-                    <p><span>2019-6-30</span>到<span>2019-7-1</span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间</p>
-                    <p>总价：<span>233元</span></p>
+                <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                    <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
+                    <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
+                    <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
+                    <p><span name="arrDate" th:text="*{arrDate}">2019-6-30</span>到<span name="depDate" th:text="*{depDate}">2019-7-1</span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间</p>
+                    <p>总价：<span name="totalPrice" th:text="*{totalPrice}">233元</span></p>
                 </div>
-                <div class="col-md-4 probootstrap-form" style="margin:auto;">
-                    <p>入住人：<span>123</span></p>
-                    <p>手机号：<span>123</span></p>
-                    <p>订单号：<span>123</span></p>
-                    <p>下单时间：<span>2019-6-30 21：20</span></p>
-                    <p>状态：<span>未入住</span></p>
+                <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                    <p>入住人：<span name="uName" th:text="*{uName}">123</span></p>
+                    <p>手机号：<span name="uPhone" th:text="*{uPhone}">123</span></p>
+                    <p>订单号：<span name="oId" th:text="*{oId}">123</span></p>
+                    <p>状态：<span name="oStatus" th:text="*{oStatus}">未入住</span></p>
 <!--                    <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
                             onclick="ck2();">添加常用入住人
                     </button>-->
                 </div>
                     <div class="col-md-2 probootstrap-form" style="margin:auto;">
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">确认入住
-                        </button>
                         <p></p>
                         <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">取消订单
                         </button>
