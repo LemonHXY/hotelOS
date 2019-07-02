@@ -29,15 +29,15 @@ public class OrderServicelmpl implements OrderService{
 }
 
 =======*/
-import net.suncaper.demo.domain.Hotel;
-import net.suncaper.demo.domain.OrderOutput;
-import net.suncaper.demo.domain.R_order;
-import net.suncaper.demo.domain.Room;
+import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.HotelMapper;
 import net.suncaper.demo.mapper.R_orderMapper;
 import net.suncaper.demo.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderServicelmpl  implements OrderService{
@@ -48,25 +48,29 @@ public class OrderServicelmpl  implements OrderService{
     @Autowired
     private RoomMapper roomMapper;
     
-    public OrderOutput GetOrderLists(int oId){
-        OrderOutput orderOutput = new OrderOutput();
+    public List<OrderOutput> GetOrderLists(int uId){
+        R_orderExample example=new R_orderExample();
+        example.createCriteria().andUIdEqualTo(uId);
+        List<R_order> r_order = r_orderMapper.selectByExample(example);
+        List<OrderOutput> orderList=new ArrayList<OrderOutput>();
+        for(R_order order:r_order) {
+            OrderOutput orderOutput = new OrderOutput();
+            int roomId = order.getRoomId();
+            Room room = roomMapper.selectByPrimaryKey(roomId);
+            int hotelId = room.getHotelId();
+            Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
 
-        R_order r_order = r_orderMapper.selectByPrimaryKey(oId);
-        int roomId = r_order.getRoomId();
-        Room room = roomMapper.selectByPrimaryKey(roomId);
-        int hotelId = room.getHotelId();
-        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
-
-        orderOutput.setHotelName(hotel.getHotelName());
-        orderOutput.setRoomType(room.getRoomType());
-        orderOutput.setoId(r_order.getoId());
-        orderOutput.setArrDate(r_order.getArrDate());
-        orderOutput.setDepDate(r_order.getDepDate());
-        orderOutput.setQuantity(r_order.getQuantity());
-        orderOutput.setTotalPrice(r_order.getTotalPrice());
-        orderOutput.setoStatus(r_order.getoStatus());
-
-        return orderOutput;
+            orderOutput.setHotelName(hotel.getHotelName());
+            orderOutput.setRoomType(room.getRoomType());
+            orderOutput.setoId(order.getoId());
+            orderOutput.setArrDate(order.getArrDate());
+            orderOutput.setDepDate(order.getDepDate());
+            orderOutput.setQuantity(order.getQuantity());
+            orderOutput.setTotalPrice(order.getTotalPrice());
+            orderOutput.setoStatus(order.getoStatus());
+            orderList.add(orderOutput);
+        }
+        return orderList;
     }
 }
 
