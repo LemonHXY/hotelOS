@@ -22,15 +22,15 @@ public class UserOrderController {
     @GetMapping("/get")
     public String SearchPage(Model model, HttpServletRequest request) {
         Cookie[] cookies=request.getCookies();
-        int oId = 1;
+        int uId = 1;
         for (Cookie cookie:cookies)
         {
             if(cookie.getName().equals("uId"))
             {
-                oId=Integer.parseInt(cookie.getValue());
+                uId=Integer.parseInt(cookie.getValue());
             }
         }
-       model.addAttribute("orders", orderServicelmpl.GetOrderLists(oId));
+       model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
 
 
         return "/user_order.html";
