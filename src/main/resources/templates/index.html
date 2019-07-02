@@ -90,30 +90,30 @@
                         <div class="row mb-5">
                             <div class="col-md">
                                 <div class="form-group">
-                                    <label for="probootstrap-date-arrival" name="start" th:field="*{start}">入住日期</label>
+                                    <label for="probootstrap-date-arrival">入住日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input type="text" required="true" id="probootstrap-date-arrival" name="arr_date"
-                                               class="form-control">
+                                        <input type="text" required="true" id="probootstrap-date-arrival"
+                                               class="form-control" name="start" th:field="*{start}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="form-group">
-                                    <label for="probootstrap-date-departure" name="end" th:field="*{end}">离店日期</label>
+                                    <label for="probootstrap-date-departure">离店日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input type="text" required="true" id="probootstrap-date-departure" name="dep_date"
-                                               class="form-control" placeholder="">
+                                        <input type="text" required="true" id="probootstrap-date-departure"
+                                               class="form-control" name="end" th:field="*{end}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- END row -->
-
                         <div class="row">
                             <div class="col-md">
-                                <input type="submit" value="搜索" id="search" class="btn btn-primary btn-block">
+                                <input type="submit" value="搜索" id="search"
+                                       class="btn btn-primary btn-block">
                             </div>
                         </div>
                     </div>
@@ -158,27 +158,49 @@
     })
 </script>-->
 
+<!--<script>
+    $("#probootstrap-date-departure").change(function () {
+        alert($("#probootstrap-date-departure").val());
+    })
+</script>-->
 <script>
-    /*    var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDay();
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-        var date1 = year + "-" + month + "-" + day;
-        function initdate(){
-            document.getElementById("probootstrap-date-arrival").value = date1
-        }*/
+
     var date1 = new Date();
     var date2 = new Date(date1);
     date2.setDate(date1.getDate() + 1);
 
-    $("#probootstrap-date-arrival").datepicker(
+    $('#probootstrap-date-arrival').datepicker(
         'setDate', date1
     );
-    $("#probootstrap-date-departure").datepicker(
+    $('#probootstrap-date-departure').datepicker(
         'setDate', date2
     );
+
+        $('#probootstrap-date-arrival').datepicker({
+            todayBtn: "linked",
+            endDate: new Date()
+        }).on('changeDate', function (e) {
+            var date4=new Date(e.date);
+            var date5=$('#probootstrap-date-departure').val();
+            date4.setDate(e.date.getDate() + 1);
+            var year = date4.getFullYear();
+            var month = date4.getMonth()+1;
+            var day = date4.getDate();
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+            var date6 = year + "-" + month + "-" + day;
+            var startTime = date4;
+            $('#probootstrap-date-departure').datepicker('setStartDate', startTime);
+            if(date6>date5)
+            {
+                $("#probootstrap-date-departure").datepicker(
+                    'setDate', date4
+                );}
+        });
+/*        $('#probootstrap-date-departure').value = $('#probootstrap-date-departure').val();
+        alert($('#probootstrap-date-departure').val());*/
+
+
 
 </script>
 
