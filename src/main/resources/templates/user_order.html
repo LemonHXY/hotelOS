@@ -105,13 +105,8 @@
                            <!-- <a href="http://localhost:8280/orderdetail">
                                 <button>详情</button>
                             </a>-->
-                            <button  onclick="mysub()">详情</button>
-                            <script th:inline="javascript">
-                                function mysub() {
-                                    var oId=[[${r_order.oId}]];
-                                    window.location.href=encodeURI("http://localhost:8280/search/room?"+oId);
-                                }
-                            </script>
+                            <a th:href="@{'http://localhost:8280/userorder/detail?'+${r_order.oId}}"><button>详情</button>详情</button></a>
+
                         </td>
                     </tr>
                 </table>

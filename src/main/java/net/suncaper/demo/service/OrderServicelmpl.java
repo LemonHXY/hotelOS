@@ -47,7 +47,8 @@ public class OrderServicelmpl  implements OrderService{
     private HotelMapper hotelMapper;
     @Autowired
     private RoomMapper roomMapper;
-    
+
+    @Override
     public List<OrderOutput> GetOrderLists(int uId){
         R_orderExample example=new R_orderExample();
         example.createCriteria().andUIdEqualTo(uId);
@@ -71,6 +72,11 @@ public class OrderServicelmpl  implements OrderService{
             orderList.add(orderOutput);
         }
         return orderList;
+    }
+
+    @Override
+    public OrderOutput GetAOrder(int uId) {
+        return null;
     }
 }
 

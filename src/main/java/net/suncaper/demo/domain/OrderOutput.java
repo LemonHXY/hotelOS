@@ -5,7 +5,7 @@ import java.util.Date;
 public class OrderOutput {
 
 
-    private String HotelName;
+    private String hotelName;
     private int oId;
     private String roomType;
     private Date arrDate;
@@ -14,12 +14,24 @@ public class OrderOutput {
     private int totalPrice;
     private String oStatus;
 
+    public OrderOutput(String hotelName,int oId,String roomType,Date arrDate,Date depDate,int quantity,int totalPrice,String oStatus)
+    {
+        this .hotelName = hotelName;
+        this.roomType = roomType;
+        this.arrDate = arrDate;
+        this.depDate = depDate;
+        this.quantity = quantity;
+        this.oId =oId;
+        this.totalPrice = totalPrice;
+        this.oStatus = oStatus;
+    }
+
     public String getHotelName() {
-        return HotelName;
+        return hotelName;
     }
 
     public void setHotelName(String hotelName) {
-        HotelName = hotelName;
+       this .hotelName = hotelName;
     }
 
     public String getRoomType() {

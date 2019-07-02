@@ -216,13 +216,13 @@
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
                                 <!--<button type="button" action="hotel_room.html" >详情</button>-->
-                                    <button onclick="mysub2()">详情</button>
-                                <script th:inline="javascript">
-                                    function mysub2() {
-                                        var hotelId=[[${hotel.hotelId}]];
-                                        window.location.href=encodeURI("http://localhost:8280/search/room?"+hotelId);
-                                    }
-                                </script>
+                                <a th:href="@{'http://localhost:8280/search/room?'+${hotel.hotelId}}"><button>详情</button></a>
+<!--                                <script th:inline="javascript">
+                                    document.getElementById()
+                               /*     function mysub2() {
+                                        window.location.href=encodeURI("http://localhost:8280/search/room?"+[[${hotel.hotelId}]]);
+                                    }*/
+                                </script>-->
                             </td>
                         </tr>
                     </table>
