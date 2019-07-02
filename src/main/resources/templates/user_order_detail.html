@@ -82,7 +82,7 @@
                     <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
                     <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
                     <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
-                    <p><span name="arrDate" th:text="*{arrDate}">2019-6-30</span>到<span name="depDate" th:text="*{depDate}">2019-7-1</span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间</p>
+                    <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate" th:text="*{depDate}"></span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间</p>
                     <p>总价：<span name="totalPrice" th:text="*{totalPrice}">233元</span></p>
                 </div>
                 <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
@@ -94,7 +94,7 @@
                     <div class="col-md-2 probootstrap-form" style="margin:auto;" >
                         <p></p>
                         <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/orderdetail/delete?' + ${orderOutput.oId}}"><button>详情</button></a>
+                            <a th:href="@{'http://localhost:8280/orderdetail/delete?' + ${orderOutput.oId}}"><button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房</button></a>
                         </td>
 
                         <p></p>
