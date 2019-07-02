@@ -19,15 +19,15 @@ public class UserOrderDetailController {
     private UserService userService;
 
     //
-    @GetMapping
-    public String getRegister(Model model , HttpServletRequest request) {
+    @GetMapping()
+    public String getRegister(Model model , HttpServletRequest request,@RequestParam(value="oId")int oId) {
         model.addAttribute("", new User());
         return "/user_order_detail.html";
     }
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping
+    @PostMapping()
     public String saveUser(List<Hotel> d, Model model) {
         return "redirect:orderdetail/get";
 
