@@ -1,9 +1,6 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.Hotel;
-import net.suncaper.demo.domain.OrderOutput;
-import net.suncaper.demo.domain.R_order;
-import net.suncaper.demo.domain.User;
+import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.R_orderMapper;
 import net.suncaper.demo.service.HotelService;
 import net.suncaper.demo.service.OrderService;
@@ -39,10 +36,10 @@ public class UserOrderDetailController {
     }
 
 
-    @GetMapping("/delete")
+    @GetMapping("/checkout")
     public String delete(Model model, HttpServletRequest request) {
         int oId=Integer.parseInt(request.getQueryString());
-        r_orderMapper.deleteByPrimaryKey(oId);
+        r_orderMapper.updateStatus(oId);
 
         return "/user_order.html";
     }

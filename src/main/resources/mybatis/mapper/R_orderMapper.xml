@@ -380,4 +380,9 @@
       o_status = #{oStatus,jdbcType=VARCHAR}
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
+  <update id="updateStatus" parameterType="int">
+    update r_order
+      set o_status = "已取消"
+      where o_id = #{oId}
+  </update>
 </mapper>

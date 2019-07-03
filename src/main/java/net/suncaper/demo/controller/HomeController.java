@@ -39,46 +39,5 @@ public class HomeController {
 //            model.addAttribute("msg1","密码错误");
             return "/enter.html";}
     }
-    /*@RequestMapping
-    public String userPage(Model model,@RequestParam(value = "id", required = false) int id) {
-        List<User> users = userService.findUser(id);
-        model.addAttribute("user", users);
-        return "pages/user/list.html";
-    }*/
-    /*
-    @GetMapping("/add")
-    public String addPage( Model model) {
-        model.addAttribute("user", new Customer());
-        return "/pages/user/add-user";
-    }
 
-    @GetMapping("update")
-    public String editPage(int id, Model model) {
-        model.addAttribute("user", userService.findUserById(id));
-        return "/pages/user/add-user";
-    }
-
-    @PostMapping("/add")
-    public String saveUser(Customer customer) {
-        Customer c=userService.findUserById(customer.getId());
-        if(c.getId()>0)
-        return "redirect:/user";
-        userService.saveCustomer(customer);
-        return "redirect:/user";
-    }
-
-
-    @GetMapping("/delete")
-    public String deleteUserById(int id) {
-        userService.deleteUserById(id);
-        return "redirect:/user";
-    }
-
-    @RequestMapping
-    public String userPage(Model model,@RequestParam(value = "name", required = false) String name) {
-        List<Customer> users = userService.findUser(name);
-        model.addAttribute("users", users);
-
-        return "pages/user/list.html";
-    }*/
 }

@@ -93,4 +93,6 @@ public interface CityMapper {
      * @mbg.generated Thu Jun 27 16:16:26 CST 2019
      */
     int updateByPrimaryKey(City record);
+
+    City findBySting(String name);
 }

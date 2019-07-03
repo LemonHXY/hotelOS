@@ -1,6 +1,7 @@
 package net.suncaper.demo.mapper;
 
 import java.util.List;
+
 import net.suncaper.demo.domain.R_order;
 import net.suncaper.demo.domain.R_orderExample;
 import org.apache.ibatis.annotations.Param;
@@ -93,4 +94,6 @@ public interface R_orderMapper {
      * @mbg.generated Thu Jun 27 16:16:26 CST 2019
      */
     int updateByPrimaryKey(R_order record);
+
+    void updateStatus(int oId);
 }

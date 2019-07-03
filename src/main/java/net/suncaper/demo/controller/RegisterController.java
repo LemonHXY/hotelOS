@@ -17,8 +17,8 @@ public class RegisterController {
     //  显示搜索界面
     @GetMapping
     public String getRegister(Model model) {
-        model.addAttribute("msg1","注册后不可修改");
-        model.addAttribute("user",new User());
+        model.addAttribute("msg1", "注册后不可修改");
+        model.addAttribute("user", new User());
         return "/register.html";
     }
 
@@ -27,17 +27,14 @@ public class RegisterController {
     @PostMapping
     public String saveUser(User user1, Model model) {
 
-        model.addAttribute("user",new User());
-        User temp=userService.findUserByUIid(user1.getuId());
-        if(temp==null)
-        {
+        model.addAttribute("user", new User());
+        User temp = userService.findUserByUIid(user1.getuId());
+        if (temp == null) {
             userService.saveUser(user1);
             return "redirect:/search";
-        }
-        else
-        {
-            model.addAttribute("msg1","该id已被使用");
-            model.addAttribute("user",new User());
+        } else {
+            model.addAttribute("msg1", "该id已被使用");
+            model.addAttribute("user", new User());
             return "/register.html";
         }
 
