@@ -179,6 +179,5 @@ $(document).ready(function ($) {
     };
     datePicker();
 
-
 });
 

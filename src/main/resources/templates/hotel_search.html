@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -30,6 +30,11 @@
     <link rel="stylesheet" href="/assets/css/helpers.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 
+
+    <link type="text/css" rel="stylesheet" href="/assets/css/city-select.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/waiter.css">
+
     <style type="text/css">
         table, th, td {
             border: 1px solid #E4E4E4;
@@ -54,120 +59,166 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get"
-                                        onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="wuyou-waiter">
+    <ul class="waiter-ul">
+        <li class="wuyou-top">
+            <a class="iconfont icon-Upward" href="#"></a>
+            <div class="waiter-title">回到顶部</div>
+        </li>
+    </ul>
+</div>
+
 <!--搜索框-->
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
-    <div class="container probootstrap-form">
-        <!-- <div class="row align-items-center"> -->
-        <!-- <div class="col-md"> -->
+    <div class="container">
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
-
             <div class="media-body">
-
-
-                <form action="#" class="probootstrap-form">
-                    <div class="form-group">
-                        <div class="row mb-3">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="city">城市</label>
-                                    <div>
-                                        <label for="city" style="width: 100%;">
-                                            <select class="js-example-basic-single js-states form-control" id="city"
-                                                    style="width: 100%;">
-                                                <option value="成都">成都</option>
-                                                <option value="北京">北京</option>
-                                                <option value="上海">上海</option>
-                                                <option value="深圳">深圳</option>
-                                                <option value="杭州">杭州</option>
-                                                <option value="南京">南京</option>
-                                                <option value="武汉">武汉</option>
-                                                <option value="昆明">昆明</option>
-                                            </select>
-                                        </label>
+                <div class="col-md probootstrap-animate">
+                    <form action="/search" class="probootstrap-form" method="post" th:object="${search}">
+                        <div class="form-group">
+                            <div class="row mb-3">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="city">城市</label>
+                                        <div>
+                                            <label for="city" style="width: 100%;">
+                                                <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city"  th:field="*{city}">
+                                                    <option value=""></option>
+                                                    <option value="成都">成都</option>
+                                                    <option value="北京">北京</option>
+                                                    <option value="上海">上海</option>
+                                                    <option value="深圳">深圳</option>
+                                                    <option value="杭州">杭州</option>
+                                                    <option value="南京">南京</option>
+                                                    <option value="武汉">武汉</option>
+                                                    <option value="昆明">昆明</option>
+                                                </select>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="hotel_keyword">酒店关键字</label>
-                                    <div>
-                                        <label for="hotel_keyword">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="hotel_keyword">酒店关键字</label>
+                                        <div>
                                             <input type="text" class="form-control" id="hotel_keyword"
-                                                   name="hotel_keyword" style="width: 100%;" placeholder="">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="probootstrap-date-arrival">入住日期</label>
-                                    <div class="probootstrap-date-wrap">
-                                        <span class="icon ion-calendar"></span>
-                                        <input type="text" id="probootstrap-date-arrival" name="arr_date"
-                                               class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="probootstrap-date-departure">离店日期</label>
-                                    <div class="probootstrap-date-wrap">
-                                        <span class="icon ion-calendar"></span>
-                                        <input type="text" id="probootstrap-date-departure" name="dep_date"
-                                               class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
+                                                    placeholder="" name="name" th:field="*{name}">
 
-                            <div class="col-md">
-                                <br>
-                                <input type="submit" value="搜索" class="btn btn-primary btn-block">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="probootstrap-date-arrival" >入住日期</label >
+                                        <div class="probootstrap-date-wrap">
+                                            <span class="icon ion-calendar"></span>
+                                            <input type="text" id="probootstrap-date-arrival"
+                                                   class="form-control" placeholder="" name="start" th:field="*{start}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="probootstrap-date-departure" >离店日期</label>
+                                        <div class="probootstrap-date-wrap">
+                                            <span class="icon ion-calendar"></span>
+                                            <input type="text" id="probootstrap-date-departure"
+                                                   class="form-control" placeholder="" name="end" th:field="*{end}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option value="">默认排序</option>
+                                            <option value="1">低价优先</option>
+                                            <option value="2">评分优先</option>
+                                            <option value="3">距离优先</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option value="">全部星级</option>
+                                            <option value="1">三星以下</option>
+                                            <option value="2">三星</option>
+                                            <option value="3">四星</option>
+                                            <option value="4">五星</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option value="">全部价格</option>
+                                            <option value="1">0-200元</option>
+                                            <option value="2">200-500元</option>
+                                            <option value="3">500-1000元</option>
+                                            <option value="4">1000元以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md">
+                                    <input type="submit" value="   搜     索   " onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                                </div>
+
                             </div>
                         </div>
+                    </form>
 
 
-                        <div class="row mb-3">
-                        </div>
-
-                    </div>
-                </form>
-
-
-                <table>
-                    <thead>
-                    <th>图片</th>
-                    <th>酒店名</th>
-                    <th>地址</th>
-                    <th>星级</th>
-                    <th>价格</th>
-                    <th>评分</th>
-                    <th>详情</th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <!-- </div>  -->
-                <!-- </div> -->
+                    <table>
+                        <tr>
+                            <th class="text-center" width="100px">图片</th>
+                            <th>酒店名</th>
+                            <th>酒店地址</th>
+                            <th class="text-center" width="40px">星级</th>
+                            <th class="text-center" width="40px">评分</th>
+                            <th class="text-center" width="40px">价格</th>
+                            <th class="text-center" width="80px">距离</th>
+                            <th class="text-center" width="60px">操作</th>
+                        </tr>
+                        <tr height="70" th:each="hotel: ${hotels}">
+                            <td align="center" valign="middle"><img th:src="${hotel.photo1}" height="60"/></td>
+                            <td th:text="${hotel.hotelName}"></td>
+                            <td th:text="${hotel.addressline}"></td>
+                            <td class="text-center" th:text="${hotel.starRating}"></td>
+                            <td class="text-center" th:text="${hotel.ratingAverage}"></td>
+                            <td class="text-center" th:text="${hotel.ratesFrom}"></td>
+                            <td></td>
+                            <!-- <td th:text="${hotel.overview}"></td>-->
+                            <td align="center" valign="middle">
+                                <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}"><button>详情</button></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+        </br></br></br></br></br></br></br>
+        <div class="col-md-12 text-center">
+            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        </div>
 
-    </br></br></br></br></br></br></br>
-    <div class="col-md-12 text-center">
-        <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>
 </section>
 <!-- END section -->
 
@@ -185,5 +236,33 @@
 <script src="/assets/js/select2.min.js"></script>
 
 <script src="/assets/js/main.js"></script>
+
+<script src="/assets/js/jquery.js"></script>
+<script type="text/javascript" src="/assets/js/citydata.min.js"></script>
+<script type="text/javascript" src="/assets/js/cityselect-1.0.0.min.js"></script>
+
+
+<!--<script type="text/javascript">
+    $(function () {
+        // 单选
+        var singleSelect1 = $('#single-select-1').citySelect({
+            dataJson: cityData,
+            multiSelect: false,
+            shorthand: true,
+            search: true,
+            onInit: function () {
+                console.log(this)
+            },
+            onTabsAfter: function (target) {
+                console.log(target)
+            },
+            onCallerAfter: function (target, values) {
+                console.log(JSON.stringify(values))
+            }
+        });
+
+        // 单选设置城市
+        singleSelect1.setCityVal('北京市');
+    });</script>-->
 </body>
 </html>
