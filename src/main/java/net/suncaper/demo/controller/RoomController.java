@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//详情页面控制器
+// 单个酒店信息+房间列表
 @Controller
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
     private UserService userService;
 
-    //
+
     @GetMapping("/get")
     public String getRegister(Model model) {
         model.addAttribute("", new User());
@@ -28,8 +28,6 @@ public class RoomController {
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping("/get")
     public String saveUser(List<Hotel> d, Model model) {
-
         return "redirect:room/get";
-
     }
 }

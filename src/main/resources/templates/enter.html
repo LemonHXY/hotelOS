@@ -56,9 +56,9 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
                 <li class="nav-item active"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
             </ul>
         </div>
     </div>
@@ -96,8 +96,7 @@
                     <div class="row mb-3">
                         <div class="col-md">
                             <div class="form-group">
-
-                                <span id="tip" th:text="${msg1}" + !></span>
+                                <span th:text="${msg1}" + !></span>
                                 <br>
                                 <label>还没有账号？快去 <a class="ex2" href="http://localhost:8280/register/get" color="black">注册</a>
                                     吧。</label>
@@ -111,6 +110,7 @@
             </div>
         </div>
         </br></br></br></br></br></br></br>
+    </div>
         <div class="col-md-12 text-center">
             <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
         </div>
@@ -129,14 +129,5 @@
 <script src="/assets/js/select2.min.js"></script>
 
 <script src="/assets/js/main.js"></script>
-
-<script>
-/*    $("submit").onclick(function () {
-        if ($("#tip").val() == "密码错误！") {
-            $("#tip").style.color = "red";
-        }
-    })*/
-
-</script>
 </body>
 </html>

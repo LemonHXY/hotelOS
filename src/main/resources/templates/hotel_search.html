@@ -47,7 +47,7 @@
     </style>
 
 </head>
-<body>
+<body onload="load()">
 
 <!--标题栏-->
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
@@ -60,10 +60,9 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get"
-                                        onclick="alert('人家还不知道你是谁呢，不如先登录吧(*/ω＼*)')">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
             </ul>
         </div>
     </div>
@@ -86,17 +85,10 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="col-md probootstrap-animate">
-                    <form action="/search/get" class="probootstrap-form" method="post" th:object="${search}">
+                    <form action="/search" class="probootstrap-form" method="post" th:object="${search}">
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-md">
-                                    <!--<div class="form-group">-->
-                                    <!--<label for="city" name="city"  th:field="*{city}">城市</label>-->
-                                    <!--<div for="city" class="city-select" id="single-select-1" style="width: 100%;">-->
-                                    <!--<input type="text" id="city" class="form-control"-->
-                                    <!--placeholder="请选择城市" >-->
-                                    <!--</div>-->
-                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="city">城市</label>
                                         <label for="city" style="width: 100%;">
@@ -112,13 +104,14 @@
                                         <label for="hotel_keyword">酒店关键字</label>
                                         <div>
                                             <input type="text" class="form-control" id="hotel_keyword"
-                                                   placeholder="" name="name" th:field="*{name}">
+                                                    placeholder="" name="name" th:field="*{name}">
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-arrival">入住日期</label>
+                                        <label for="probootstrap-date-arrival" >入住日期</label >
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
                                             <input type="text" id="probootstrap-date-arrival"
@@ -128,7 +121,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-departure">离店日期</label>
+                                        <label for="probootstrap-date-departure" >离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
                                             <input type="text" id="probootstrap-date-departure"
@@ -172,8 +165,10 @@
                                             <option value="500-1000元">500-1000元</option>
                                             <option value="1000元以上">1000元以上</option>
                                         </select>
+
                                     </div>
                                 </div>
+
                                 <div class="col-md">
                                     <div class="form-group">
                                         <select class="form-control">
@@ -188,7 +183,7 @@
 
                                 <div class="col-md">
                                     <input type="submit" value="   搜     索   "
-                                           style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                                           onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
                             </div>
@@ -217,10 +212,7 @@
                             <td></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
-                                <!--<button type="button" action="hotel_room.html" >详情</button>-->
-                                <a href="http://localhost:8280/room/get">
-                                    <button>详情</button>
-                                </a>
+                                <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}"><button>详情</button></a>
                             </td>
                         </tr>
                     </table>
@@ -261,14 +253,30 @@
 </script>
 <script>
     var sort = document.getElementById('sort');
+    var table = document.getElementsByTagName('table')[0];
+    var tr = table.getElementsByTagName('tr');
+    var array = [];
+    for (var i = 1; i < tr.length; i++) {
+        array.push(tr[i]);
+    }
+/*
+    function load() {
+        if (sort.value == "评分优先")
+            Grade(array);
+        else if (sort.value == "距离优先")
+            Distance(array);
+        else if (sort.value == "低价优先")
+            Pricelow(array);
+        else if (sort.value == "高价优先")
+            Pricehigh(array);
+        else
+            return;
+        for (var i = 0; i < array.length; i++) {
+            table.appendChild(array[i]);
+        }
+    }*/
 
     sort.onchange = function () {
-        var table = document.getElementsByTagName('table')[0];
-        var tr = table.getElementsByTagName('tr');
-        var array = [];
-        for (var i = 1; i < tr.length; i++) {
-            array.push(tr[i]);
-        }
         if (sort.value == "评分优先")
             Grade(array);
         else if (sort.value == "距离优先")

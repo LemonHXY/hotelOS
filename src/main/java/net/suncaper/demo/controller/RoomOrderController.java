@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-//详情页面控制器
+// 确定订单页面
 @Controller
 @RequestMapping("/roomorder")
 public class RoomOrderController {
@@ -20,7 +20,7 @@ public class RoomOrderController {
     private UserService userService;
 
     //
-    @GetMapping("/get")
+    @GetMapping
     public String getRegister(Model model) {
         model.addAttribute("", new User());
         return "/hotel_room_order.html";
@@ -28,10 +28,10 @@ public class RoomOrderController {
 
     //待修改
     //从home接受信息传入此方法 并进行处理 显示在页面上
-    @PostMapping("/get")
+    @PostMapping
     public String saveUser(List<Hotel> d, Model model) {
 
-        return "redirect:roomorder/get";
+        return "redirect:roomorder";
 
     }
 }
