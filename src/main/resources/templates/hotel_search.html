@@ -114,7 +114,7 @@
                                         <label for="probootstrap-date-arrival" >入住日期</label >
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-arrival"
+                                            <input autocomplete="off" type="text" id="probootstrap-date-arrival"
                                                    class="form-control" placeholder="" name="start" th:field="*{start}">
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                         <label for="probootstrap-date-departure" >离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-departure"
+                                            <input autocomplete="off" type="text" id="probootstrap-date-departure"
                                                    class="form-control" placeholder="" name="end" th:field="*{end}">
                                         </div>
                                     </div>
@@ -259,8 +259,7 @@
     for (var i = 1; i < tr.length; i++) {
         array.push(tr[i]);
     }
-/*
-    function load() {
+/*    function load() {
         if (sort.value == "评分优先")
             Grade(array);
         else if (sort.value == "距离优先")
