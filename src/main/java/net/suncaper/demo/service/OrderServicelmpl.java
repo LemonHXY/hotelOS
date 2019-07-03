@@ -78,7 +78,7 @@ public class OrderServicelmpl implements OrderService {
         return orderList;
     }
 
-    public OrderOutput GetOrderLists2(int oId) {
+    public OrderOutput GetOrderLists2(Long oId) {
         OrderOutput orderOutput = new OrderOutput();
 
         R_order r_order = r_orderMapper.selectByPrimaryKey(oId);
@@ -103,5 +103,11 @@ public class OrderServicelmpl implements OrderService {
 
         return orderOutput;
     }
+
+    @Override
+    public void saveOne(R_order order) {
+        r_orderMapper.insertSelective(order);
+    }
+
 }
 

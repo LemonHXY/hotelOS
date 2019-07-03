@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public  class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomMapper roomMapper;
     @Autowired
-    private Room_quantityMapper Room_quantityMapper;
+    private Room_quantityMapper room_quantityMapper;
 
     @Override
     public List<Room> findRoomByHotelId(int id) {
@@ -51,7 +52,25 @@ public  class RoomServiceImpl implements RoomService {
     @Override
     public Room_quantity getRemain(int id, Date date) {
         Room_quantityKey key = new Room_quantityKey(id,date);
-        return Room_quantityMapper.selectByPrimaryKey(key);
+        return room_quantityMapper.selectByPrimaryKey(key);
+    }
+
+    @Override
+    public int getRemainNumBetween(int id, Date date1, Date date2) {
+        int min=Integer.MAX_VALUE;
+        Room_quantityKey key=new Room_quantityKey();
+        key.setRoomId(id);
+        Calendar ca = Calendar.getInstance();
+        Date curDate = date1;
+        while(curDate.compareTo(date2)<=0){
+            ca.setTime(curDate);
+            key.setrDate(curDate);
+            Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
+            min=min<q.getRemain()?min:q.getRemain();
+            ca.add(ca.DATE, 1);
+            curDate = ca.getTime();
+        }
+        return min;
     }
 
     @Override
@@ -62,7 +81,7 @@ public  class RoomServiceImpl implements RoomService {
         {
             example.clear();
             example.createCriteria().andRoomIdEqualTo(room.getRoomId()).andRDateBetween(date1,date2);
-            if(Room_quantityMapper.countByExample(example)<=b)
+            if(room_quantityMapper.countByExample(example)<=b)
             {
                 roomList.remove(room);
             }

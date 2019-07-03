@@ -85,7 +85,7 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="col-md probootstrap-animate">
-                    <form action="/search" class="probootstrap-form" method="post" th:object="${search}">
+                    <form action="/search"  class="probootstrap-form" method="post" th:object="${search}"  id="myForm">
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-md">
@@ -136,14 +136,6 @@
                                             <input type="text" id="probootstrap-date-departure"
                                                    class="form-control" placeholder="" name="end" th:field="*{end}">
                                         </div>
-                                        <script>
-                                            var dep=document.getElementById("probootstrap-date-departure").value;
-                                            var arr=document.getElementById("probootstrap-date-arrival").value;
-                                            var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
-                                            document.cookie="arr="+arr;
-                                            document.cookie="dep="+dep;
-                                            document.cookie="b="+b;
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -185,13 +177,44 @@
                                 </div>
 
                                 <div class="col-md">
-                                    <input type="submit" value="   搜     索   " onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                                    <input type="button" onclick="mySub2()" value="   搜     索   "
+                                           style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
                             </div>
                         </div>
                     </form>
-
+                    <script>
+                        function getNowFormatDate() {
+                            var date = new Date();
+                            var seperator1 = "-";
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var strDate = date.getDate();
+                            if (month >= 1 && month <= 9) {
+                                month = "0" + month;
+                            }
+                            if (strDate >= 0 && strDate <= 9) {
+                                strDate = "0" + strDate;
+                            }
+                            var currentdate = year + seperator1 + month + seperator1 + strDate;
+                            return currentdate;
+                        }
+                        function mySub2(){
+                            var arr = document.getElementById("probootstrap-date-arrival").value;
+                            var dep = document.getElementById("probootstrap-date-departure").value;
+                            if(arr==null)
+                                arr=getNowFormatDate();
+                            if(dep==null)
+                                dep=getNowFormatDate();
+                            var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
+                            document.cookie="arr="+arr;
+                            document.cookie="dep="+dep;
+                            document.cookie="b="+b;
+                            var form= document.getElementById("myForm");
+                            form.submit();
+                        }
+                    </script>
 
                     <table>
                         <tr>

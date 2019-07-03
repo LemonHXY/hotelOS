@@ -1,6 +1,5 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.Hotel;
 import net.suncaper.demo.domain.OrderOutput;
 import net.suncaper.demo.service.OrderService;
 import net.suncaper.demo.service.UserService;
@@ -8,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 //从用户订单列表进入的订单详情页面
 @Controller
@@ -27,7 +24,8 @@ public class UserOrderDetailController {
     //
     @GetMapping("/detail")
     public String getDetail(Model model, HttpServletRequest request) {
-        int oId=Integer.parseInt(request.getQueryString());
+        int temp=Integer.parseInt(request.getQueryString());
+        long oId=(int) temp;
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
         model.addAttribute("orderOutput", orderOutput);
         return "/user_order_detail.html";
@@ -36,7 +34,7 @@ public class UserOrderDetailController {
 
     @GetMapping("/delete")
     public String delete(Model model, HttpServletRequest request) {
-        int oId=Integer.parseInt(request.getQueryString());
+        long oId=(int)Integer.parseInt(request.getQueryString());
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
         model.addAttribute("orderOutput", orderOutput);
         return "/user_order_detail.html";

@@ -11,4 +11,5 @@ public interface HotelService {
     public Hotel findHotelByKey(int hotelId);
     public City finCityByString(String name);
     public List<Hotel> findByCityAndName(String  city,List<String> stringList);
+
 }

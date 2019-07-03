@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -78,32 +78,22 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                    <div class="col-md-4 probootstrap-form" style="margin:auto;">
-                        <p>酒店名：<span>123</span></p>
-                        <p><span>2019-6-30</span>到<span>2019-7-1</span>&nbsp;共<span>1</span>晚</p>
-                        <p><span>豪华大床房</span>&nbsp;<span>无早</span></p>
+                    <div class="col-md-4 probootstrap-form" style="margin:auto;"  >
+                        <p>酒店名：<span th:text="${hotelName}"></span></p>
+                        <p><span  th:text="${arr}" id="arr"></span>到<span th:text="${dep}" id="dep"></span>&nbsp;共<span  th:text="${nNight}" id="b"></span>晚</p>
+                        <p><span th:text="${roomType}"></span>&nbsp;<span th:text="${breakfast}"></span></p>
                         <br>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                        <form>
-                            <label for quantity>房间数：</label>
+                        <form  id="makeOrder" action="/roomorder/sure",method="post">
+                            <label for quantity >房间数：</label>
                             <label for="quantity">
-                                <select class="js-example-basic-single js-states form-control" id="quantity"
-                                        style="width:60px;" name="quantity">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                    <option value="">5</option>
-                                    <option value="">6</option>
-                                    <option value="">7</option>
-                                    <option value="">8</option>
-                                </select>
+                                <input type="text" class="form-control" id="quantity" name="quantity" style="width:60px;" onblur="caculate()">
                             </label>
                             <br>
-                            <label for guest_name>入住人：</label>
+                            <label for guest_name >下单人：</label>
                             <label for guest_name>
-                                <input type="text" class="form-control" id="guest_name">
+                                <input type="text" class="form-control" id="uName" name="uName" >
                             </label>
                             <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;">
                                 常用入住人
@@ -111,17 +101,73 @@
                             <br>
                             <label for guest_phone>手机号：</label>
                             <label for guest_phone>
-                                <input type="text" class="form-control" id="guest_name">
+                                <input type="text" class="form-control" id="uPhone"  name="uPhone" >
                             </label>
                         </form>
                     </div>
 
                 <br>
                 <div class="col-md-2 probootstrap-form" style="margin:auto;">
-                        <p>总价：<span>233元</span></p>
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;">确认订单</button>
+                        <p>单价：<span id="oneprice" th:text="${oneprice}">元</span></p>
+                        <p>总价：<span id="total_price" ></span></p>
+                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;" onclick="sure()">确认订单</button>
                 </div>
             </div>
+                <script>
+                    /**/
+                    function caculate() {
+                        var num=document.getElementById("quantity").value;
+                        var price=[[${oneprice}]];
+                        var total_price=document.getElementById("total_price");
+                        total_price.innerHTML=price*num+"元";//改变总价
+                    }
+                </script>
+                <script th:inline="javascript">
+                    /*创表并提交
+                    * 需要日期，roomid，name，phone*/
+                    var name="uId";//Cookies名字
+                    this.GetCookie = function(name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    function  sure() {
+                        var makeForm=document.getElementById("makeOrder");
+                        var input1=document.createElement("input");
+                        var input2=document.createElement("input");
+                        var input3=document.createElement("input");
+                        var input4=document.createElement("input");
+                        var input5=document.createElement("input");
+
+                        input1.type = "text";
+                        input1.name = "roomId";
+                        input1.value = [[${roomId1}]];
+
+                        input2.type = "text";
+                        input2.name = "arr";
+                        input2.value = [[${arr}]];
+                        input3.type = "text";
+                        input3.name = "dep";
+                        input3.value = [[${dep}]];
+                        input4.type = "text";
+                        input4.name = "uId";
+
+                        input4.value=GetCookie(name);
+                        input5.type = "text";
+                        input5.name = "oneprice";
+                        input5.value = [[${oneprice}]];
+                        makeForm.appendChild(input1);
+                        makeForm.appendChild(input2);
+                        makeForm.appendChild(input3);
+                        makeForm.appendChild(input4);
+                        makeForm.appendChild(input5);
+
+                        makeForm.method="post";
+                        makeForm.action="/roomorder/sure";
+                        makeForm.submit();
+                    }
+                </script>
                 <div class="col-md">
                     <br>
                     <br>

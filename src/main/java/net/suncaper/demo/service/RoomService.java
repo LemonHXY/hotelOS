@@ -18,6 +18,9 @@ public interface RoomService {
 
      public Room_quantity getRemain(int id, Date date);//查询某天某id房间的剩余数量
 
+     public int getRemainNumBetween(int id, Date date1,Date date2);//查询某天某id房间的剩余数量
+
+
      public List<Room> getRemainBetween(List<Room> list, Date date1,Date date2,int b);//查询某天某id房间的剩余数量
 
      public boolean roomPlus(int id, Date date,int num);//某日date房间id增加num个

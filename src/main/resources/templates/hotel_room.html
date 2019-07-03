@@ -159,23 +159,42 @@
                 </table>
             </table>
 
-            <table>
+            <table id="roomDetail">
                 <tr >
                     <th >房间类型</th>
                     <th >早餐</th>
                     <th>价格</th>
-                    <th >状态</th>
+                    <th>剩余房间数量</th>
                     <th>操作</th>
                 </tr>
                 <tr th:each="room:${rooms}">
-                    <th th:text="${room.roomType}">房间类型</th>
-                    <th th:text="${room.breakfast}">早餐</th>
-                    <th th:text="${room.price}">价格</th>
-                    <th >状态</th>
-                    <th>操作</th>
+                    <td th:text="${room.roomType}">房间类型</td>
+                    <td th:text="${room.breakfast}">早餐</td>
+                    <td th:text="${room.price}">价格</td>
+                    <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
+                    <td ></td>
+                    <td><a th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}"><button>下单</button></a></td>
                 </tr>
             </table>
                 <table>
+                    <script type="text/javascript">
+                        this.GetCookie = function(name) {
+                            var ck = document.cookie;
+                            var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                            var mch = ck.match(exp1);
+                            return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                        }
+                        var tab=document.getElementById("roomDetail")
+                        var ck = document.cookie;
+                        if(ck){
+                            for(var i=1 ;i<tab.rows.length;i++)
+                            {
+                                var name=tab.rows[i].cells[3].innerText;
+                                tab.rows[i].cells[4].innerHTML=GetCookie(name);
+
+                            }
+                        }
+                    </script>
             <br>
             <div class="col-md">
                 <br>
