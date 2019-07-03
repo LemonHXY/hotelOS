@@ -26,7 +26,7 @@ public class UserOrderDetailController {
     //
     @GetMapping("/detail")
     public String getDetail(Model model, HttpServletRequest request) {
-        int oId=Integer.parseInt(request.getQueryString());
+        int oId = Integer.parseInt(request.getQueryString());
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
         model.addAttribute("orderOutput", orderOutput);
         return "/user_order_detail.html";
@@ -34,10 +34,19 @@ public class UserOrderDetailController {
 
 
     @GetMapping("/checkout")
-    public String delete(Model model, HttpServletRequest request) {
-        int oId=Integer.parseInt(request.getQueryString());
+    public String checkOut(Model model, HttpServletRequest request) {
+        int oId = Integer.parseInt(request.getQueryString());
         r_orderMapper.updateStatus(oId);
 
         return "/user_order.html";
     }
+
+    @GetMapping("/delete")
+    public String delete(Model model, HttpServletRequest request) {
+        int oId = Integer.parseInt(request.getQueryString());
+        r_orderMapper.deleteByPrimaryKey(oId);
+
+        return "/user_order.html";
+    }
+
 }

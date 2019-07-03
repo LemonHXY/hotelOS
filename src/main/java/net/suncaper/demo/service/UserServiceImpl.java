@@ -61,4 +61,12 @@ public class UserServiceImpl implements UserService {
         return guestMapper.selectByExample(example);
     }
 
+    @Override
+    public List<User> GetAllUsers() {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUIdIsNotNull();
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList;
+    }
+
 }

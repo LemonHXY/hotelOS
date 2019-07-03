@@ -35,6 +35,7 @@ public class AdminController {
     @Autowired
     private OrderService orderService;
 
+
     // 默认跳转到管理员登陆界面
     @GetMapping
     public String AdminEnter(Model model, HttpServletRequest request) {
@@ -96,7 +97,7 @@ public class AdminController {
         return "/admin_order.html";
     }
 
-    // 所有订单详情页面
+    // 订单详情页面
     @GetMapping("/orderdetail")
     public String AdminOrderDetail(Model model, HttpServletRequest request) {
         int oId = Integer.parseInt(request.getQueryString());
@@ -123,7 +124,17 @@ public class AdminController {
 
     // 用户管理页面
     @GetMapping("/user")
-    public String AdminUser() {
+    public String AdminUser(User user1, Model model, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if ((cookies != null)) {// 如果登录信息不为空则返回所有订单
+            for (Cookie cookie : cookies)
+                if (cookie.getValue().equals("1")) {
+                    model.addAttribute("users", userService.GetAllUsers());
+                    return "/admin_order.html";
+                }
+        }
+        // 登陆信息为空则返回空的订单列表
+        model.addAttribute("users", userService.findUserByUIid(0));
         return "/admin_user.html";
     }
 

@@ -1,4 +1,5 @@
 package net.suncaper.demo.service;
+
 import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.HotelMapper;
 import net.suncaper.demo.mapper.R_orderMapper;
@@ -21,6 +22,7 @@ public class OrderServicelmpl implements OrderService {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public List<OrderOutput> GetOrderLists(int uId) {
         R_orderExample example = new R_orderExample();
         example.createCriteria().andUIdEqualTo(uId);
@@ -47,6 +49,61 @@ public class OrderServicelmpl implements OrderService {
         return orderList;
     }
 
+    @Override
+    public List<OrderOutput> GetAllOrderOutput() {
+        R_orderExample example = new R_orderExample();
+        example.createCriteria().andOIdIsNotNull();
+        List<R_order> r_order = r_orderMapper.selectByExample(example);
+        List<OrderOutput> orderList = new ArrayList<OrderOutput>();
+
+        for (R_order order : r_order) {
+            OrderOutput orderOutput = new OrderOutput();
+            int roomId = order.getRoomId();
+            Room room = roomMapper.selectByPrimaryKey(roomId);
+            int hotelId = room.getHotelId();
+            Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+
+            orderOutput.setHotelName(hotel.getHotelName());
+            orderOutput.setRoomType(room.getRoomType());
+            orderOutput.setoId(order.getoId());
+            orderOutput.setArrDate(order.getArrDate());
+            orderOutput.setDepDate(order.getDepDate());
+            orderOutput.setQuantity(order.getQuantity());
+            orderOutput.setTotalPrice(order.getTotalPrice());
+            orderOutput.setoStatus(order.getoStatus());
+            orderList.add(orderOutput);
+        }
+        return orderList;
+    }
+
+    @Override
+    public List<OrderOutput> GetAllByCheckOut() {
+        R_orderExample example = new R_orderExample();
+        example.createCriteria().andOStatusEqualTo("已退订");
+        List<R_order> r_order = r_orderMapper.selectByExample(example);
+        List<OrderOutput> orderList = new ArrayList<OrderOutput>();
+
+        for (R_order order : r_order) {
+            OrderOutput orderOutput = new OrderOutput();
+            int roomId = order.getRoomId();
+            Room room = roomMapper.selectByPrimaryKey(roomId);
+            int hotelId = room.getHotelId();
+            Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+
+            orderOutput.setHotelName(hotel.getHotelName());
+            orderOutput.setRoomType(room.getRoomType());
+            orderOutput.setoId(order.getoId());
+            orderOutput.setArrDate(order.getArrDate());
+            orderOutput.setDepDate(order.getDepDate());
+            orderOutput.setQuantity(order.getQuantity());
+            orderOutput.setTotalPrice(order.getTotalPrice());
+            orderOutput.setoStatus(order.getoStatus());
+            orderList.add(orderOutput);
+        }
+        return orderList;
+    }
+
+    @Override
     public OrderOutput GetOrderLists2(int oId) {
         OrderOutput orderOutput = new OrderOutput();
 
@@ -73,30 +130,5 @@ public class OrderServicelmpl implements OrderService {
         return orderOutput;
     }
 
-    public List<OrderOutput> GetAllOrderOutput(){
-        R_orderExample example = new R_orderExample();
-        example.createCriteria().andOIdIsNotNull();
-        List<R_order> r_order = r_orderMapper.selectByExample(example);
-        List<OrderOutput> orderList = new ArrayList<OrderOutput>();
-
-        for (R_order order : r_order) {
-            OrderOutput orderOutput = new OrderOutput();
-            int roomId = order.getRoomId();
-            Room room = roomMapper.selectByPrimaryKey(roomId);
-            int hotelId = room.getHotelId();
-            Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
-
-            orderOutput.setHotelName(hotel.getHotelName());
-            orderOutput.setRoomType(room.getRoomType());
-            orderOutput.setoId(order.getoId());
-            orderOutput.setArrDate(order.getArrDate());
-            orderOutput.setDepDate(order.getDepDate());
-            orderOutput.setQuantity(order.getQuantity());
-            orderOutput.setTotalPrice(order.getTotalPrice());
-            orderOutput.setoStatus(order.getoStatus());
-            orderList.add(orderOutput);
-        }
-        return orderList;
-    }
 }
 

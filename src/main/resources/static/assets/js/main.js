@@ -191,6 +191,27 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     $('#probootstrap-date-departure').datepicker('setEndDate', date3);
 
 
+    $('#probootstrap-date-arrival').datepicker({
+        todayBtn: "linked",
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var date4=new Date(e.date);
+        var date5=$('#probootstrap-date-departure').val();
+        date4.setDate(e.date.getDate() + 1);
+        var year = date4.getFullYear();
+        var month = date4.getMonth()+1;
+        var day = date4.getDate();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var date6 = year + "-" + month + "-" + day;
+        var startTime = date4;
+        $('#probootstrap-date-departure').datepicker('setStartDate', startTime);
+        if(date6>date5)
+        {
+            $("#probootstrap-date-departure").datepicker(
+                'setDate', date4
+            );}
+    });
 
     //结束时间：
 /*    $('#probootstrap-date-departure').datepicker({

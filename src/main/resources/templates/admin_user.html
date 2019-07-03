@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>后台用户管理</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+
+    <link href="/https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="/assets/fonts/fontawesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/assets/css/select2.css">
+
+
+    <link rel="stylesheet" href="/assets/css/helpers.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid #E4E4E4;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        a.ex2:hover, a.ex2:active {
+            color: green;
+            font-size: 150%;
+        }
+    </style>
+
+</head>
+<tr>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
+                    aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="ion-navicon"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="probootstrap-menu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/admin">管理员登陆</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/order">后台订单列表</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/checkoutlist">退房信息</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/admin/user">后台用户管理</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+
+
+    <section class="probootstrap-cover overflow-hidden relative"
+             style="background-image: url('/assets/images/bg_1.jpg');"
+             data-stellar-background-ratio="0.5" id="section-home">
+        <div class="overlay"></div>
+        <div class="container">
+            <!-- <div class="row align-items-center"> -->
+            <!-- <div class="col-md"> -->
+
+
+            <h2 class="display-4 border-bottom probootstrap-section-heading text-center">全部订单</h2>
+
+
+            <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
+
+                <div class="media-body">
+                    <table>
+                        <tr>
+                            <th>用户ID</th>
+                            <th>用户名</th>
+                            <th>用户状态</th>
+                            <th>设为异常</th>
+                            <th>恢复正常</th>
+                        </tr>
+                        <tr th:each="r_order : ${orders}">
+                            <!--三个信息-->
+                            <td class="text-center" th:text="${r_order.hotelName}"></td>
+                            <td class="text-center" th:text="${r_order.roomType}"></td>
+                            <td class="text-center" th:text="${r_order.depDate}"></td>
+                            <!--二个按钮-->
+                            <td align="center" valign="middle">
+                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">
+                                    <button>详情</button>
+                                </a>
+                            </td>
+                            <td align="center" valign="middle">
+                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">
+                                    <button>详情</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        </br></br></br></br></br></br></br></br></br></br>
+        <div class="col-md-12 text-center">
+            <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        </div>
+    </section>
+    <!-- END section -->
+
+    <script src="/assets/js/jquery.min.js"></script>
+
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+
+    <script src="/assets/js/jquery.waypoints.min.js"></script>
+    <script src="/assets/js/jquery.easing.1.3.js"></script>
+
+    <script src="/assets/js/select2.min.js"></script>
+
+    <script src="/assets/js/main.js"></script>
+    </body>
+</html>
