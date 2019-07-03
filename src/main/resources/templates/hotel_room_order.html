@@ -165,10 +165,10 @@
         var gbtn = document.getElementById("gbtn");
         var order = document.getElementById("order");
         if (btn1.value.match("确认订单")) {
-            if (gname.value == "") {
+            if (gname.value == ""||gname.value == null) {
                 window.alert("请填写入住人姓名！");
             }
-            else if (gphone.value == "") {
+            else if (gphone.value == ""||gphone.value ==null) {
                 window.alert("请填写入住人手机号！");
             }
             else {

@@ -140,23 +140,24 @@
                             <div class="row mb-3">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <select class="form-control">
-                                            <option value="">默认排序</option>
-                                            <option value="1">低价优先</option>
-                                            <option value="2">评分优先</option>
-                                            <option value="3">距离优先</option>
+                                        <select class="form-control" id="sort">
+                                            <option value="">请选择排序方式</option>
+                                            <option value="评分优先">评分优先</option>
+                                            <option value="距离优先">距离优先</option>
+                                            <option value="低价优先">低价优先</option>
+                                            <option value="高价优先">高价优先</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <select class="form-control">
-                                            <option value="">全部星级</option>
-                                            <option value="1">三星以下</option>
-                                            <option value="2">三星</option>
-                                            <option value="3">四星</option>
-                                            <option value="4">五星</option>
+                                        <select class="form-control" id="star">
+                                            <option value="全部星级">全部星级</option>
+                                            <option value="五星">五星</option>
+                                            <option value="四星">四星</option>
+                                            <option value="三星">三星</option>
+                                            <option value="三星以下">三星以下</option>
                                         </select>
 
                                     </div>
@@ -165,11 +166,22 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <select class="form-control">
-                                            <option value="">全部价格</option>
-                                            <option value="1">0-200元</option>
-                                            <option value="2">200-500元</option>
-                                            <option value="3">500-1000元</option>
-                                            <option value="4">1000元以上</option>
+                                            <option value="全部价格">全部价格</option>
+                                            <option value="0-200元">0-200元</option>
+                                            <option value="200-500元">200-500元</option>
+                                            <option value="500-1000元">500-1000元</option>
+                                            <option value="1000元以上">1000元以上</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option value="距离不限">距离不限</option>
+                                            <option value="1公里内">1公里内</option>
+                                            <option value="3公里内">3公里内</option>
+                                            <option value="5公里内">5公里内</option>
+                                            <option value="10公里内">10公里内</option>
                                         </select>
                                     </div>
                                 </div>
@@ -247,31 +259,76 @@
 <script>
     new verSelector(); //启动插件
 </script>
-<!--
-<script type="text/javascript" src="/assets/js/citydata.min.js"></script>
-<script type="text/javascript" src="/assets/js/cityselect-1.0.0.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        // 单选
-        var singleSelect1 = $('#single-select-1').citySelect({
-            dataJson: cityData,
-            multiSelect: false,
-            shorthand: true,
-            search: true,
-            onInit: function () {
-                console.log(this)
-            },
-            onTabsAfter: function (target) {
-                console.log(target)
-            },
-            onCallerAfter: function (target, values) {
-                console.log(JSON.stringify(values))
-            }
-        });
+<script>
+    var sort = document.getElementById('sort');
 
-        // 单选设置城市
-        singleSelect1.setCityVal('北京市');
-    });</script>
--->
+    sort.onchange = function () {
+        var table = document.getElementsByTagName('table')[0];
+        var tr = table.getElementsByTagName('tr');
+        var array = [];
+        for (var i = 1; i < tr.length; i++) {
+            array.push(tr[i]);
+        }
+        if (sort.value == "评分优先")
+            Grade(array);
+        else if (sort.value == "距离优先")
+            Distance(array);
+        else if (sort.value == "低价优先")
+            Pricelow(array);
+        else if (sort.value == "高价优先")
+            Pricehigh(array);
+        else
+            return;
+        for (var i = 0; i < array.length; i++) {
+            table.appendChild(array[i]);
+        }
+    }
+
+    function Pricelow(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) >= Number(array[j].getElementsByTagName('td')[5].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    function Pricehigh(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= Number(array[j].getElementsByTagName('td')[5].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    function Grade(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[4].innerText) <= Number(array[j].getElementsByTagName('td')[4].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+</script>
 </body>
 </html>
