@@ -1,14 +1,12 @@
 package net.suncaper.demo.service;
 
-import net.suncaper.demo.domain.Room;
-import net.suncaper.demo.domain.RoomExample;
-import net.suncaper.demo.domain.Room_quantity;
-import net.suncaper.demo.domain.Room_quantityExample;
+import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.RoomMapper;
 import net.suncaper.demo.mapper.Room_quantityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,10 +49,26 @@ public  class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room_quantity> getRemain(int id, Date date) {
-        Room_quantityExample example = new Room_quantityExample();
-        example.createCriteria().andRoomIdEqualTo(id).andRDateEqualTo(date);
-        return Room_quantityMapper.selectByExample(example);
+    public Room_quantity getRemain(int id, Date date) {
+        Room_quantityKey key = new Room_quantityKey(id,date);
+        return Room_quantityMapper.selectByPrimaryKey(key);
+    }
+
+    @Override
+    public List<Room> getRemainBetween(List<Room> list, Date date1, Date date2 ,int b) {
+        Room_quantityExample example=new Room_quantityExample();
+        List<Room> roomList = list;
+        for(Room room:list)
+        {
+            example.clear();
+            example.createCriteria().andRoomIdEqualTo(room.getRoomId()).andRDateBetween(date1,date2);
+            if(Room_quantityMapper.countByExample(example)<=b)
+            {
+                roomList.remove(room);
+            }
+        }
+
+        return roomList;
     }
 
     @Override
@@ -65,6 +79,17 @@ public  class RoomServiceImpl implements RoomService {
     @Override
     public boolean roomMinus(int id, Date date, int num) {
         return false;
+    }
+
+    @Override
+    public List<Room> findRoomByDate(int hotelId, Date start, Date end) {
+        List<Room> roomList=findRoomByHotelId(hotelId);
+        List<Room> result=new ArrayList<Room>();
+        for(Room room:roomList )
+        {
+
+        }
+        return null;
     }
 
 }

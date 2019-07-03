@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-
 //搜索控制器
 @Controller
 @RequestMapping("/search")
@@ -34,9 +36,11 @@ public class SearchController {
 
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
-    public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) {
+    public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
         City temp=hotelService.finCityByString(mySearch.getCity());
-        String d=mySearch.getStart();
+            Date arr=formatter.parse(mySearch.getStart());
+            Date dep=formatter.parse(mySearch.getEnd());
         String []s=mySearch.getName().split("\\s+");
         List<String>  keyWord= Arrays.asList(s);
         if(temp==null)
@@ -45,6 +49,21 @@ public class SearchController {
             return "/hotel_search.html";
         }
         List<Hotel>  c=hotelService.findByCityAndName(temp.getCity(),keyWord);
+        List<Hotel> result=c;
+        for(Hotel h:c)
+        {
+            List<Room> rooms=roomservice.findRoomByHotelId(h.getHotelId());
+           List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,2);
+           if(r.size()==0)
+               result.remove(h);
+        }
+
+
+
+
+
+
+
         //List<Hotel>  c=hotelService.findHotelByCityId(temp.getCityId());
         model.addAttribute("search",new MySearch());
         model.addAttribute("hotels",c);

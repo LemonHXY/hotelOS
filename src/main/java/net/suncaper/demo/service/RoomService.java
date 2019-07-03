@@ -16,10 +16,14 @@ public interface RoomService {
 
      public Room findRoomById(int id); //通过房间id寻找一个房间
 
-     public List<Room_quantity> getRemain(int id, Date date);//查询某天某id房间的剩余数量
+     public Room_quantity getRemain(int id, Date date);//查询某天某id房间的剩余数量
+
+     public List<Room> getRemainBetween(List<Room> list, Date date1,Date date2,int b);//查询某天某id房间的剩余数量
 
      public boolean roomPlus(int id, Date date,int num);//某日date房间id增加num个
 
      public boolean roomMinus(int id, Date date,int num);//某日date房间id减少num个
+
+     public List<Room> findRoomByDate(int hotelId,Date start, Date end);
 
 }
