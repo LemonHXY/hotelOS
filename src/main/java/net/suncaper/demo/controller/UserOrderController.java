@@ -23,13 +23,18 @@ public class UserOrderController {
     public String SearchPage(Model model, HttpServletRequest request) {
         int uId = 0;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("uId")) {
-                uId = Integer.parseInt(cookie.getValue());
+        if ((cookies != null)) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("uId")) {
+                    uId = Integer.parseInt(cookie.getValue());
+                    model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
+                    return "/user_order.html";
+                }
             }
         }
-        model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
+        model.addAttribute("orders", orderServicelmpl.GetOrderLists(0));
         return "/user_order.html";
+
     }
 
 }
