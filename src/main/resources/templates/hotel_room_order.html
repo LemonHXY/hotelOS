@@ -58,9 +58,9 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/userorder">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder/get">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
             </ul>
         </div>
     </div>
@@ -85,43 +85,46 @@
                         <br>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                        <form>
+                        <form id="order">
                             <label for quantity>房间数：</label>
                             <label for="quantity">
                                 <select class="js-example-basic-single js-states form-control" id="quantity"
                                         style="width:60px;" name="quantity">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                    <option value="">5</option>
-                                    <option value="">6</option>
-                                    <option value="">7</option>
-                                    <option value="">8</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                 </select>
                             </label>
-                            <br>
-                            <label for guest_name>入住人：</label>
-                            <label for guest_name>
-                                <input type="text" class="form-control" id="guest_name">
-                            </label>
-                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;">
+                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
+                                    id="gbtn">
                                 常用入住人
                             </button>
                             <br>
+                            <label for guest_name>入住人：</label>
+                            <label for guest_name>
+                                <input type="text" class="form-control" required="true" id="gname">
+                            </label>
+                            <br>
                             <label for guest_phone>手机号：</label>
                             <label for guest_phone>
-                                <input type="text" class="form-control" id="guest_name">
+                                <input type="text" class="form-control" required="true" id="gphone">
                             </label>
                         </form>
                     </div>
 
-                <br>
-                <div class="col-md-2 probootstrap-form" style="margin:auto;">
+                    <br>
+                    <div class="col-md-2 probootstrap-form" style="margin:auto;">
                         <p>总价：<span>233元</span></p>
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;">确认订单</button>
+                        <input type="button"
+                               style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;"
+                               id="btn1" value="确认订单" onclick="buy()">
+                    </div>
                 </div>
-            </div>
                 <div class="col-md">
                     <br>
                     <br>
@@ -133,18 +136,6 @@
 
         </div>
     </div>
-    <!--
-        <div style="float:right;">
-            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                    onclick="ck1();">修改密码
-            </button>
-            &nbsp;&nbsp;&nbsp;
-        </div>
-        <div style="float:right;">
-            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                    onclick="ck();">修改昵称
-            </button>
-        </div>-->
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
         <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
@@ -164,5 +155,37 @@
 <script src="/assets/js/select2.min.js"></script>
 
 <script src="/assets/js/main.js"></script>
+
+<script>
+    function buy() {
+        var btn1 = document.getElementById("btn1");
+        var quan = document.getElementById("quantity");
+        var gname = document.getElementById("gname");
+        var gphone = document.getElementById("gphone");
+        var gbtn = document.getElementById("gbtn");
+        var order = document.getElementById("order");
+        if (btn1.value.match("确认订单")) {
+            if (gname.value == ""||gname.value == null) {
+                window.alert("请填写入住人姓名！");
+            }
+            else if (gphone.value == ""||gphone.value ==null) {
+                window.alert("请填写入住人手机号！");
+            }
+            else {
+                btn1.value = "支付";
+                quan.disabled = true;
+                gname.disabled = true;
+                gphone.disabled = true;
+                gbtn.disabled = true;
+            }
+        }
+        else {
+            quan.disabled = false;
+            gname.disabled = false;
+            gphone.disabled = false;
+            order.submit();
+        }
+    };
+</script>
 </body>
 </html>
