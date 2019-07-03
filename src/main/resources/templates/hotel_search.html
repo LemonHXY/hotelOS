@@ -91,21 +91,12 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="city">城市</label>
-                                        <div>
-                                            <label for="city" style="width: 100%;">
-                                                <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city"  th:field="*{city}">
-                                                    <option value=""></option>
-                                                    <option value="成都">成都</option>
-                                                    <option value="北京">北京</option>
-                                                    <option value="上海">上海</option>
-                                                    <option value="深圳">深圳</option>
-                                                    <option value="杭州">杭州</option>
-                                                    <option value="南京">南京</option>
-                                                    <option value="武汉">武汉</option>
-                                                    <option value="昆明">昆明</option>
-                                                </select>
-                                            </label>
-                                        </div>
+                                        <label for="city" style="width: 100%;">
+                                            <select required="true"
+                                                    class="js-example-basic-single js-states form-control" id="city"
+                                                    style="width: 100%;" name="city" th:field="*{city}">
+                                            </select>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -177,7 +168,8 @@
                                 </div>
 
                                 <div class="col-md">
-                                    <input type="submit" value="   搜     索   " onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                                    <input type="submit" value="   搜     索   "
+                                           onclick="function1()" style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
                             </div>
@@ -188,8 +180,8 @@
                     <table>
                         <tr>
                             <th class="text-center" width="100px">图片</th>
-                            <th>酒店名</th>
-                            <th>酒店地址</th>
+                            <th width="240px">酒店名</th>
+                            <th width="240px">酒店地址</th>
                             <th class="text-center" width="40px">星级</th>
                             <th class="text-center" width="40px">评分</th>
                             <th class="text-center" width="40px">价格</th>
@@ -214,10 +206,10 @@
             </div>
         </div>
     </div>
-        </br></br></br></br></br></br></br>
-        <div class="col-md-12 text-center">
-            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-        </div>
+    </br></br></br></br></br></br></br>
+    <div class="col-md-12 text-center">
+        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+    </div>
 
 </section>
 <!-- END section -->
@@ -238,31 +230,13 @@
 <script src="/assets/js/main.js"></script>
 
 <script src="/assets/js/jquery.js"></script>
-<script type="text/javascript" src="/assets/js/citydata.min.js"></script>
-<script type="text/javascript" src="/assets/js/cityselect-1.0.0.min.js"></script>
 
+<script src="/assets/js/area.js"></script><!--所有城市数据-->
+<script src="/assets/js/select.js"></script><!--默认调用方法-->
+<script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
+<script>
+    new verSelector(); //启动插件
+</script>
 
-<!--<script type="text/javascript">
-    $(function () {
-        // 单选
-        var singleSelect1 = $('#single-select-1').citySelect({
-            dataJson: cityData,
-            multiSelect: false,
-            shorthand: true,
-            search: true,
-            onInit: function () {
-                console.log(this)
-            },
-            onTabsAfter: function (target) {
-                console.log(target)
-            },
-            onCallerAfter: function (target, values) {
-                console.log(JSON.stringify(values))
-            }
-        });
-
-        // 单选设置城市
-        singleSelect1.setCityVal('北京市');
-    });</script>-->
 </body>
 </html>

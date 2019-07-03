@@ -13,7 +13,7 @@ import javax.servlet.http.*;
 
 //登陆控制器
 @Controller
-@RequestMapping({"enter"})
+@RequestMapping("enter")
 public class EnterController {
     @Autowired
     private UserService userService;
@@ -53,10 +53,11 @@ public class EnterController {
         }
         else {
             model.addAttribute("user",new User());
-            model.addAttribute("msg1", "密码错误");
+            model.addAttribute("msg1", "用户名或密码错误");
             return "/enter.html";
         }
     }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();

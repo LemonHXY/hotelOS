@@ -1394,15 +1394,17 @@
             return this;
     };
 
-    var date = new Date();
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate()+29);
 
     var defaults = $.fn.datepicker.defaults = {
-        autoclose: false,
+        autoclose: true,
         beforeShowDay: $.noop,
         calendarWeeks: false,
         clearBtn: false,
         daysOfWeekDisabled: [],
-        endDate: Infinity,
+        endDate: date2,
         forceParse: true,
         format: 'yyyy-mm-dd',
         keyboardNavigation: true,
@@ -1412,7 +1414,7 @@
         multidateSeparator: ',',
         orientation: "auto",
         rtl: false,
-        startDate: date,
+        startDate: date1,
         startView: 0,
         todayBtn: false,
         todayHighlight: true,

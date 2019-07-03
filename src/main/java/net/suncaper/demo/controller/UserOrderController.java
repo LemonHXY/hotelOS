@@ -21,16 +21,14 @@ public class UserOrderController {
     //显示订单界面
     @GetMapping
     public String SearchPage(Model model, HttpServletRequest request) {
-        Cookie[] cookies=request.getCookies();
-        int uId = 1;
-        for (Cookie cookie:cookies)
-        {
-            if(cookie.getName().equals("uId"))
-            {
-                uId=Integer.parseInt(cookie.getValue());
+        int uId = 0;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("uId")) {
+                uId = Integer.parseInt(cookie.getValue());
             }
         }
-       model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
+        model.addAttribute("orders", orderServicelmpl.GetOrderLists(uId));
         return "/user_order.html";
     }
 

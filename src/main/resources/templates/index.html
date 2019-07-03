@@ -70,42 +70,35 @@
       <div class="overlay"></div>
       <div class="container">
         <div class="row align-items-center">
-         <div class="col-md">
-            <h2 class="heading mb-2 display-4 font-light probootstrap-animate text-center">订酒店，上麦味!</h2>
-			</br></br></br></br></br>
-          </div>
-          <div class="col-md probootstrap-animate">
-            <form action="/search" class="probootstrap-form" method='post' th:object="${search}">
-              <div class="form-group">
-                <div class="row mb-3">
-                  <div class="col-md">
+            <div class="col-md">
+                <h2 class="heading mb-2 display-4 font-light probootstrap-animate text-center">订酒店，上麦味!</h2>
+                </br></br></br></br></br>
+            </div>
+            <div class="col-md probootstrap-animate">
+                <form action="/search" class="probootstrap-form" method='post' id="form" th:object="${search}">
                     <div class="form-group">
-                      <label for="city">城市</label>
-                      <label for="city" style="width: 100%;" >
-                          <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city" th:field="*{city}">
-                              <option value="成都">成都</option>
-                              <option value="北京">北京</option>
-                              <option value="上海">上海</option>
-                              <option value="深圳">深圳</option>
-                              <option value="杭州">杭州</option>
-                              <option value="南京">南京</option>
-                              <option value="武汉">武汉</option>
-                              <option value="昆明">昆明</option>
-                          </select>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-group">
-                      <label for="hotel_keyword">酒店关键字</label>
-                        <label for="hotel_keyword" style="width: 100%;">
-						<input type="text" class="form-control" id="hotel_keyword"
-                               name="name" placeholder="如锦江、如家" th:field="*{name}">
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <!-- END row -->
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="city">城市</label>
+                                    <label for="city" style="width: 100%;">
+                                        <select required="true" class="js-example-basic-single js-states form-control"
+                                                id="city" style="width: 100%;" name="city" th:field="*{city}">
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="hotel_keyword">酒店关键字</label>
+                                    <label for="hotel_keyword" style="width: 100%;">
+                                        <input type="text" class="form-control" id="hotel_keyword" name="name"
+                                               placeholder="如锦江、如家" th:field="*{name}">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END row -->
 
                 <div class="row mb-5">
 				  <div class="col-md">
@@ -162,14 +155,50 @@
     <script src="/assets/js/main.js"></script>
 
 
-<!--    <script src="/assets/js/area.js"></script>&lt;!&ndash;所有城市数据&ndash;&gt;
-    <script src="/assets/js/select.js"></script>&lt;!&ndash;默认调用方法&ndash;&gt;
-    <script src="/assets/verSelector/verSelect.js"></script>&lt;!&ndash;封装插件&ndash;&gt;
-    <script>
-        new verSelector(); //启动插件
-    </script>-->
+<script src="/assets/js/area.js"></script><!--所有城市数据-->
+<script src="/assets/js/select.js"></script><!--默认调用方法-->
+<script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
+<script>
+    new verSelector(); //启动插件
+</script>
+
+<script>
+
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + 1);
+
+    $('#probootstrap-date-arrival').datepicker(
+        'setDate', date1
+    );
+    $('#probootstrap-date-departure').datepicker(
+        'setDate', date2
+    );
+
+        $('#probootstrap-date-arrival').datepicker({
+            todayBtn: "linked",
+            endDate: new Date()
+        }).on('changeDate', function (e) {
+            var date4=new Date(e.date);
+            var date5=$('#probootstrap-date-departure').val();
+            date4.setDate(e.date.getDate() + 1);
+            var year = date4.getFullYear();
+            var month = date4.getMonth()+1;
+            var day = date4.getDate();
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+            var date6 = year + "-" + month + "-" + day;
+            var startTime = date4;
+            $('#probootstrap-date-departure').datepicker('setStartDate', startTime);
+            if(date6>date5)
+            {
+                $("#probootstrap-date-departure").datepicker(
+                    'setDate', date4
+                );}
+        });
 
 
+</script>
 
 	</body>
 </html>

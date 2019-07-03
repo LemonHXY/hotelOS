@@ -21,9 +21,6 @@ public class UserOrderDetailController {
     private OrderService orderService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private R_orderMapper r_orderMapper;
 
     //
