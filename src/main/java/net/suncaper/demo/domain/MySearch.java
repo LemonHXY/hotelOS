@@ -7,13 +7,13 @@ public class MySearch {
     private String start;
     private String end;
 
+
     public MySearch(String city, String name, String start, String end) {
         this.city = city;
         this.name = name;
         this.start = start;
         this.end = end;
     }
-
     public MySearch() {
         super();
     }
@@ -51,4 +51,6 @@ public class MySearch {
     public void setEnd(String end) {
         this.end = end;
     }
+
+
 }

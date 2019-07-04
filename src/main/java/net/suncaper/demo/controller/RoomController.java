@@ -20,7 +20,7 @@ public class RoomController {
 
     @GetMapping("/get")
     public String getRegister(Model model) {
-        model.addAttribute("order", new User());
+        model.addAttribute("", new User());
         return "/hotel_room.html";
     }
 

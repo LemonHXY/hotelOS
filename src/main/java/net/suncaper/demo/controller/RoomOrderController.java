@@ -98,7 +98,7 @@ public class RoomOrderController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String temp = request.getParameter("roomId");
         int roomId=Integer.parseInt(temp);
-        temp= (String) request.getParameter("roomId");
+        temp= (String) request.getParameter("uId");
         int uId = Integer.parseInt(temp);
         Date oTime=new Date();
         Date arr=formatter.parse((String) request.getParameter("arr"));

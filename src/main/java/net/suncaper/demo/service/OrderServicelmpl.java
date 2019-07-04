@@ -91,7 +91,7 @@ public class OrderServicelmpl implements OrderService {
         Room room = roomMapper.selectByPrimaryKey(roomId);
         int hotelId = room.getHotelId();
 
-        User user = userMapper.selectByPrimaryKey(r_order.getuId());
+        //User user = userMapper.selectByPrimaryKey(r_order.getuId());
 
         Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
         orderOutput.setHotelName(hotel.getHotelName());
@@ -100,8 +100,8 @@ public class OrderServicelmpl implements OrderService {
         orderOutput.setArrDate(r_order.getArrDate());
         orderOutput.setDepDate(r_order.getDepDate());
         orderOutput.setTotalPrice(r_order.getTotalPrice());
-        orderOutput.setuName(user.getuName());
-        orderOutput.setuPhone("13208199005");
+        orderOutput.setuName(r_order.getgName());
+        orderOutput.setuPhone(r_order.getgPhone());
         orderOutput.setoId(r_order.getoId());
         orderOutput.setoStatus(r_order.getoStatus());
 

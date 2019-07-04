@@ -78,14 +78,19 @@ public  class RoomServiceImpl implements RoomService {
         /*搜索一列room中在这些日期里面还有剩余的列表*/
         Room_quantityExample example=new Room_quantityExample();
         List<Room> roomList = list;
+        List<Room> shouldRemove=new ArrayList<>();
         for(Room room:list)
         {
             example.clear();
-            example.createCriteria().andRoomIdEqualTo(room.getRoomId()).andRDateBetween(date1,date2);
+            example.createCriteria().andRoomIdEqualTo(room.getRoomId()).andRDateBetween(date1,date2).andRemainGreaterThan(0);
             if(room_quantityMapper.countByExample(example)<=b)
             {
-                roomList.remove(room);
+                shouldRemove.add(room);
             }
+        }
+        for(Room room:shouldRemove)
+        {
+            list.remove(room);
         }
 
         return roomList;

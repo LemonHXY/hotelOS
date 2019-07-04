@@ -15,10 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 //搜索控制器
 @Controller
 @RequestMapping("/search")
@@ -41,6 +39,9 @@ public class SearchController {
         City temp=hotelService.finCityByString(mySearch.getCity());
         Date arr=formatter.parse(mySearch.getStart());
         Date dep=formatter.parse(mySearch.getEnd());
+
+
+
         Cookie []cookies=request.getCookies();
         int b=0;
         for(Cookie cookie:cookies)
@@ -98,6 +99,7 @@ public class SearchController {
         }
         Hotel hotel=hotelService.findHotelByKey(hotelId);
         List<Room> rooms=roomservice.findRoomByHotelId(hotelId);
+        List<Room> result=new ArrayList<>();
        // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
         for (Room room:rooms)
         {
@@ -105,9 +107,11 @@ public class SearchController {
             Cookie cookie=new Cookie(String.valueOf(room.getRoomId()),String.valueOf(num));
             cookie.setPath("/");
             response.addCookie(cookie);
+            if(num>0)
+                result.add(room);
         }
         model.addAttribute("hotel",hotel);
-        model.addAttribute("rooms",rooms);
+        model.addAttribute("rooms",result);
         return "/hotel_room.html";
     }
 }
