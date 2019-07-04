@@ -22,6 +22,8 @@
 
     <link rel="stylesheet" href="/assets/fonts/fontawesome/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="/assets/css/bootstrap-datepicker.css">
+
     <link rel="stylesheet" href="/assets/css/select2.css">
 
 
@@ -40,11 +42,10 @@
             width: 100%;
         }
 
-        a.ex2:hover,a.ex2:active {color:green;font-size:120%;}
-        span {
-            width: 280px;
+        a.ex2:hover, a.ex2:active {
+            color: green;
+            font-size: 120%;
         }
-
     </style>
 
 </head>
@@ -53,7 +54,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
     <div class="container">
-        <a class="navbar-brand" href="/index1.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
                 aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="ion-navicon"></i></span>
@@ -61,9 +62,24 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder" >我的订单</a></li>
+                <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
+                <script>
+                    var name="uName";//Cookies名字
+                    this.GetCookie = function(name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    var ck = document.cookie;
+                    if(ck){
+                        document.getElementById("denglu").innerText="您好，"+GetCookie(name);
+                        document.getElementById("denglu").href="";
+                        document.getElementById("zhuce").innerText="退出登录";
+                        document.getElementById("zhuce").href="/enter/logout";}
+                </script>
             </ul>
         </div>
     </div>
@@ -82,54 +98,47 @@
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
-    <h2 class="display-4 border-bottom probootstrap-section-heading text-center"  th:text="${hotel.hotelName}">酒店详情</h2>
+    <h2 class="display-4 border-bottom probootstrap-section-heading text-center" th:text="${hotel.hotelName}">酒店详情</h2>
     <div class="row probootstrap-animate">
         <div class="col-md-12">
             <div class="owl-carousel js-owl-carousel">
-                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
-                   target="_blank"
-                   href="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x">
-                    <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span>
-                        <img  th:src="${hotel.photo1}"  >
+                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
+                    <span style="width:280px;">
+                        <img th:src="${hotel.photo1}">
                     </span>
                     <br><br>
-                    <em>酒店图片（点击查看大图）</em>
+                    <em>酒店图片</em>
                 </a>
-                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
-                   target="_blank" href="#">
-                    <span>
+                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
+                    <span style="width:280px;">
                         <img th:src="${hotel.photo2}">
                     </span>
                     <br><br>
-                    <em>酒店图片（点击查看大图）</em>
+                    <em>环境图片</em>
                 </a>
-                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
-                   target="_blank" href="#">
+                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span>
+                    <span style="width:280px;">
                         <img th:src="${hotel.photo3}">
                     </span>
                     <br><br>
-                    <em>房间图片（点击查看大图）</em>
+                    <em>环境图片</em>
                 </a>
-                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
-                   target="_blank" href="#">
+                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span>
+                    <span style="width:280px;">
                         <img th:src="${hotel.photo4}">
                     </span>
                     <br><br>
-                    <em>房间图片（点击查看大图）</em>
+                    <em>环境图片</em>
                 </a>
-                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate"
-                   target="_blank" href="#">
+                <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span>
+                    <span style="width:280px;">
                         <img th:src="${hotel.photo5}">
                     </span>
                     <br><br>
-                    <em>房间图片（点击查看大图）</em>
+                    <em>环境图片</em>
                 </a>
 
 
@@ -138,140 +147,116 @@
     </div>
 
     <div class="container">
-        <div class="col-md-12 probootstrap-form" style="margin:auto;">
-            <table >
-                <tr >
-                    <td >酒店名</td>
-                    <td>地址</td>
-                    <td>星级</td>
-                    <td>评分</td>
-                </tr>
-                <tr >
-                    <td th:text="${hotel.hotelName}">酒店名</td>
-                    <td th:text="${hotel.addressline}">地址</td>
-                    <td th:text="${hotel.starRating}">星级</td>
-                    <td th:text="${hotel.ratingAverage}">评分</td>
-                </tr>
+        <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
+            <div class="media-body">
+                <!--  <div class="col-md probootstrap-animate">-->
                 <table>
-                <tr>
-                    <td>详情</td>
-                </tr>
+                    <tr>
+                        <td width="500px">酒店名：&nbsp<span th:text="${hotel.hotelName}"></span></td>
+                        <td width="100px">星级：&nbsp<span th:text="${hotel.starRating}"></span></td>
+                        <td width="100px">评分：&nbsp<span th:text="${hotel.ratingAverage}"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">地址：&nbsp<span th:text="${hotel.addressline}"></span>
+<!--                            <p id="demo"></p></td>-->
+                        <td>
+                            <button class="ion-location" onclick="getLocation()"
+                                    style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">&nbsp&nbsp查看地图
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">详情：&nbsp<span></span></td>
+                    </tr>
                 </table>
-            </table>
 
-            <table id="roomDetail">
-                <tr >
-                    <th >房间类型</th>
-                    <th >早餐</th>
-                    <th>价格</th>
-                    <th>剩余房间数量</th>
-                    <th>操作</th>
-                </tr>
-                <tr th:each="room:${rooms}">
-                    <td th:text="${room.roomType}">房间类型</td>
-                    <td th:text="${room.breakfast}">早餐</td>
-                    <td th:text="${room.price}">价格</td>
-                    <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
-                    <td ></td>
-                    <td><a  id="check" th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" ><button >下单</button></a></td>
-                </tr>
-            </table>
+                <form action="#" class="probootstrap-form" style="padding: 20px;margin-bottom: 0px;" method="post">
+                    <div class="form-group">
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="probootstrap-date-arrival">入住日期</label>
+                                    <div class="probootstrap-date-wrap">
+                                        <span class="icon ion-calendar"></span>
+                                        <input autocomplete=“off” type="text" id="probootstrap-date-arrival"
+                                               class="form-control" placeholder="" name="start">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="probootstrap-date-departure">离店日期</label>
+                                    <div class="probootstrap-date-wrap">
+                                        <span class="icon ion-calendar"></span>
+                                        <input autocomplete=“off” type="text" id="probootstrap-date-departure"
+                                               class="form-control" placeholder="" name="end">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md">
+                                <br>
+                                <input type="submit" value="确定" class="btn btn-primary btn-block">
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
                 <table>
-                    <script type="text/javascript">
-                        this.GetCookie = function(name) {
-                            var ck = document.cookie;
-                            var exp1 = new RegExp(name + "=.*?(?=;|$)");
-                            var mch = ck.match(exp1);
-                            return mch ? unescape(mch[0].substring(name.length + 1)) : null;
-                        }
-                        var tab=document.getElementById("roomDetail")
-                        var ck = document.cookie;
-                        if(ck){
-                            for(var i=1 ;i<tab.rows.length;i++)
-                            {
-                                var name=tab.rows[i].cells[3].innerText;
-                                tab.rows[i].cells[4].innerHTML=GetCookie(name);
-
-                            }
-                        }
-                    </script>
-            <br>
-            <div class="col-md">
-                <br>
-                <br>
-                <p><a class="ex2" style="float:right;" href="javascript:history.back(-1)">返回酒店列表</a></p>
-                <br>
-                <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
+                    <tr>
+                        <th>房间类型</th>
+                        <th>早餐</th>
+                        <th>价格</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr th:each="room:${rooms}">
+                        <th th:text="${room.roomType}">房间类型</th>
+                        <th th:text="${room.breakfast}">早餐</th>
+                        <th th:text="${room.price}">价格</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </table>
+                <table>
+                    <br>
+                    <div class="col-md">
+                        <br>
+                        <br>
+                        <p><a class="ex2" style="float:right;" href="javascript:history.back(-1)">返回酒店列表</a></p>
+                        <br>
+                        <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
+                    </div>
+                </table>
             </div>
-                </table>
-        </div>
-    </div>
+        </div></div>
+
+        </br></br></br></br></br></br></br>
+        <div class="col-md-12 text-center">
+            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        </div></section>
 
 
-    </br></br></br></br></br></br></br>
-    <div class="col-md-12 text-center">
-        <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>
+        <script src="/assets/js/jquery.min.js"></script>
 
+        <script src="/assets/js/popper.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/owl.carousel.min.js"></script>
+        <script src="/assets/js/bootstrap-datepicker.js"></script>
 
-    <!--
-            <div class="container">
+        <script src="/assets/js/jquery.waypoints.min.js"></script>
+        <script src="/assets/js/jquery.easing.1.3.js"></script>
 
-                <div class="col-md text-center">
-                    个人信息
-                </div>
-                <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                    <p style="color:black;">用户名：123</p>
-                    <p style="color:black;">昵&nbsp;&nbsp;&nbsp;称：123</p>
-                    <br>
-                    <div style="float:right;">
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"  onclick="ck1();">修改密码</button>
-                        &nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div style="float:right;">
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"  onclick="ck();">修改昵称</button>
-                    </div>
-                </div>
-                <br>
-                <div class="col-md text-center">
-                    常用联系人
-                </div>
-                <div class="col-md-9 probootstrap-form" style="margin:auto;">
-                    <table>
-                        <thead>
-                        <th>姓名</th>
-                        <th>手机号</th>
-                        <th>删除</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <br>
-                    <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;" onclick="ck2();">添加常用入住人</button>
-                </div>
+        <script src="/assets/js/select2.min.js"></script>
 
-                <div class="col-md">
-                    <br>
-                    <br>
-                    <a class="ex2" style="float:right;" href="index1.html">返回酒店列表</a></label>
-                    <a class="ex2" style="float:right;" href="index1.html">返回首页</a></label>
-                </div>
-            </div>-->
-    </div><!--</div></div>-->      </section>
+        <script src="/assets/js/main.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+                $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+            });
+        </script>
 
-
-<script src="/assets/js/jquery.min.js"></script>
-
-<script src="/assets/js/popper.min.js"></script>
-<script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/owl.carousel.min.js"></script>
-
-<script src="/assets/js/jquery.waypoints.min.js"></script>
-<script src="/assets/js/jquery.easing.1.3.js"></script>
-
-<script src="/assets/js/select2.min.js"></script>
-
-<script src="/assets/js/main.js"></script>
 </body>
 </html>

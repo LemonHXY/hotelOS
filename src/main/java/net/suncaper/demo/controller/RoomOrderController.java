@@ -85,8 +85,6 @@ public class RoomOrderController {
         return "/hotel_room_order.html";
     }
 
-    //待修改
-    //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
     public String saveUser(List<Hotel> d, Model model) {
 

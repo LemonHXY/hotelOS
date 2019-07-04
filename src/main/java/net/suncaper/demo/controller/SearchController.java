@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,12 @@ public class SearchController {
     @GetMapping
     public String SearchPage(Model model) {
         model.addAttribute("search",new MySearch());
+        return "/hotel_search.html";
+    }
+
+    @GetMapping("/calcaule")
+    public  String calculate(Model model, @RequestParam("langitude") String langitude,@RequestParam("latitude")String latitude){
+
         return "/hotel_search.html";
     }
 
@@ -114,6 +121,7 @@ public class SearchController {
         model.addAttribute("rooms",result);
         return "/hotel_room.html";
     }
+
 }
 
 

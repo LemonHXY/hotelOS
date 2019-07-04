@@ -60,9 +60,27 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" id="order" onclick="alert('还未登录！')" href="/enter">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
+                <script>
+                    var name = "uName";//Cookies名字
+                    this.GetCookie = function (name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    var ck = document.cookie;
+                    if (ck) {
+                        document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
+                        document.getElementById("denglu").href = "";
+                        document.getElementById("order").href = "/userorder";
+                        document.getElementById("order").onclick = "";
+                        document.getElementById("zhuce").innerText = "退出登录";
+                        document.getElementById("zhuce").href = "/enter/logout";
+                    }
+                </script>
             </ul>
         </div>
     </div>
@@ -85,34 +103,25 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="col-md probootstrap-animate">
-                    <form action="/search"  class="probootstrap-form" method="post" th:object="${search}"  id="myForm">
+                    <form action="/search" class="probootstrap-form" method="post" th:object="${search}">
                         <div class="form-group">
                             <div class="row mb-3">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="city">城市</label>
-                                        <div>
-                                            <label for="city" style="width: 100%;">
-                                                <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city"  th:field="*{city}">
-                                                    <option value=""></option>
-                                                    <option value="成都">成都</option>
-                                                    <option value="北京">北京</option>
-                                                    <option value="上海">上海</option>
-                                                    <option value="深圳">深圳</option>
-                                                    <option value="杭州">杭州</option>
-                                                    <option value="南京">南京</option>
-                                                    <option value="武汉">武汉</option>
-                                                    <option value="昆明">昆明</option>
-                                                </select>
-                                            </label>
-                                        </div>
+                                        <label for="city" style="width: 100%;">
+                                            <select required="true"
+                                                    class="js-example-basic-single js-states form-control" id="city"
+                                                    style="width: 100%;" name="city" th:field="*{city}">
+                                            </select>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="hotel_keyword">酒店关键字</label>
                                         <div>
-                                            <input type="text" class="form-control" id="hotel_keyword"
+                                            <input type="text" class="form-control" id="keyword"
                                                    placeholder="" name="name" th:field="*{name}">
 
                                         </div>
@@ -120,20 +129,20 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-arrival" >入住日期</label >
+                                        <label for="probootstrap-date-arrival">入住日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-arrival"
+                                            <input autocomplete="off" type="text" id="probootstrap-date-arrival"
                                                    class="form-control" placeholder="" name="start" th:field="*{start}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="probootstrap-date-departure" >离店日期</label>
+                                        <label for="probootstrap-date-departure">离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input type="text" id="probootstrap-date-departure"
+                                            <input autocomplete="off" type="text" id="probootstrap-date-departure"
                                                    class="form-control" placeholder="" name="end" th:field="*{end}">
                                         </div>
                                     </div>
@@ -142,23 +151,24 @@
                             <div class="row mb-3">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <select class="form-control" >
-                                            <option value="">默认排序</option>
-                                            <option value="1">低价优先</option>
-                                            <option value="2">评分优先</option>
-                                            <option value="3">距离优先</option>
+                                        <select class="form-control" id="sort">
+                                            <option value="">请选择排序方式</option>
+                                            <option value="评分优先">评分优先</option>
+                                            <option value="距离优先">距离优先</option>
+                                            <option value="低价优先">低价优先</option>
+                                            <option value="高价优先">高价优先</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <select class="form-control">
-                                            <option value="0">全部星级</option>
-                                            <option value="1">三星以下</option>
-                                            <option value="2">三星</option>
-                                            <option value="3">四星</option>
-                                            <option value="4">五星</option>
+                                        <select class="form-control" id="star">
+                                            <option value="全部星级">全部星级</option>
+                                            <option value="五星">五星</option>
+                                            <option value="四星">四星</option>
+                                            <option value="三星">三星</option>
+                                            <option value="三星以下">三星以下</option>
                                         </select>
 
                                     </div>
@@ -166,69 +176,49 @@
 
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <select class="form-control" >
-                                            <option value="0">全部价格</option>
-                                            <option value="1">0-200元</option>
-                                            <option value="2">200-500元</option>
-                                            <option value="3">500-1000元</option>
-                                            <option value="4">1000元以上</option>
+                                        <select class="form-control" id="price">
+                                            <option value="全部价格">全部价格</option>
+                                            <option value="0-200元">0-200元</option>
+                                            <option value="200-500元">200-500元</option>
+                                            <option value="500-1000元">500-1000元</option>
+                                            <option value="1000元以上">1000元以上</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <select class="form-control" id="distance">
+                                            <option value="距离不限">距离不限</option>
+                                            <option value="1公里内">1公里内</option>
+                                            <option value="3公里内">3公里内</option>
+                                            <option value="5公里内">5公里内</option>
+                                            <option value="10公里内">10公里内</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md">
-                                    <input type="button" onclick="mySub2()" value="   搜     索   "
+                                    <input type="submit" value="   搜     索   "
                                            style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
                                 </div>
 
                             </div>
                         </div>
                     </form>
-                    <script>
-                        function getNowFormatDate() {
-                            var date = new Date();
-                            var seperator1 = "-";
-                            var year = date.getFullYear();
-                            var month = date.getMonth() + 1;
-                            var strDate = date.getDate();
-                            if (month >= 1 && month <= 9) {
-                                month = "0" + month;
-                            }
-                            if (strDate >= 0 && strDate <= 9) {
-                                strDate = "0" + strDate;
-                            }
-                            var currentdate = year + seperator1 + month + seperator1 + strDate;
-                            return currentdate;
-                        }
-                        function mySub2(){
-                            var arr = document.getElementById("probootstrap-date-arrival").value;
-                            var dep = document.getElementById("probootstrap-date-departure").value;
-                            if(arr==""){
-                                arr=getNowFormatDate();
-                                document.getElementById("probootstrap-date-arrival").value=arr;
-                            }
-                            if(dep==""){
-                                dep=getNowFormatDate();
-                                document.getElementById("probootstrap-date-departure").value=dep;
-                            }
-                            var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
-                            document.cookie="arr="+arr;
-                            document.cookie="dep="+dep;
-                            document.cookie="b="+b;
-                            var form= document.getElementById("myForm");
-                            form.submit();
-                        }
-                    </script>
+
+                    <button onclick="calculate()">jisuan</button>
 
                     <table>
                         <tr>
                             <th class="text-center" width="100px">图片</th>
-                            <th>酒店名</th>
-                            <th>酒店地址</th>
+                            <th width="240px">酒店名</th>
+                            <th width="240px">酒店地址</th>
                             <th class="text-center" width="40px">星级</th>
                             <th class="text-center" width="40px">评分</th>
-                            <th class="text-center" width="40px">价格</th>
-                            <th class="text-center" width="80px">距离</th>
+                            <th class="text-center" width="40px">价格(元)</th>
+                            <th class="text-center" width="80px">距离(km)</th>
                             <th class="text-center" width="60px">操作</th>
                         </tr>
                         <tr height="70" th:each="hotel: ${hotels}">
@@ -238,10 +228,12 @@
                             <td class="text-center" th:text="${hotel.starRating}"></td>
                             <td class="text-center" th:text="${hotel.ratingAverage}"></td>
                             <td class="text-center" th:text="${hotel.ratesFrom}"></td>
-                            <td></td>
+                            <td class="text-center"></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}"><button>详情</button></a>
+                                <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}">
+                                    <button id="toroom">详情</button>
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -251,7 +243,7 @@
     </div>
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
-        <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
     </div>
 
 </section>
@@ -273,31 +265,226 @@
 <script src="/assets/js/main.js"></script>
 
 <script src="/assets/js/jquery.js"></script>
-<script type="text/javascript" src="/assets/js/citydata.min.js"></script>
-<script type="text/javascript" src="/assets/js/cityselect-1.0.0.min.js"></script>
 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7LZ9FcsaUv2q5CbfrPp4uQR8pEgMnGf0"></script>
 
-<!--<script type="text/javascript">
-    $(function () {
-        // 单选
-        var singleSelect1 = $('#single-select-1').citySelect({
-            dataJson: cityData,
-            multiSelect: false,
-            shorthand: true,
-            search: true,
-            onInit: function () {
-                console.log(this)
-            },
-            onTabsAfter: function (target) {
-                console.log(target)
-            },
-            onCallerAfter: function (target, values) {
-                console.log(JSON.stringify(values))
+<script src="/assets/js/area.js"></script><!--所有城市数据-->
+<script src="/assets/js/select.js"></script><!--默认调用方法-->
+<script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
+<script>
+    new verSelector(); //启动插件
+</script>
+
+<script>
+    var sort = document.getElementById('sort');
+    var table = document.getElementsByTagName('table')[0];
+    var tr = table.getElementsByTagName('tr');
+    var array = [];
+    for (var i = 1; i < tr.length; i++) {
+        array.push(tr[i]);
+    }
+    /*    document.getElementById("sort").value="评分优先";*/
+
+    $(document).ready(function () {
+        $('#city').val(localStorage.getItem("city"));
+        $('#keyword').val(localStorage.getItem("keyword"));
+        $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+        $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+    });
+
+    $(document).ready(function () {
+        setTimeout(test, 450);
+    });
+
+    function test() {
+        if (sort.value == "评分优先")
+            Grade(array);
+        else if (sort.value == "距离优先")
+            Distance(array);
+        else if (sort.value == "低价优先")
+            Pricelow(array);
+        else if (sort.value == "高价优先")
+            Pricehigh(array);
+        else
+            return;
+        for (var i = 0; i < array.length; i++) {
+            table.appendChild(array[i]);
+        }
+        filterstar();
+        filterprice();
+    }
+
+    $('#toroom').click(function () {
+        localStorage.arr = $('#probootstrap-date-arrival').val();
+        localStorage.dep = $('#probootstrap-date-departure').val();
+    })
+
+    sort.onchange = function () {
+        if (sort.value == "评分优先")
+            Grade(array);
+        else if (sort.value == "距离优先")
+            Distance(array);
+        else if (sort.value == "低价优先")
+            Pricelow(array);
+        else if (sort.value == "高价优先")
+            Pricehigh(array);
+        else
+            return;
+        for (var i = 0; i < array.length; i++) {
+            table.appendChild(array[i]);
+        }
+    }
+
+    function Pricelow(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) >= Number(array[j].getElementsByTagName('td')[5].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
             }
-        });
+        }
+    }
 
-        // 单选设置城市
-        singleSelect1.setCityVal('北京市');
-    });</script>-->
+    function Pricehigh(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= Number(array[j].getElementsByTagName('td')[5].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    function Grade(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[4].innerText) <= Number(array[j].getElementsByTagName('td')[4].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    var star = document.getElementById('star')
+    star.onchange = function () {
+        $('table tr').show();
+        /*$(table).find("tr").eq(0).show();*/
+        filterstar();
+        filterprice();
+    }
+
+    var price = document.getElementById('price')
+    price.onchange = function () {
+        $('table tr').show();
+        filterstar();
+        filterprice();
+    }
+
+    var distance = document.getElementById('distance')
+
+
+    function filterstar() {
+        if (star.value == "五星") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) != 5.0)
+                    $(table).find("tr").eq(i + 1).hide();
+                    }
+        }
+        else if (star.value == "四星") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 4.0 || Number(array[i].getElementsByTagName('td')[3].innerText) == 5.0)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else if (star.value == "三星") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 3.0 || Number(array[i].getElementsByTagName('td')[3].innerText) >= 4.0)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else if (star.value == "三星以下") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) >= 3.0)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else
+            return;
+    }
+
+    function filterprice() {
+        if (price.value == "0-200元") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) > 200)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else if (price.value == "200-500元") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 200 || Number(array[i].getElementsByTagName('td')[5].innerText) > 500)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else if (price.value == "500-1000元") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 500 || Number(array[i].getElementsByTagName('td')[5].innerText) > 1000)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else if (price.value == "1000元以上") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 1000)
+                    $(table).find("tr").eq(i + 1).hide();
+            }
+        }
+        else
+            return;
+    }
+
+
+    function calculate() {
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                var mk = new BMap.Marker(r.point);
+                var langitude = r.point.lng;
+                var latitude = r.point.lat;
+                window.location.href = "/search/calculate?langitude="+langitude+"&latitude="+latitude;
+//                alert('您的位置：'+r.point.lng+','+r.point.lat);
+            }
+            else {
+                alert("无法获取当前位置，距离检索不可用");
+                distance.disabled = true;
+            }
+        },{enableHighAccuracy: true})
+
+
+    }
+
+
+    /*
+<option value="距离不限">距离不限</option>
+        <option value="1公里内">1公里内</option>
+    <option value="3公里内">3公里内</option>
+    <option value="5公里内">5公里内</option>
+    <option value="10公里内">10公里内</option>*/
+
+
+</script>
 </body>
 </html>
