@@ -56,7 +56,8 @@ public class SearchController {
             model.addAttribute("search",new MySearch());
             return "/hotel_search.html";
         }
-        List<Hotel>  c=hotelService.findByCityAndName(temp.getCity(),keyWord);
+        List<Hotel>  c;
+        c = hotelService.findByCityAndName(temp.getCity(),keyWord);
         Iterator<Hotel> it = c.iterator();
         while(it.hasNext())
         {

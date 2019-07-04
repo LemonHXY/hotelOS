@@ -56,10 +56,10 @@ public  class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public int getRemainNumBetween(int id, Date date1, Date date2) {
+    public int getRemainNumBetween(int roomId, Date date1, Date date2) {
         int min=Integer.MAX_VALUE;
         Room_quantityKey key=new Room_quantityKey();
-        key.setRoomId(id);
+        key.setRoomId(roomId);
         Calendar ca = Calendar.getInstance();
         Date curDate = date1;
         while(curDate.compareTo(date2)<=0){
@@ -75,6 +75,7 @@ public  class RoomServiceImpl implements RoomService {
 
     @Override
     public List<Room> getRemainBetween(List<Room> list, Date date1, Date date2 ,int b) {
+        /*搜索一列room中在这些日期里面还有剩余的列表*/
         Room_quantityExample example=new Room_quantityExample();
         List<Room> roomList = list;
         for(Room room:list)
@@ -92,23 +93,21 @@ public  class RoomServiceImpl implements RoomService {
 
     @Override
     public boolean roomPlus(int id, Date date, int num) {
+        Room_quantityKey key=new Room_quantityKey(id,date);
+        Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
+        q.setRemain(q.getRemain()+num);
+        room_quantityMapper.updateByPrimaryKey(q);
         return false;
     }
 
     @Override
     public boolean roomMinus(int id, Date date, int num) {
+        Room_quantityKey key=new Room_quantityKey(id,date);
+        Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
+        q.setRemain(q.getRemain()-num);
+        room_quantityMapper.updateByPrimaryKey(q);
         return false;
     }
 
-    @Override
-    public List<Room> findRoomByDate(int hotelId, Date start, Date end) {
-        List<Room> roomList=findRoomByHotelId(hotelId);
-        List<Room> result=new ArrayList<Room>();
-        for(Room room:roomList )
-        {
-
-        }
-        return null;
-    }
 
 }

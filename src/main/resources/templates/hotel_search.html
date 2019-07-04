@@ -203,10 +203,14 @@
                         function mySub2(){
                             var arr = document.getElementById("probootstrap-date-arrival").value;
                             var dep = document.getElementById("probootstrap-date-departure").value;
-                            if(arr==null)
+                            if(arr==""){
                                 arr=getNowFormatDate();
-                            if(dep==null)
+                                document.getElementById("probootstrap-date-arrival").value=arr;
+                            }
+                            if(dep==""){
                                 dep=getNowFormatDate();
+                                document.getElementById("probootstrap-date-departure").value=dep;
+                            }
                             var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
                             document.cookie="arr="+arr;
                             document.cookie="dep="+dep;

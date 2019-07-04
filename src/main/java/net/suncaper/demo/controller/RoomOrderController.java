@@ -64,8 +64,9 @@ public class RoomOrderController {
                     dep=formatter.parse(cookie.getValue());
             }
         }
+        int remain=roomService.getRemainNumBetween(roomId,arr,dep);
 
-
+        model.addAttribute("remain", remain);
         model.addAttribute("hotelName", hotel.getHotelName());
         model.addAttribute("roomId",room.getRoomId() );
         model.addAttribute("roomId1",room.getRoomId() );
@@ -77,6 +78,8 @@ public class RoomOrderController {
         model.addAttribute("roomType",room.getRoomType());
         model.addAttribute("breakfast",room.getBreakfast());
         model.addAttribute("oneprice",room.getPrice());
+        model.addAttribute("result","");
+
 
 
         return "/hotel_room_order.html";
@@ -110,7 +113,15 @@ public class RoomOrderController {
         String oStatus="未入住";
         Long oId=1l;
         R_order newOrder=new R_order(uId,  roomId,  oTime, arr, dep, quantity, totalPrice, uName, uPhone, oStatus);
-        orderService.saveOne(newOrder);
+        /*存入订单之前需要检查房源数量*/
+        int remain=roomService.getRemainNumBetween(roomId,arr,dep);
+        if(remain<quantity) {
+            model.addAttribute("remain", remain);
+            model.addAttribute("result","房源不足");
+            return "/hotel_room_order.html";
+        }
+        else
+            orderService.saveOne(newOrder);
         return "redirect:/userorder";
 
     }

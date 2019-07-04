@@ -66,7 +66,21 @@
     </div>
 </nav>
 <!-- END nav -->
-
+<script>
+    var name="uName";//Cookies名字
+    GetCookie = function(name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+    var ck=document.cookie;
+    if(GetCookie(name)==null)
+    {
+        alert("您还没登录");
+        window.location.href="http://localhost:8280/enter";
+    }
+</script>
 
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
@@ -82,13 +96,14 @@
                         <p>酒店名：<span th:text="${hotelName}"></span></p>
                         <p><span  th:text="${arr}" id="arr"></span>到<span th:text="${dep}" id="dep"></span>&nbsp;共<span  th:text="${nNight}" id="b"></span>晚</p>
                         <p><span th:text="${roomType}"></span>&nbsp;<span th:text="${breakfast}"></span></p>
+                        <p><span th:text="${result}"></span></p>
                         <br>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
                         <form  id="makeOrder" action="/roomorder/sure",method="post">
                             <label for quantity >房间数：</label>
                             <label for="quantity">
-                                <input type="text" class="form-control" id="quantity" name="quantity" style="width:60px;" onblur="caculate()">
+                                <input type="text" class="form-control" id="quantity" name="quantity" style="width:60px;" onblur="caculate()"><p th:text="'该类房间还剩'+${remain}+'间'"></p>
                             </label>
                             <br>
                             <label for guest_name >下单人：</label>

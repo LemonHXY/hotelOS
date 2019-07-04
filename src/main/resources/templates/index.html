@@ -131,11 +131,46 @@
 
 				<div class="row">
                   <div class="col-md">
-                    <input type="submit" value="搜索" id="hsubmit" onclick="function1()" class="btn btn-primary btn-block" >
+                    <input type="submit" value="搜索" id="hsubmit" onclick="mySub2()" class="btn btn-primary btn-block" >
                   </div>
 				  </div>
               </div>
             </form>
+              <script>
+                  function getNowFormatDate() {
+                      var date = new Date();
+                      var seperator1 = "-";
+                      var year = date.getFullYear();
+                      var month = date.getMonth() + 1;
+                      var strDate = date.getDate();
+                      if (month >= 1 && month <= 9) {
+                          month = "0" + month;
+                      }
+                      if (strDate >= 0 && strDate <= 9) {
+                          strDate = "0" + strDate;
+                      }
+                      var currentdate = year + seperator1 + month + seperator1 + strDate;
+                      return currentdate;
+                  }
+                  function mySub2(){
+                      var arr = document.getElementById("probootstrap-date-arrival").value;
+                      var dep = document.getElementById("probootstrap-date-departure").value;
+                      if(arr==""){
+                          arr=getNowFormatDate();
+                          document.getElementById("probootstrap-date-arrival").value=arr;
+                      }
+                      if(dep==""){
+                          dep=getNowFormatDate();
+                          document.getElementById("probootstrap-date-departure").value=dep;
+                      }
+                      var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
+                      document.cookie="arr="+arr;
+                      document.cookie="dep="+dep;
+                      document.cookie="b="+b;
+                      var form= document.getElementById("myForm");
+                      form.submit();
+                  }
+              </script>
           </div>
         </div>
       </div>

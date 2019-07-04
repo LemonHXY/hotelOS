@@ -27,6 +27,5 @@ public interface RoomService {
 
      public boolean roomMinus(int id, Date date,int num);//某日date房间id减少num个
 
-     public List<Room> findRoomByDate(int hotelId,Date start, Date end);
 
 }

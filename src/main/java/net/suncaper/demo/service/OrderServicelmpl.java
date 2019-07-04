@@ -39,6 +39,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -51,6 +53,8 @@ public class OrderServicelmpl implements OrderService {
     private RoomMapper roomMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoomService roomService;
 
     public List<OrderOutput> GetOrderLists(int uId) {
         R_orderExample example = new R_orderExample();
@@ -106,6 +110,14 @@ public class OrderServicelmpl implements OrderService {
 
     @Override
     public void saveOne(R_order order) {
+        Date curDate=order.getArrDate();
+        Date date2=order.getDepDate();
+        Calendar ca = Calendar.getInstance();
+        while(curDate.compareTo(date2)<=0){
+            roomService.roomMinus(order.getRoomId(),curDate,order.getQuantity());
+            ca.add(ca.DATE, 1);
+            curDate = ca.getTime();
+        }
         r_orderMapper.insertSelective(order);
     }
 
