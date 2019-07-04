@@ -174,12 +174,12 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
   ThumbnailOpacity();
 
   var datePicker = function() {
-		$('#probootstrap-date-departure, #probootstrap-date-arrival').datepicker({
-		  'format': 'yyyy-mm-dd',
-		  'autoclose': true
-		});
-	};
-	datePicker();
+        $('#probootstrap-date-departure, #probootstrap-date-arrival').datepicker({
+            'format': 'yyyy-mm-dd',
+            'autoclose': true
+        });
+    };
+    datePicker();
 
     var date1 = new Date();
     var date2 = new Date(date1);

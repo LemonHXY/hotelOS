@@ -31,7 +31,7 @@ public class RegisterController {
         User temp = userService.findUserByUIid(user1.getuId());
         if (temp == null) {
             userService.saveUser(user1);
-            return "redirect:/search";
+            return "redirect:/enter";
         } else {
             model.addAttribute("msg1", "该id已被使用");
             model.addAttribute("user", new User());

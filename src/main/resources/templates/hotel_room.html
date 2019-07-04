@@ -62,9 +62,24 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/userorder" >我的订单</a></li>
+                <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
+                <script>
+                    var name="uName";//Cookies名字
+                    this.GetCookie = function(name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    var ck = document.cookie;
+                    if(ck){
+                        document.getElementById("denglu").innerText="您好，"+GetCookie(name);
+                        document.getElementById("denglu").href="";
+                        document.getElementById("zhuce").innerText="退出登录";
+                        document.getElementById("zhuce").href="/enter/logout";}
+                </script>
             </ul>
         </div>
     </div>
