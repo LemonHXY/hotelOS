@@ -213,20 +213,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
             );}
     });
 
-    //结束时间：
-/*    $('#probootstrap-date-departure').datepicker({
-        todayBtn: "linked",
-        endDate: new Date()
-    }).on('changeDate', function (e) {
-        var date4=new Date(e.date);
-        date4.setDate(e.date.getDate() - 1);
-        var endTime = date4;
-        $('#probootstrap-date-arrival').datepicker('setEndDate', endTime);
-    });
-        $("#probootstrap-date-departure").value=date5;
-        var date6=date5;
-        alert(date6);
-*/
+
 
 
 });

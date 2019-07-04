@@ -54,7 +54,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
     <div class="container">
-        <a class="navbar-brand" href="/index1.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
                 aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="ion-navicon"></i></span>
@@ -230,13 +230,12 @@
                     </div>
                 </table>
             </div>
-        </div>
-
+        </div></div>
 
         </br></br></br></br></br></br></br>
         <div class="col-md-12 text-center">
             <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-        </div>
+        </div></section>
 
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -252,5 +251,12 @@
         <script src="/assets/js/select2.min.js"></script>
 
         <script src="/assets/js/main.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+                $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+            });
+        </script>
+
 </body>
 </html>
