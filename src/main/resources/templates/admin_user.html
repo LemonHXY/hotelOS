@@ -75,7 +75,7 @@
             <!-- <div class="col-md"> -->
 
 
-            <h2 class="display-4 border-bottom probootstrap-section-heading text-center">全部订单</h2>
+            <h2 class="display-4 border-bottom probootstrap-section-heading text-center">用户信息</h2>
 
 
             <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
@@ -89,20 +89,20 @@
                             <th>设为异常</th>
                             <th>恢复正常</th>
                         </tr>
-                        <tr th:each="r_order : ${orders}">
+                        <tr th:each="user : ${users}">
                             <!--三个信息-->
-                            <td class="text-center" th:text="${r_order.hotelName}"></td>
-                            <td class="text-center" th:text="${r_order.roomType}"></td>
-                            <td class="text-center" th:text="${r_order.depDate}"></td>
+                            <td class="text-center" th:text="${user.uId}"></td>
+                            <td class="text-center" th:text="${user.uName}"></td>
+                            <td class="text-center" th:text="${user.uStatus}"></td>
                             <!--二个按钮-->
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">
-                                    <button>详情</button>
+                                <a th:href="@{'http://localhost:8280/admin/abnormal?' + ${user.uId}}">
+                                    <button>设为异常</button>
                                 </a>
                             </td>
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">
-                                    <button>详情</button>
+                                <a th:href="@{'http://localhost:8280/admin/normal?' + ${user.uId}}">
+                                    <button>设为正常</button>
                                 </a>
                             </td>
                         </tr>

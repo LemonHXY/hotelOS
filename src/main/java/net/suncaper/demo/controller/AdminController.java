@@ -1,14 +1,12 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.OrderOutput;
-import net.suncaper.demo.domain.R_order;
-import net.suncaper.demo.domain.R_orderExample;
+import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.R_orderMapper;
+import net.suncaper.demo.mapper.UserMapper;
 import net.suncaper.demo.service.OrderService;
 import net.suncaper.demo.service.OrderServicelmpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import net.suncaper.demo.domain.User;
 import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +32,8 @@ public class AdminController {
     private R_orderMapper r_orderMapper;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserMapper userMapper;
 
 
     // 默认跳转到管理员登陆界面
@@ -114,7 +114,7 @@ public class AdminController {
             for (Cookie cookie : cookies)
                 if (cookie.getValue().equals("1")) {
                     model.addAttribute("orders", orderServicelmpl.GetAllByCheckOut());
-                    return "/admin_order.html";
+                    return "/admin_check_out.html";
                 }
         }
         // 登陆信息为空则返回空的订单列表
@@ -126,17 +126,51 @@ public class AdminController {
     @GetMapping("/user")
     public String AdminUser(User user1, Model model, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        if ((cookies != null)) {// 如果登录信息不为空则返回所有订单
+        if ((cookies != null)) {// 如果登录信息不为空则返回所有用户
             for (Cookie cookie : cookies)
                 if (cookie.getValue().equals("1")) {
                     model.addAttribute("users", userService.GetAllUsers());
-                    return "/admin_order.html";
+                    return "/admin_user.html";
                 }
         }
-        // 登陆信息为空则返回空的订单列表
+        // 登陆信息为空则返回空的用户列表
         model.addAttribute("users", userService.findUserByUIid(0));
         return "/admin_user.html";
     }
 
+    // 用户设为异常
+    @GetMapping("/abnormal")
+    public String SetAbnormal(HttpServletRequest request) {
+        int uId = Integer.parseInt(request.getQueryString());
+        userMapper.updateAbnormal(uId);
+        return "redirect:/admin/user";
+
+    }
+
+    // 用户设为正常
+    @GetMapping("/normal")
+    public String SetNormal(HttpServletRequest request) {
+        int uId = Integer.parseInt(request.getQueryString());
+        userMapper.updatenormal(uId);
+        return "redirect:/admin/user";
+    }
+
+    // 删除订单
+    @GetMapping("/delete")
+    public String delete(Model model, HttpServletRequest request) {
+        int oId = Integer.parseInt(request.getQueryString());
+        r_orderMapper.deleteByPrimaryKey(oId);
+
+        return "redirect:/admin/order";
+    }
+
+    // 强制退订
+    @GetMapping("/forcecheckout")
+    public String forceCheckOut(Model Model ,HttpServletRequest request) {
+        int oId = Integer.parseInt(request.getQueryString());
+        r_orderMapper.forcecheckout(oId);
+
+        return "redirect:/admin/order";
+    }
 
 }

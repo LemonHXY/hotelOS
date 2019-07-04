@@ -25,38 +25,38 @@ public class SearchController {
     private HotelService hotelService;
     @Autowired
     private RoomService roomservice;
-//  显示搜索界面
+
+    //  显示搜索界面
     @GetMapping
     public String SearchPage(Model model) {
-        model.addAttribute("search",new MySearch());
+        model.addAttribute("search", new MySearch());
         return "/hotel_search.html";
     }
 
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
-    public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) {
-        City temp=hotelService.finCityByString(mySearch.getCity());
-        String []s=mySearch.getName().split("\\s+");
-        List<String>  keyWord= Arrays.asList(s);
-        if(temp==null)
-        {
-            model.addAttribute("search",new MySearch());
+    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request) {
+        City temp = hotelService.finCityByString(mySearch.getCity());
+        String[] s = mySearch.getName().split("\\s+");
+        List<String> keyWord = Arrays.asList(s);
+        if (temp == null) {
+            model.addAttribute("search", new MySearch());
             return "/hotel_search.html";
         }
-        List<Hotel>  c=hotelService.findByCityAndName(temp.getCity(),keyWord);
+        List<Hotel> c = hotelService.findByCityAndName(temp.getCity(), keyWord);
         //List<Hotel>  c=hotelService.findHotelByCityId(temp.getCityId());
-        model.addAttribute("search",new MySearch());
-        model.addAttribute("hotels",c);
+        model.addAttribute("search", new MySearch());
+        model.addAttribute("hotels", c);
         return "/hotel_search.html";
     }
 
     @GetMapping("/room")
-    public String SearchPage(Model model,HttpServletRequest request) {
-        int hotelId=Integer.parseInt(request.getQueryString());
-        Hotel hotel=hotelService.findHotelByKey(hotelId);
-        List<Room> rooms=roomservice.findRoomByHotelId(hotelId);
-        model.addAttribute("hotel",hotel);
-        model.addAttribute("rooms",rooms);
+    public String SearchPage(Model model, HttpServletRequest request) {
+        int hotelId = Integer.parseInt(request.getQueryString());
+        Hotel hotel = hotelService.findHotelByKey(hotelId);
+        List<Room> rooms = roomservice.findRoomByHotelId(hotelId);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("rooms", rooms);
         return "/hotel_room.html";
     }
 }
