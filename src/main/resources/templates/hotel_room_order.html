@@ -128,61 +128,7 @@
                         <button id="btn1" style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;" onclick="buy()">确认订单</button>
                 </div>
             </div>
-                <script>
-                    /**/
-                    function caculate() {
-                        var num=document.getElementById("quantity").value;
-                        var price=[[${oneprice}]];
-                        var total_price=document.getElementById("total_price");
-                        total_price.innerHTML=price*num+"元";//改变总价
-                    }
-                </script>
-                <script th:inline="javascript">
-                    /*创表并提交
-                    * 需要日期，roomid，name，phone*/
-                    var name="uId";//Cookies名字
-                    this.GetCookie = function(name) {
-                        var ck = document.cookie;
-                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
-                        var mch = ck.match(exp1);
-                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
-                    }
-                    function  sure() {
-                        var makeForm=document.getElementById("makeOrder");
-                        var input1=document.createElement("input");
-                        var input2=document.createElement("input");
-                        var input3=document.createElement("input");
-                        var input4=document.createElement("input");
-                        var input5=document.createElement("input");
 
-                        input1.type = "text";
-                        input1.name = "roomId";
-                        input1.value = [[${roomId1}]];
-
-                        input2.type = "text";
-                        input2.name = "arr";
-                        input2.value = [[${arr}]];
-                        input3.type = "text";
-                        input3.name = "dep";
-                        input3.value = [[${dep}]];
-                        input4.type = "text";
-                        input4.name = "uId";
-
-                        input4.value=GetCookie(name);
-                        input5.type = "text";
-                        input5.name = "oneprice";
-                        input5.value = [[${oneprice}]];
-                        makeForm.appendChild(input1);
-                        makeForm.appendChild(input2);
-                        makeForm.appendChild(input3);
-                        makeForm.appendChild(input4);
-                        makeForm.appendChild(input5);
-
-                        makeForm.method="post";
-                        makeForm.action="/roomorder/sure";
-                        makeForm.submit();
-                    }
-                </script>
                 <div class="col-md">
                     <br>
                     <br>
@@ -215,6 +161,62 @@
 <script src="/assets/js/main.js"></script>
 
 <script>
+    /**/
+    function caculate() {
+        var num=document.getElementById("quantity").value;
+        var price=[[${oneprice}]];
+        var total_price=document.getElementById("total_price");
+        total_price.innerHTML=price*num+"元";//改变总价
+    }
+</script>
+<script th:inline="javascript">
+    /*创表并提交
+    * 需要日期，roomid，name，phone*/
+    var name="uId";//Cookies名字
+    this.GetCookie = function(name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+    function  sure() {
+        var makeForm=document.getElementById("makeOrder");
+        var input1=document.createElement("input");
+        var input2=document.createElement("input");
+        var input3=document.createElement("input");
+        var input4=document.createElement("input");
+        var input5=document.createElement("input");
+
+        input1.type = "text";
+        input1.name = "roomId";
+        input1.value = [[${roomId1}]];
+
+        input2.type = "text";
+        input2.name = "arr";
+        input2.value = [[${arr}]];
+        input3.type = "text";
+        input3.name = "dep";
+        input3.value = [[${dep}]];
+        input4.type = "text";
+        input4.name = "uId";
+
+        input4.value=GetCookie(name);
+        input5.type = "text";
+        input5.name = "oneprice";
+        input5.value = [[${oneprice}]];
+        makeForm.appendChild(input1);
+        makeForm.appendChild(input2);
+        makeForm.appendChild(input3);
+        makeForm.appendChild(input4);
+        makeForm.appendChild(input5);
+
+        makeForm.method="post";
+        makeForm.action="/roomorder/sure";
+        makeForm.submit();
+    }
+</script>
+
+<script>
     function buy() {
         var btn1 = document.getElementById("btn1");
         var quan = document.getElementById("quantity");
@@ -245,6 +247,7 @@
             /// /order.submit();
         }
     };
+
 </script>
 </body>
 </html>

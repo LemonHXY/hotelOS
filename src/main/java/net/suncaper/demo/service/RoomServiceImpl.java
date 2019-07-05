@@ -61,6 +61,10 @@ public  class RoomServiceImpl implements RoomService {
         Room_quantityKey key=new Room_quantityKey();
         key.setRoomId(roomId);
         Calendar ca = Calendar.getInstance();
+
+        ca.setTime(date2);
+        ca.add(ca.DATE,-1);
+        date2=ca.getTime();
         Date curDate = date1;
         while(curDate.compareTo(date2)<=0){
             ca.setTime(curDate);
@@ -79,11 +83,15 @@ public  class RoomServiceImpl implements RoomService {
         Room_quantityExample example=new Room_quantityExample();
         List<Room> roomList = list;
         List<Room> shouldRemove=new ArrayList<>();
+        Calendar d2=Calendar.getInstance();
+        d2.setTime(date2);
+        d2.add(d2.DATE,-1);
+        date2=d2.getTime();
         for(Room room:list)
         {
             example.clear();
             example.createCriteria().andRoomIdEqualTo(room.getRoomId()).andRDateBetween(date1,date2).andRemainGreaterThan(0);
-            if(room_quantityMapper.countByExample(example)<=b)
+            if(room_quantityMapper.countByExample(example)<b)
             {
                 shouldRemove.add(room);
             }

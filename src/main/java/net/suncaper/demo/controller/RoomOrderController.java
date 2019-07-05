@@ -117,7 +117,7 @@ public class RoomOrderController {
         if(remain<quantity) {
             model.addAttribute("remain", remain);
             model.addAttribute("result","房源不足");
-            return "/hotel_room_order.html";
+            return "redirect:/roomorder?"+roomId;
         }
         else
             orderService.saveOne(newOrder);

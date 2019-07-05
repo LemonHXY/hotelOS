@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu" >
           <ul class="navbar-nav ml-auto" >
               <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-              <li class="nav-item"><a class="nav-link" href="/userorder" >我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" id="order" onclick="alert('还未登录！')" href="/enter">我的订单</a></li>
               <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
               <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
               <script>
@@ -55,6 +55,8 @@
                   if(GetCookie(name)!=null){
                   document.getElementById("denglu").innerText="您好，"+GetCookie(name);
                   document.getElementById("denglu").href="";
+                        document.getElementById("order").href = "/userorder";
+                        document.getElementById("order").onclick = "";
                   document.getElementById("zhuce").innerText="退出登录";
                   document.getElementById("zhuce").href="/enter/logout";}
               </script>
@@ -64,8 +66,8 @@
     </nav>
     <!-- END nav -->
 
-
-    <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5"  id="section-home">
+<section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
+         data-stellar-background-ratio="0.5" id="section-home">
       <div class="overlay"></div>
       <div class="container">
         <div class="row align-items-center">
@@ -74,32 +76,25 @@
 			</br></br></br></br></br>
           </div>
           <div class="col-md probootstrap-animate">
-            <form action="/search" class="probootstrap-form" method='post' th:object="${search}">
+                <form action="/search" class="probootstrap-form" method='post' id="form" th:object="${search}">
               <div class="form-group">
                 <div class="row mb-3">
                   <div class="col-md">
                     <div class="form-group">
                       <label for="city">城市</label>
                       <label for="city" style="width: 100%;" >
-                          <select class="js-example-basic-single js-states form-control" id="city" style="width: 100%;" name="city" th:field="*{city}">
-                              <option value="成都">成都</option>
-                              <option value="北京">北京</option>
-                              <option value="上海">上海</option>
-                              <option value="深圳">深圳</option>
-                              <option value="杭州">杭州</option>
-                              <option value="南京">南京</option>
-                              <option value="武汉">武汉</option>
-                              <option value="昆明">昆明</option>
+                                        <select required="true" class="js-example-basic-single js-states form-control"
+                                                id="city" style="width: 100%;" name="city" th:field="*{city}">
                           </select>
                       </label>
                     </div>
                   </div>
                   <div class="col-md">
                     <div class="form-group">
-                      <label for="hotel_keyword">酒店关键字</label>
-                        <label for="hotel_keyword" style="width: 100%;">
-						<input type="text" class="form-control" id="hotel_keyword"
-                               name="name" placeholder="如锦江、如家" th:field="*{name}">
+                                    <label for="keyword">酒店关键字</label>
+                                    <label for="keyword" style="width: 100%;">
+                                        <input type="text" class="form-control" id="keyword" name="name"
+                                               placeholder="如锦江、如家" th:field="*{name}">
                       </label>
                     </div>
                   </div>
@@ -112,7 +107,8 @@
                       <label for="probootstrap-date-arrival"  >入住日期</label>
                       <div class="probootstrap-date-wrap">
                         <span class="icon ion-calendar"></span>
-                        <input value="123" type="text" id="probootstrap-date-arrival"  class="form-control" placeholder="" name="start" th:field="*{start}">
+                                        <input autocomplete="off" type="text" id="probootstrap-date-arrival"
+                                               class="form-control" placeholder="" name="start" th:field="*{start}">
                       </div>
                     </div>
                   </div>
@@ -121,7 +117,8 @@
                       <label for="probootstrap-date-departure"  >离店日期</label  >
                       <div class="probootstrap-date-wrap">
                         <span class="icon ion-calendar"></span>
-                        <input value="123" type="text" id="probootstrap-date-departure" class="form-control" placeholder="" name="end" th:field="*{end}">
+                                        <input autocomplete="off" type="text" id="probootstrap-date-departure"
+                                               class="form-control" placeholder="" name="end" th:field="*{end}">
                       </div>
                     </div>
                   </div>
@@ -196,14 +193,53 @@
     <script src="/assets/js/main.js"></script>
 
 
-<!--    <script src="/assets/js/area.js"></script>&lt;!&ndash;所有城市数据&ndash;&gt;
-    <script src="/assets/js/select.js"></script>&lt;!&ndash;默认调用方法&ndash;&gt;
-    <script src="/assets/verSelector/verSelect.js"></script>&lt;!&ndash;封装插件&ndash;&gt;
+<script src="/assets/js/area.js"></script><!--所有城市数据-->
+<script src="/assets/js/select.js"></script><!--默认调用方法-->
+<script src="/assets/verSelector/verSelect.js"></script><!--封装插件-->
     <script>
         new verSelector(); //启动插件
-    </script>-->
+</script>
+
+<script>
+
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + 1);
+
+    $('#probootstrap-date-arrival').datepicker(
+        'setDate', date1
+    );
+    $('#probootstrap-date-departure').datepicker(
+        'setDate', date2
+    );
 
 
+    $('#hsubmit').click(function () {
+        localStorage.city = $('#city').val();
+        localStorage.keyword = $('#keyword').val();
+        localStorage.arr = $('#probootstrap-date-arrival').val();
+        localStorage.dep = $('#probootstrap-date-departure').val();
+    })
+
+    /*    $('from').submit(function(){
+            addCookie('city', $('city').val());
+            addCookie('keyword', $('keyword').val());
+            addCookie('arrdate', $('probootstrap-date-arrival').val());
+            addCookie('depdate', $('probootstrap-date-departure').val());
+        })
+        //设置Cookie
+        function addCookie(name,value,expireHours){
+            var cookieString=name+"="+escape(value);
+            //判断是否设置过期时间
+            if(expireHours>0){
+                var date=new Date();
+                date.setTime(date.getTime+expireHours*3600*1000);
+                cookieString=cookieString+"; expire="+date.toGMTString();
+            }
+            document.cookie=cookieString;
+        }*/
+
+</script>
 
 	</body>
 </html>

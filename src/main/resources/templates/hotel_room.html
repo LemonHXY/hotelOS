@@ -203,41 +203,7 @@
                         </div>
                     </div>
                 </form>
-                <script>
-                    function getNowFormatDate() {
-                        var date = new Date();
-                        var seperator1 = "-";
-                        var year = date.getFullYear();
-                        var month = date.getMonth() + 1;
-                        var strDate = date.getDate();
-                        if (month >= 1 && month <= 9) {
-                            month = "0" + month;
-                        }
-                        if (strDate >= 0 && strDate <= 9) {
-                            strDate = "0" + strDate;
-                        }
-                        var currentdate = year + seperator1 + month + seperator1 + strDate;
-                        return currentdate;
-                    }
-                    function mySub2(){
-                        var arr = document.getElementById("probootstrap-date-arrival").value;
-                        var dep = document.getElementById("probootstrap-date-departure").value;
-                        if(arr==""){
-                            arr=getNowFormatDate();
-                            document.getElementById("probootstrap-date-arrival").value=arr;
-                        }
-                        if(dep==""){
-                            dep=getNowFormatDate();
-                            document.getElementById("probootstrap-date-departure").value=dep;
-                        }
-                        var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
-                        document.cookie="arr="+arr;
-                        document.cookie="dep="+dep;
-                        document.cookie="b="+b;
-                        var form= document.getElementById("myForm");
-                        form.submit();
-                    }
-                </script>
+
                 <table id="roomDetail">
                 <tr >
                     <th >房间类型</th>
@@ -252,29 +218,11 @@
                     <td th:text="${room.price}">价格</td>
                     <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
                     <td ></td>
-                    <td><a  id="check" th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" ><button >下单</button></a></td>
+                    <td><a th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" >下单</a></td>
                 </tr>
             </table>
-
                 <table>
-                    <script type="text/javascript">
-                        this.GetCookie = function(name) {
-                            var ck = document.cookie;
-                            var exp1 = new RegExp(name + "=.*?(?=;|$)");
-                            var mch = ck.match(exp1);
-                            return mch ? unescape(mch[0].substring(name.length + 1)) : null;
-                        }
-                        var tab=document.getElementById("roomDetail")
-                        var ck = document.cookie;
-                        if(ck){
-                            for(var i=1 ;i<tab.rows.length;i++)
-                            {
-                                var name=tab.rows[i].cells[3].innerText;
-                                tab.rows[i].cells[4].innerHTML=GetCookie(name);
 
-                            }
-                        }
-                    </script>
             <br>
             <div class="col-md">
                 <br>
@@ -313,5 +261,56 @@
             });
         </script>
 
+<script type="text/javascript">
+    this.GetCookie = function(name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+    var tab=document.getElementById("roomDetail")
+    var ck = document.cookie;
+    if(ck){
+        for(var i=1 ;i<tab.rows.length;i++)
+        {
+            var name=tab.rows[i].cells[3].innerText;
+            tab.rows[i].cells[4].innerHTML=GetCookie(name);
+
+        }}</script>
+<script>
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    function mySub2(){
+        var arr = document.getElementById("probootstrap-date-arrival").value;
+        var dep = document.getElementById("probootstrap-date-departure").value;
+        if(arr==""){
+            arr=getNowFormatDate();
+            document.getElementById("probootstrap-date-arrival").value=arr;
+        }
+        if(dep==""){
+            dep=getNowFormatDate();
+            document.getElementById("probootstrap-date-departure").value=dep;
+        }
+        var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
+        document.cookie="arr="+arr;
+        document.cookie="dep="+dep;
+        document.cookie="b="+b;
+        var form= document.getElementById("myForm");
+        form.submit();
+    }
+</script>
 </body>
 </html>
