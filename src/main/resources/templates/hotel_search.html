@@ -224,7 +224,7 @@
                             <td class="text-center" th:text="${hotel.starRating}"></td>
                             <td class="text-center" th:text="${hotel.ratingAverage}"></td>
                             <td class="text-center" th:text="${hotel.ratesFrom}"></td>
-                            <td class="text-center"></td>
+                            <td class="text-center" th:text="${hotel.distance}"></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
                                 <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}">
@@ -287,10 +287,6 @@
         $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
         $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
         });
-
-    $(document).ready(function () {
-        calculate();
-    });
 
     $(document).ready(function () {
         setTimeout(test, 450);
@@ -462,9 +458,9 @@
         geolocation.getCurrentPosition(function(r){
             if(this.getStatus() == BMAP_STATUS_SUCCESS){
                 var mk = new BMap.Marker(r.point);
-                var langitude = r.point.lng;
+                var longitude = r.point.lng;
                 var latitude = r.point.lat;
-                window.location.href = "/search/calculate?room="+langitude+"&latitude="+latitude;
+                window.location.href = "/search?longitude="+longitude+"&latitude="+latitude;
 //                alert('您的位置：'+r.point.lng+','+r.point.lat);
             }
             else {
