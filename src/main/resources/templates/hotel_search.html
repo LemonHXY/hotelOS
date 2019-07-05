@@ -44,6 +44,13 @@
             width: 100%;
         }
 
+        #allmap {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
     </style>
 
 </head>
@@ -119,7 +126,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="hotel_keyword">酒店关键字</label>
+                                        <label for="keyword">酒店关键字</label>
                                         <div>
                                             <input type="text" class="form-control" id="keyword"
                                                    placeholder="" name="name" th:field="*{name}">
@@ -149,7 +156,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md">
+                                <div class="col-md" id="sort1">
                                     <div class="form-group">
                                         <select class="form-control" id="sort">
                                             <option value="">请选择排序方式</option>
@@ -207,19 +214,27 @@
                             </div>
                         </div>
                     </form>
+                    <div class="row mb-3">
+                        <div class="col-md">
+                            <input type="button" value="按地图模式显示" id="mapshow"
+                                   style="color:#fff;background-color:#00CA4C;border-color:#00CA4C;float:right;">
+                        </div>
+                    </div>
+                    <!--<button onclick="calculate()">jisuan</button>-->
 
-                    <button onclick="calculate()">jisuan</button>
-
-                    <table>
+                    <table id="table">
                         <tr>
                             <th class="text-center" width="100px">图片</th>
                             <th width="240px">酒店名</th>
                             <th width="240px">酒店地址</th>
-                            <th class="text-center" width="40px">星级</th>
-                            <th class="text-center" width="40px">评分</th>
-                            <th class="text-center" width="40px">价格(元)</th>
-                            <th class="text-center" width="80px">距离(km)</th>
-                            <th class="text-center" width="60px">操作</th>
+                            <th class="text-center" width="60px">星级</th>
+                            <th class="text-center" width="60px">评分</th>
+                            <th class="text-center" width="80px">价格(元)</th>
+                            <th style="display: none;"></th>
+                            <th style="display: none;"></th>
+                            <th class="text-center" width="100px">距离(km)</th>
+
+                            <th class="text-center" width="80px">操作</th>
                         </tr>
                         <tr height="70" th:each="hotel: ${hotels}">
                             <td align="center" valign="middle"><img th:src="${hotel.photo1}" height="60"/></td>
@@ -229,6 +244,8 @@
                             <td class="text-center" th:text="${hotel.ratingAverage}"></td>
                             <td class="text-center" th:text="${hotel.ratesFrom}"></td>
                             <td class="text-center"></td>
+                            <td th:text="${hotel.longitude}" style="display: none;"></td>
+                            <td th:text="${hotel.latitude}" style="display: none;"></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
                                 <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}">
@@ -237,6 +254,11 @@
                             </td>
                         </tr>
                     </table>
+                    <p></p>
+                    <div class="col-md-12" id="map">
+                        <!--<img src="/assets/images/bg_1.jpg" width="100%">-->
+                        <div id="allmap"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -275,15 +297,91 @@
     new verSelector(); //启动插件
 </script>
 
-<script>
+<script th:inline="javascript">
+
     var sort = document.getElementById('sort');
-    var table = document.getElementsByTagName('table')[0];
+    var table = document.getElementById('table');
     var tr = table.getElementsByTagName('tr');
     var array = [];
     for (var i = 1; i < tr.length; i++) {
         array.push(tr[i]);
     }
-    /*    document.getElementById("sort").value="评分优先";*/
+
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.331398, 39.897445);
+    map.centerAndZoom(point, 18);
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            map.centerAndZoom(r.point, 16);
+            var mk = new BMap.Marker(r.point, {});
+            map.addOverlay(mk);
+            var label = new BMap.Label("您的位置", {offset: new BMap.Size(20, -10)});
+            mk.setLabel(label);
+        }
+        else {
+            alert('failed' + this.getStatus());
+        }
+    }, {enableHighAccuracy: true})
+
+    /*        var point1 = new BMap.Point(Number(array[0].getElementsByTagName('td')[7].innerText), Number(array[0].getElementsByTagName('td')[8].innerText));
+        var mk1 = new BMap.Marker(point1);
+        map.addOverlay(mk1);*/
+
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl();
+    geolocationControl.addEventListener("locationError", function (e) {
+        // 定位失败事件
+        alert(e.message);
+    });
+
+    map.addControl(geolocationControl);
+
+    var opts = {
+        width: 250,     // 信息窗口宽度
+        height: 80,     // 信息窗口高度
+        title: "酒店信息", // 信息窗口标题
+        enableMessage: true//设置允许信息窗发送短息
+    };
+
+    var marker = [];
+
+    for (var i = 0; i < array.length; i++) {
+        marker[i] = new BMap.Marker(new BMap.Point(Number(array[i].getElementsByTagName('td')[7].innerText), Number(array[i].getElementsByTagName('td')[8].innerText)));  // 创建标注
+        var content = array[i].getElementsByTagName('td')[1].innerHTML + "<br>" + "地址：" + array[i].getElementsByTagName('td')[2].innerHTML;
+        map.addOverlay(marker[i]);               // 将标注添加到地图中
+        addClickHandler(content, marker[i]);
+        var label = new BMap.Label(array[i].getElementsByTagName('td')[5].innerHTML + "元起", {offset: new BMap.Size(20, -10)});
+        marker[i].setLabel(label);
+    }
+
+    function addClickHandler(content, marker) {
+        marker.addEventListener("click", function (e) {
+                openInfo(content, e)
+            }
+        );
+    }
+
+    function openInfo(content, e) {
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    }
+
+    $(document).ready(function () {
+        setTimeout(test, 450);
+    });
 
     $(document).ready(function () {
         $('#city').val(localStorage.getItem("city"));
@@ -292,9 +390,31 @@
         $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
     });
 
+    $('#toroom').click(function () {
+        localStorage.arr = $('#probootstrap-date-arrival').val();
+        localStorage.dep = $('#probootstrap-date-departure').val();
+    })
+
     $(document).ready(function () {
-        setTimeout(test, 450);
+        $('#map').hide();
     });
+
+    $('#mapshow').click(function () {
+        if ($('#mapshow').val() == "按地图模式显示") {
+            $('#mapshow').val("按表格模式显示");
+            $('#table').hide();
+            $('#map').show();
+            $('#sort1').hide();
+        }
+        else {
+            $('#mapshow').val("按地图模式显示");
+            $('#table').show();
+            $('#map').hide();
+            $('#sort1').show();
+        }
+    })
+
+    /*    document.getElementById("sort").value="评分优先";*/
 
     function test() {
         if (sort.value == "评分优先")
@@ -313,11 +433,6 @@
         filterstar();
         filterprice();
     }
-
-    $('#toroom').click(function () {
-        localStorage.arr = $('#probootstrap-date-arrival').val();
-        localStorage.dep = $('#probootstrap-date-departure').val();
-    })
 
     sort.onchange = function () {
         if (sort.value == "评分优先")
@@ -380,47 +495,37 @@
         }
     }
 
-    var star = document.getElementById('star')
-    star.onchange = function () {
-        $('table tr').show();
-        /*$(table).find("tr").eq(0).show();*/
-        filterstar();
-        filterprice();
-    }
-
-    var price = document.getElementById('price')
-    price.onchange = function () {
-        $('table tr').show();
-        filterstar();
-        filterprice();
-    }
-
-    var distance = document.getElementById('distance')
-
-
     function filterstar() {
         if (star.value == "五星") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[3].innerText) != 5.0)
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) != 5.0) {
                     $(table).find("tr").eq(i + 1).hide();
-                    }
+                    marker[i].hide()
+                }
+            }
         }
         else if (star.value == "四星") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 4.0 || Number(array[i].getElementsByTagName('td')[3].innerText) == 5.0)
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 4.0 || Number(array[i].getElementsByTagName('td')[3].innerText) == 5.0) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else if (star.value == "三星") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 3.0 || Number(array[i].getElementsByTagName('td')[3].innerText) >= 4.0)
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) < 3.0 || Number(array[i].getElementsByTagName('td')[3].innerText) >= 4.0) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else if (star.value == "三星以下") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[3].innerText) >= 3.0)
+                if (Number(array[i].getElementsByTagName('td')[3].innerText) >= 3.0) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else
@@ -430,51 +535,62 @@
     function filterprice() {
         if (price.value == "0-200元") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[5].innerText) > 200)
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) > 200) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else if (price.value == "200-500元") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 200 || Number(array[i].getElementsByTagName('td')[5].innerText) > 500)
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 200 || Number(array[i].getElementsByTagName('td')[5].innerText) > 500) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else if (price.value == "500-1000元") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 500 || Number(array[i].getElementsByTagName('td')[5].innerText) > 1000)
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 500 || Number(array[i].getElementsByTagName('td')[5].innerText) > 1000) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else if (price.value == "1000元以上") {
             for (var i = 0; i < array.length; i++) {
-                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 1000)
+                if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 1000) {
                     $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide()
+                }
             }
         }
         else
             return;
     }
 
-
-    function calculate() {
-        var geolocation = new BMap.Geolocation();
-        geolocation.getCurrentPosition(function(r){
-            if(this.getStatus() == BMAP_STATUS_SUCCESS){
-                var mk = new BMap.Marker(r.point);
-                var langitude = r.point.lng;
-                var latitude = r.point.lat;
-                window.location.href = "/search/calculate?langitude="+langitude+"&latitude="+latitude;
-//                alert('您的位置：'+r.point.lng+','+r.point.lat);
-            }
-            else {
-                alert("无法获取当前位置，距离检索不可用");
-                distance.disabled = true;
-            }
-        },{enableHighAccuracy: true})
-
-
+    var star = document.getElementById('star')
+    star.onchange = function () {
+        $('table tr').show();
+        for (var i = 0; i < array.length; i++) {
+            marker[i].show();
+        }
+        /*$(table).find("tr").eq(0).show();*/
+        filterstar();
+        filterprice();
     }
+
+    var price = document.getElementById('price')
+    price.onchange = function () {
+        $('table tr').show();
+        for (var i = 0; i < array.length; i++) {
+            marker[i].show();
+        }
+        filterstar();
+        filterprice();
+    }
+
+    var distance = document.getElementById('distance')
 
 
     /*
@@ -483,7 +599,10 @@
     <option value="3公里内">3公里内</option>
     <option value="5公里内">5公里内</option>
     <option value="10公里内">10公里内</option>*/
-
+    /*                var langitude = r.point.lng;
+                   var latitude = r.point.lat;
+                   window.location.href = "/search/calculate?langitude=" + langitude + "&latitude=" + latitude;*/
+    /*               alert('您的位置：'+r.point.lng+','+r.point.lat);*/
 
 </script>
 </body>
