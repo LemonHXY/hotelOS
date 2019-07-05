@@ -57,10 +57,26 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
+                <li class="nav-item"><a class="nav-link" id="order" onclick="alert('还未登录！')" href="/enter" >我的订单</a></li>
+                <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
+                <script>
+                    var name="uName";//Cookies名字
+                    this.GetCookie = function(name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    if(GetCookie(name)){
+                        document.getElementById("denglu").innerText="您好，"+GetCookie(name);
+                        document.getElementById("denglu").href="";
+                        document.getElementById("order").href="/userorder";
+                        document.getElementById("order").onclick="";
+                        document.getElementById("zhuce").innerText="退出登录";
+                        document.getElementById("zhuce").href="/enter/logout";}
+                </script>
             </ul>
         </div>
     </div>
@@ -82,7 +98,7 @@
                     <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
                     <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
                     <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
-                    <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate" th:text="*{depDate}"></span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间</p>
+                    <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate" th:text="*{depDate}"></span>&nbsp;共<span th:text="${nNight}"></span>晚*&nbsp;<span th:text="${quantity}"></span>间</p>
                     <p>总价：<span name="totalPrice" th:text="*{totalPrice}">元</span></p>
                 </div>
                 <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
@@ -94,7 +110,7 @@
                     <div class="col-md-2 probootstrap-form" style="margin:auto;" >
                         <p></p>
                         <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/orderdetail/delete?' + ${orderOutput.oId}}"><button>详情</button></a>
+                            <a th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}"><button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房</button></a>
                         </td>
 
                         <p></p>
@@ -105,26 +121,14 @@
                 <div class="col-md">
                     <br>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index1.html">返回我的订单</a></p>
+                    <p><a class="ex2" style="float:right;" href="index.html">返回我的订单</a></p>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index1.html">返回首页</a></p>
+                    <p><a class="ex2" style="float:right;" href="index.html">返回首页</a></p>
                 </div>
             </div>
 
         </div>
     </div>
-<!--
-    <div style="float:right;">
-        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                onclick="ck1();">修改密码
-        </button>
-        &nbsp;&nbsp;&nbsp;
-    </div>
-    <div style="float:right;">
-        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                onclick="ck();">修改昵称
-        </button>
-    </div>-->
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
         <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
@@ -141,24 +145,6 @@
 <script src="/assets/js/jquery.easing.1.3.js"></script>
 <script src="/assets/js/select2.min.js"></script>
 <script src="/assets/js/main.js"></script>
-<script>
-    function test() {
-        var testText =
-        alert(testText);
-        $.ajax({
-            type: "post",
-            url: "/search/test",
-            data: {
-                test: testText
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.result == "success")
-                    alert("测试通过");
-            }
-        })
-    }
-</script>
 
 </body>
 </html>

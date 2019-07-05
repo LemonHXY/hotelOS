@@ -108,6 +108,32 @@ public class OrderServicelmpl implements OrderService {
     }
 
     @Override
+    public int getQuantityInOrder(int oId) {
+        R_order order= r_orderMapper.selectByPrimaryKey(oId);
+        if(order!=null)
+            return order.getQuantity();
+        else
+            return 0;
+    }
+
+    @Override
+    public void checkOutByOId(int oId) {
+        R_order order=r_orderMapper.selectByPrimaryKey(oId);
+        roomService.roomPlus(order.getRoomId(),order.getArrDate(),order.getQuantity());
+        order.setoStatus("已退订");
+        r_orderMapper.updateByPrimaryKey(order);
+    }
+
+    @Override
+    public boolean deleteOrderByPrimaryKey(int oId) {
+        r_orderMapper.deleteByPrimaryKey(oId);
+        R_order order=r_orderMapper.selectByPrimaryKey(oId);
+        if(order==null||order.equals(""))
+            return true;
+        return false;
+    }
+
+    @Override
     public OrderOutput GetOrderLists2(int oId) {
         OrderOutput orderOutput = new OrderOutput();
 

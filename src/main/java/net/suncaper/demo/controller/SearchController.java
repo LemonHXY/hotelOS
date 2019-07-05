@@ -6,9 +6,7 @@ import net.suncaper.demo.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,124 +23,134 @@ public class SearchController {
     private HotelService hotelService;
     @Autowired
     private RoomService roomservice;
-//  显示搜索界面
+
+    //  显示搜索界面
     @GetMapping
     public String SearchPage(Model model) {
-        model.addAttribute("search",new MySearch());
+        model.addAttribute("search", new MySearch());
         return "/hotel_search.html";
     }
 
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
-    public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) throws ParseException {
+    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request,@RequestParam(value = "langitude", required = false) double langitude, @RequestParam(value = "latitude", required = false) double latitude) throws ParseException {
+        double distance = Math.sqrt(Math.pow(langitude,2)+Math.pow(latitude,2));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        City temp=hotelService.finCityByString(mySearch.getCity());
-        Date arr=formatter.parse(mySearch.getStart());
-        Date dep=formatter.parse(mySearch.getEnd());
+        City temp = hotelService.finCityByString(mySearch.getCity());
+        Date arr = formatter.parse(mySearch.getStart());
+        Date dep = formatter.parse(mySearch.getEnd());
 
-
-
-        Cookie []cookies=request.getCookies();
-        int b=0;
-        for(Cookie cookie:cookies)
-        {
-            if(cookie.getName().equals("b"))
-                if (cookie.getValue()!=null)
-                    b=Integer.parseInt(cookie.getValue());
+        // 判断登陆状态
+        Cookie[] cookies = request.getCookies();
+        int b = 0;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("b"))
+                if (cookie.getValue() != null)
+                    b = Integer.parseInt(cookie.getValue());
         }
-        String []s=mySearch.getName().split("\\s+");
-        List<String>  keyWord= Arrays.asList(s);
-        if(temp==null)
-        {
-            model.addAttribute("search",new MySearch());
+
+        // 分割字符 以备关键字搜索
+        String[] s = mySearch.getName().split("\\s+");
+        List<String> keyWord = Arrays.asList(s);
+
+        // 城市为空则重新搜索
+        if (temp == null) {
+            model.addAttribute("search", new MySearch());
             return "/hotel_search.html";
         }
-        List<Hotel>  c;
-        c = hotelService.findByCityAndName(temp.getCity(),keyWord);
+
+        List<Hotel> c;
+        c = hotelService.findByCityAndName(temp.getCity(), keyWord);
         Iterator<Hotel> it = c.iterator();
-        while(it.hasNext())
-        {
-            Hotel h=it.next();
-            List<Room> rooms=roomservice.findRoomByHotelId(h.getHotelId());
-           List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
-           if(r.size()==0)
-               it.remove();
+        while (it.hasNext()) {
+            Hotel h = it.next();
+            List<Room> rooms = roomservice.findRoomByHotelId(h.getHotelId());
+            List<Room> r = roomservice.getRemainBetween(rooms, arr, dep, b);
+            if (r.size() == 0)
+                it.remove();
         }
+
+
+
         //List<Hotel>  c=hotelService.findHotelByCityId(temp.getCityId());
-        model.addAttribute("search",new MySearch());
-        model.addAttribute("hotels",c);
+        model.addAttribute("search", new MySearch());
+        model.addAttribute("hotels", c);
         return "/hotel_search.html";
     }
 
     @GetMapping("/room")
     public String SearchPage(Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        int hotelId=Integer.parseInt(request.getQueryString());
+        int hotelId = Integer.parseInt(request.getQueryString());
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Cookie []cookies=request.getCookies();
-        int b=0;
-        Date arr=null;
-        Date dep=null;
-        for(Cookie cookie:cookies)
-        {
-            if(cookie.getName().equals("b")){
-                if (cookie.getValue()!=null)
-                    b=Integer.parseInt(cookie.getValue());
-            }
-            else if (cookie.getName().equals("arr")) {
-                if (cookie.getValue()!=null)
-                    arr=formatter.parse(cookie.getValue());
-                }
-            else if (cookie.getName().equals("dep")){
-                if (cookie.getValue()!=null)
-                    dep=formatter.parse(cookie.getValue());
+        Cookie[] cookies = request.getCookies();
+        int b = 0;
+        Date arr = null;
+        Date dep = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("b")) {
+                if (cookie.getValue() != null)
+                    b = Integer.parseInt(cookie.getValue());
+            } else if (cookie.getName().equals("arr")) {
+                if (cookie.getValue() != null)
+                    arr = formatter.parse(cookie.getValue());
+            } else if (cookie.getName().equals("dep")) {
+                if (cookie.getValue() != null)
+                    dep = formatter.parse(cookie.getValue());
             }
         }
-        Hotel hotel=hotelService.findHotelByKey(hotelId);
-        List<Room> rooms=roomservice.findRoomByHotelId(hotelId);
-        List<Room> result=new ArrayList<>();
-       // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
-        for (Room room:rooms)
-        {
-            int num=roomservice.getRemainNumBetween(room.getRoomId(),arr,dep);
-            Cookie cookie=new Cookie(String.valueOf(room.getRoomId()),String.valueOf(num));
+        Hotel hotel = hotelService.findHotelByKey(hotelId);
+        List<Room> rooms = roomservice.findRoomByHotelId(hotelId);
+        List<Room> result = new ArrayList<>();
+        // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
+        for (Room room : rooms) {
+            int num = roomservice.getRemainNumBetween(room.getRoomId(), arr, dep);
+            Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
             cookie.setPath("/");
             response.addCookie(cookie);
-            if(num>0)
+            if (num > 0)
                 result.add(room);
         }
-        model.addAttribute("search",new MySearch());
-        model.addAttribute("hotel",hotel);
-        model.addAttribute("rooms",result);
+        model.addAttribute("search", new MySearch());
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("rooms", result);
         return "/hotel_room.html";
     }
-    @PostMapping("/room")
-    public String SearchPageByPost(MySearch search,Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
-        int hotelId=Integer.parseInt(request.getQueryString());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Cookie []cookies=request.getCookies();
-        int b=0;
-        String a1=search.getStart();
-        String d1=search.getEnd();
-        Date arr=formatter.parse(a1);
-        Date dep=formatter.parse(d1);
 
-        Hotel hotel=hotelService.findHotelByKey(hotelId);
-        List<Room> rooms=roomservice.findRoomByHotelId(hotelId);
-        List<Room> result=new ArrayList<>();
+    @PostMapping("/room")
+    public String SearchPageByPost(MySearch search, Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        int hotelId = Integer.parseInt(request.getQueryString());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Cookie[] cookies = request.getCookies();
+        int b = 0;
+        String a1 = search.getStart();
+        String d1 = search.getEnd();
+        Date arr = formatter.parse(a1);
+        Date dep = formatter.parse(d1);
+
+        Hotel hotel = hotelService.findHotelByKey(hotelId);
+        List<Room> rooms = roomservice.findRoomByHotelId(hotelId);
+        List<Room> result = new ArrayList<>();
         // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
-        for (Room room:rooms)
-        {
-            int num=roomservice.getRemainNumBetween(room.getRoomId(),arr,dep);
-            Cookie cookie=new Cookie(String.valueOf(room.getRoomId()),String.valueOf(num));
+        for (Room room : rooms) {
+            int num = roomservice.getRemainNumBetween(room.getRoomId(), arr, dep);
+            Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
             cookie.setPath("/");
             response.addCookie(cookie);
-            if(num>0)
+            if (num > 0)
                 result.add(room);
         }
-        model.addAttribute("search",new MySearch());
-        model.addAttribute("hotel",hotel);
-        model.addAttribute("rooms",result);
+        model.addAttribute("search", new MySearch());
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("rooms", result);
         return "/hotel_room.html";
+    }
+
+    @GetMapping("/calculate")
+    public String Calculate(Model model, @RequestParam(value = "langitude", required = false) double langitude, @RequestParam(value = "latitude", required = false) double latitude) {
+
+        System.out.println("jingwei");
+        return "/hotel_room.html";
+
     }
 }
 

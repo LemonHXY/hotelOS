@@ -107,18 +107,26 @@ public  class RoomServiceImpl implements RoomService {
     @Override
     public boolean roomPlus(int id, Date date, int num) {
         Room_quantityKey key=new Room_quantityKey(id,date);
+        Room room=roomMapper.selectByPrimaryKey(id);
         Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
-        q.setRemain(q.getRemain()+num);
-        room_quantityMapper.updateByPrimaryKey(q);
-        return false;
+        if(q.getRemain()+num<room.getAmout()) {
+            q.setRemain(q.getRemain()+num);
+            room_quantityMapper.updateByPrimaryKey(q);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean roomMinus(int id, Date date, int num) {
         Room_quantityKey key=new Room_quantityKey(id,date);
+        Room room=roomMapper.selectByPrimaryKey(id);
         Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
-        q.setRemain(q.getRemain()-num);
-        room_quantityMapper.updateByPrimaryKey(q);
+        if(q.getRemain()-num>=0) {
+            q.setRemain(q.getRemain()-num);
+            room_quantityMapper.updateByPrimaryKey(q);
+        return true;
+        }
         return false;
     }
 

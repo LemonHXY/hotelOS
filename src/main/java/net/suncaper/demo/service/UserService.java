@@ -21,5 +21,7 @@ public interface UserService {
 
      public List<User> GetAllUsers();
 
+     public void setAbnormalByUid(int uId);
+     public void setNormalByUid(int uId);
 
 }

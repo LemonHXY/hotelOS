@@ -69,4 +69,11 @@ public  class UserServiceImpl implements UserService {
         return userList;
     }
 
+    public void setAbnormalByUid(int uId) {
+        userMapper.updateAbnormal(uId);
+    }
+
+    public void setNormalByUid(int uId) {
+        userMapper.updatenormal(uId);
+    }
 }

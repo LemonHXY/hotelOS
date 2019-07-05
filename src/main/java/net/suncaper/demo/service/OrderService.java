@@ -13,4 +13,7 @@ public interface OrderService {
     public void saveOne(R_order order);
     public List<OrderOutput> GetAllOrderOutput();
     public List<OrderOutput> GetAllByCheckOut();
+    public int getQuantityInOrder(int oId);
+    public void checkOutByOId(int oId);
+    public boolean deleteOrderByPrimaryKey(int oId);
 }
