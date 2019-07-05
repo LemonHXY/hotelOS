@@ -218,7 +218,7 @@
                     <td th:text="${room.price}">价格</td>
                     <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
                     <td ></td>
-                    <td><a th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" >下单</a></td>
+                    <td><a th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" >预定</a></td>
                 </tr>
             </table>
                 <table>

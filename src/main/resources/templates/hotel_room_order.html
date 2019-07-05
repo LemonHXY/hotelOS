@@ -99,10 +99,20 @@
                         <br>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                        <form  id="makeOrder" action="/roomorder/sure",method="post">
+                        <form  id="order" action="/roomorder/sure",method="post">
                             <label for quantity >房间数：</label>
                             <label for="quantity">
-                                <input type="text" class="form-control" id="quantity" name="quantity" style="width:60px;" onblur="caculate()"><p th:text="'该类房间还剩'+${remain}+'间'"></p>
+                                <select class="js-example-basic-single js-states form-control" id="quantity"
+                                        style="width:60px;" name="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
                             </label>
                             <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
                                     id="gbtn">
@@ -180,7 +190,7 @@
         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
     }
     function  sure() {
-        var makeForm=document.getElementById("makeOrder");
+        var makeForm=document.getElementById("order");
         var input1=document.createElement("input");
         var input2=document.createElement("input");
         var input3=document.createElement("input");
@@ -223,7 +233,7 @@
         var gname = document.getElementById("uName");
         var gphone = document.getElementById("uPhone");
         var gbtn = document.getElementById("gbtn");
-        var order = document.getElementById("makeOrder");
+        var order = document.getElementById("order");
         if (btn1.innerHTML.match("确认订单")) {
             if (gname.value == ""||gname.value == null) {
                 window.alert("请填写入住人姓名！");

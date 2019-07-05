@@ -74,7 +74,7 @@ public class RoomOrderController {
 
         model.addAttribute("dep",formatter.format(dep));
 
-        model.addAttribute("nNight",b+1);
+        model.addAttribute("nNight",b);
         model.addAttribute("roomType",room.getRoomType());
         model.addAttribute("breakfast",room.getBreakfast());
         model.addAttribute("oneprice",room.getPrice());
