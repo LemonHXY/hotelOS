@@ -139,7 +139,7 @@
                                         <label for="probootstrap-date-arrival">入住日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input autocomplete="off" type="text" id="probootstrap-date-arrival"
+                                            <input required="true" autocomplete="off" type="text" id="probootstrap-date-arrival"
                                                    class="form-control" placeholder="" name="start" th:field="*{start}">
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@
                                         <label for="probootstrap-date-departure">离店日期</label>
                                         <div class="probootstrap-date-wrap">
                                             <span class="icon ion-calendar"></span>
-                                            <input autocomplete="off" type="text" id="probootstrap-date-departure"
+                                            <input required="true" autocomplete="off" type="text" id="probootstrap-date-departure"
                                                    class="form-control" placeholder="" name="end" th:field="*{end}">
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@
                             <td class="text-center" th:text="${hotel.starRating}"></td>
                             <td class="text-center" th:text="${hotel.ratingAverage}"></td>
                             <td class="text-center" th:text="${hotel.ratesFrom}"></td>
-                            <td class="text-center"></td>
+                            <td class="text-center" th:text="${hotel.distance}"></td>
                             <td th:text="${hotel.longitude}" style="display: none;"></td>
                             <td th:text="${hotel.latitude}" style="display: none;"></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
@@ -378,7 +378,7 @@
     }
 
     $(document).ready(function () {
-        setTimeout(test, 450);
+        setTimeout(test, 500);
     });
 
     $(document).ready(function () {
@@ -435,6 +435,7 @@
         }
         filterstar();
         filterprice();
+        filterdistance();
     }
 
     sort.onchange = function () {
@@ -498,12 +499,27 @@
         }
     }
 
+    function Distance(array) {
+        for (var i = 0; i < array.length; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (Number(array[i].getElementsByTagName('td')[6].innerText) >= Number(array[j].getElementsByTagName('td')[6].innerText)) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
     function filterstar() {
         if (star.value == "五星") {
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[3].innerText) != 5.0) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -511,7 +527,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[3].innerText) < 4.0 || Number(array[i].getElementsByTagName('td')[3].innerText) == 5.0) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -519,7 +535,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[3].innerText) < 3.0 || Number(array[i].getElementsByTagName('td')[3].innerText) >= 4.0) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -527,7 +543,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[3].innerText) >= 3.0) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -540,7 +556,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[5].innerText) > 200) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -548,7 +564,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 200 || Number(array[i].getElementsByTagName('td')[5].innerText) > 500) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -556,7 +572,7 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 500 || Number(array[i].getElementsByTagName('td')[5].innerText) > 1000) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
                 }
             }
         }
@@ -564,7 +580,44 @@
             for (var i = 0; i < array.length; i++) {
                 if (Number(array[i].getElementsByTagName('td')[5].innerText) <= 1000) {
                     $(table).find("tr").eq(i + 1).hide();
-                    marker[i].hide()
+                    marker[i].hide();
+                }
+            }
+        }
+        else
+            return;
+    }
+
+    function filterdistance() {
+        if (distance.value == "1公里内") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[6].innerText) >= 1) {
+                    $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide();
+                }
+            }
+        }
+        else if (distance.value == "3公里内") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[6].innerText) >= 3) {
+                    $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide();
+                }
+            }
+        }
+        else if (distance.value == "5公里内") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[6].innerText) >= 5) {
+                    $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide();
+                }
+            }
+        }
+        else if (distance.value == "10公里内") {
+            for (var i = 0; i < array.length; i++) {
+                if (Number(array[i].getElementsByTagName('td')[6].innerText) >= 10) {
+                    $(table).find("tr").eq(i + 1).hide();
+                    marker[i].hide();
                 }
             }
         }
@@ -578,9 +631,9 @@
         for (var i = 0; i < array.length; i++) {
             marker[i].show();
         }
-        /*$(table).find("tr").eq(0).show();*/
         filterstar();
         filterprice();
+        filterdistance();
     }
 
     var price = document.getElementById('price')
@@ -591,21 +644,19 @@
         }
         filterstar();
         filterprice();
+        filterdistance();
     }
 
     var distance = document.getElementById('distance')
-
-
-    /*
-<option value="距离不限">距离不限</option>
-        <option value="1公里内">1公里内</option>
-    <option value="3公里内">3公里内</option>
-    <option value="5公里内">5公里内</option>
-    <option value="10公里内">10公里内</option>*/
-    /*                var langitude = r.point.lng;
-                   var latitude = r.point.lat;
-                   window.location.href = "/search/calculate?langitude=" + langitude + "&latitude=" + latitude;*/
-    /*               alert('您的位置：'+r.point.lng+','+r.point.lat);*/
+    distance.onchange = function () {
+        $('table tr').show();
+        for (var i = 0; i < array.length; i++) {
+            marker[i].show();
+        }
+        filterstar();
+        filterprice();
+        filterdistance();
+    }
 
 </script>
 </body>

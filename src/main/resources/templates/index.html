@@ -107,7 +107,7 @@
                                     <label for="probootstrap-date-arrival">入住日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input autocomplete="off" type="text" id="probootstrap-date-arrival"
+                                        <input required="true" autocomplete="off" type="text" id="probootstrap-date-arrival"
                                                class="form-control" placeholder="" name="start" th:field="*{start}">
                                     </div>
                                 </div>
@@ -117,13 +117,16 @@
                                     <label for="probootstrap-date-departure">离店日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input autocomplete="off" type="text" id="probootstrap-date-departure"
+                                        <input required="true" autocomplete="off" type="text" id="probootstrap-date-departure"
                                                class="form-control" placeholder="" name="end" th:field="*{end}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- END row -->
+
+                        <input type="text" id="lng" style="display: none" name="longitude" th:field="*{longitude}">
+                        <input type="text" id="lat" style="display: none" name="latitude" th:field="*{latitude}">
 
                         <div class="row">
                             <div class="col-md">
@@ -158,6 +161,7 @@
 
 <script src="/assets/js/main.js"></script>
 
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7LZ9FcsaUv2q5CbfrPp4uQR8pEgMnGf0"></script>
 
 <script src="/assets/js/area.js"></script><!--所有城市数据-->
 <script src="/assets/js/select.js"></script><!--默认调用方法-->
@@ -186,6 +190,22 @@
         localStorage.arr = $('#probootstrap-date-arrival').val();
         localStorage.dep = $('#probootstrap-date-departure').val();
     })
+
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            var mk = new BMap.Marker(r.point);
+            var longitude = r.point.lng;
+            var latitude = r.point.lat;
+            $('#lng').val(longitude);
+            $('#lat').val(latitude);
+            alert("位置获取成功!");
+        }
+        else {
+            alert("无法获取当前位置!");
+            distance.disabled = true;
+        }
+    },{enableHighAccuracy: true})
 
     /*    $('from').submit(function(){
             addCookie('city', $('city').val());
