@@ -39,7 +39,7 @@
 
         a.ex2:hover, a.ex2:active {
             color: green;
-            font-size: 150%;
+            font-size: 120%;
         }
 
     </style>
@@ -57,25 +57,26 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" id="order" onclick="alert('还未登录！')" href="/enter" >我的订单</a></li>
-                <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
+                <li class="nav-item active"><a class="nav-link" id="order">我的订单</a></li>
+                <li class="nav-item"><a class="nav-link" href="/enter" id="denglu">登录</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
                 <script>
-                    var name="uName";//Cookies名字
-                    this.GetCookie = function(name) {
+                    var name = "uName";//Cookies名字
+                    this.GetCookie = function (name) {
                         var ck = document.cookie;
                         var exp1 = new RegExp(name + "=.*?(?=;|$)");
                         var mch = ck.match(exp1);
                         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
                     }
-                    if(GetCookie(name)){
-                        document.getElementById("denglu").innerText="您好，"+GetCookie(name);
-                        document.getElementById("denglu").href="";
-                        document.getElementById("order").href="/userorder";
-                        document.getElementById("order").onclick="";
-                        document.getElementById("zhuce").innerText="退出登录";
-                        document.getElementById("zhuce").href="/enter/logout";}
+                    if (GetCookie(name)) {
+                        document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
+                        document.getElementById("denglu").href = "";
+                        document.getElementById("order").href = "/userorder";
+                        document.getElementById("order").onclick = "";
+                        document.getElementById("zhuce").innerText = "退出登录";
+                        document.getElementById("zhuce").href = "/enter/logout";
+                    }
                 </script>
             </ul>
         </div>
@@ -94,36 +95,35 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
-                    <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
-                    <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
-                    <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
-                    <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate" th:text="*{depDate}"></span>&nbsp;共<span th:text="${nNight}"></span>晚*&nbsp;<span th:text="${quantity}"></span>间</p>
-                    <p>总价：<span name="totalPrice" th:text="*{totalPrice}">元</span></p>
-                </div>
-                <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
-                    <p>入住人：<span name="uName" th:text="*{uName}"></span></p>
-                    <p>手机号：<span name="uPhone" th:text="*{uPhone}"></span></p>
-                    <p>订单号：<span name="oId" th:text="*{oId}">123</span></p>
-                    <p>状态：<span name="oStatus" th:text="*{oStatus}"></span></p>
-                </div>
-                    <div class="col-md-2 probootstrap-form" style="margin:auto;" >
-                        <p></p>
+                    <div class="col-md-6 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                        <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
+                        <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
+                        <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
+                        <p><span name="arrDateStr" th:text="*{arrDateStr}"></span>到<span name="depDateStr"
+                                                                                   th:text="*{depDateStr}"></span>&nbsp;共<span
+                                th:text="${nNight}"></span>晚 *&nbsp;<span th:text="${quantity}"></span>间</p>
+                        <p>总价：<span name="totalPrice" th:text="*{totalPrice}">元</span></p>
+                    </div>
+                    <div class="col-md-5 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                        <p>入住人：<span name="uName" th:text="*{uName}"></span></p>
+                        <p>手机号：<span name="uPhone" th:text="*{uPhone}"></span></p>
+                        <p>订单号：<span name="oId" th:text="*{oId}">123</span></p>
+                        <p>状态：<span name="oStatus" th:text="*{oStatus}"></span></p>
                         <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}"><button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房</button></a>
+                            <a th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}">
+                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C; float:right">
+                                    退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房
+                                </button>
+                            </a>
                         </td>
-
-                        <p></p>
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">再次预订
-                    </button>
                     </div>
                 </div>
                 <div class="col-md">
                     <br>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index.html">返回我的订单</a></p>
+                    <p><a class="ex2" style="float:right;" href="/userorder">返回我的订单</a></p>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index.html">返回首页</a></p>
+                    <p><a class="ex2" style="float:right;" href="/index">返回首页</a></p>
                 </div>
             </div>
 

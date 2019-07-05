@@ -8,6 +8,8 @@ import net.suncaper.demo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +50,9 @@ public class OrderServicelmpl implements OrderService {
             orderOutput.setQuantity(order.getQuantity());
             orderOutput.setTotalPrice(order.getTotalPrice());
             orderOutput.setoStatus(order.getoStatus());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日") ; //使用了默认的格式创建了一个日期格式化对象。
+            orderOutput.setArrDateStr(dateFormat.format(order.getArrDate()));
+            orderOutput.setDepDateStr(dateFormat.format(order.getDepDate()));
             orderList.add(orderOutput);
         }
         return orderList;
@@ -157,6 +162,10 @@ public class OrderServicelmpl implements OrderService {
         orderOutput.setoId(r_order.getoId());
         orderOutput.setoStatus(r_order.getoStatus());
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日") ; //使用了默认的格式创建了一个日期格式化对象。
+        orderOutput.setArrDateStr(dateFormat.format(r_order.getArrDate()));
+        orderOutput.setDepDateStr(dateFormat.format(r_order.getDepDate()));
+
         return orderOutput;
     }
 
@@ -171,6 +180,14 @@ public class OrderServicelmpl implements OrderService {
             curDate = ca.getTime();
         }
         r_orderMapper.insertSelective(order);
+    }
+
+    public static Date getNowDateShort(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(date);
+        ParsePosition pos = new ParsePosition(8);
+        Date currentTime_2 = formatter.parse(dateString, pos);
+        return currentTime_2;
     }
 
 }

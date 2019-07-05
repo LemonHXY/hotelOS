@@ -31,7 +31,7 @@ public class UserOrderDetailController {
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
         Date arr=orderOutput.getArrDate();
         Date dep=orderOutput.getDepDate();
-            long nNight=(long)((dep.getTime()-arr.getTime())/(1000*60*60*24)+0.5);
+        long nNight=(long)((dep.getTime()-arr.getTime())/(1000*60*60*24)+0.5);
         int q=orderService.getQuantityInOrder(oId);
 
         model.addAttribute("quantity",q);

@@ -70,6 +70,10 @@ public  class RoomServiceImpl implements RoomService {
             ca.setTime(curDate);
             key.setrDate(curDate);
             Room_quantity q=room_quantityMapper.selectByPrimaryKey(key);
+            if(q==null){
+                min=0;
+                break;
+            }
             min=min<q.getRemain()?min:q.getRemain();
             ca.add(ca.DATE, 1);
             curDate = ca.getTime();

@@ -32,7 +32,7 @@ public class RegisterController {
         if(temp==null)
         {
             userService.saveUser(user1);
-            return "redirect:/search";
+            return "redirect:/enter";
         }
         else
         {

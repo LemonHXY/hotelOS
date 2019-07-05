@@ -93,8 +93,8 @@ create table r_img
 /*==============================================================*/
 create table r_order
 (
-   o_id                 int not null,
-   u_id                 int not null,
+   o_id                 int not null auto_increment,
+   u_id                 int not null ,
    room_id              int not null,
    o_time               datetime not null,
    arr_date             date not null,
@@ -137,6 +137,7 @@ create table user
    u_id                 int not null,
    u_name               varchar(20) not null,
    u_password             char(20) not null,
+   u_Status              varchar(20),
    primary key (u_id)
 );
 

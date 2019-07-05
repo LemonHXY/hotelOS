@@ -19,6 +19,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/search")
 public class SearchController {
+    private static final double EARTH_RADIUS = 6378.137;
+
     @Autowired
     private HotelService hotelService;
     @Autowired
@@ -33,8 +35,7 @@ public class SearchController {
 
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
-    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request,@RequestParam(value = "langitude", required = false) double langitude, @RequestParam(value = "latitude", required = false) double latitude) throws ParseException {
-        double distance = Math.sqrt(Math.pow(langitude,2)+Math.pow(latitude,2));
+    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         City temp = hotelService.finCityByString(mySearch.getCity());
         Date arr = formatter.parse(mySearch.getStart());
@@ -43,12 +44,13 @@ public class SearchController {
         // 判断登陆状态
         Cookie[] cookies = request.getCookies();
         int b = 0;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("b"))
-                if (cookie.getValue() != null)
-                    b = Integer.parseInt(cookie.getValue());
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("b"))
+                    if (cookie.getValue() != null)
+                        b = Integer.parseInt(cookie.getValue());
+            }
         }
-
         // 分割字符 以备关键字搜索
         String[] s = mySearch.getName().split("\\s+");
         List<String> keyWord = Arrays.asList(s);
@@ -59,15 +61,19 @@ public class SearchController {
             return "/hotel_search.html";
         }
 
-        List<Hotel> c;
-        c = hotelService.findByCityAndName(temp.getCity(), keyWord);
-        Iterator<Hotel> it = c.iterator();
-        while (it.hasNext()) {
-            Hotel h = it.next();
-            List<Room> rooms = roomservice.findRoomByHotelId(h.getHotelId());
-            List<Room> r = roomservice.getRemainBetween(rooms, arr, dep, b);
-            if (r.size() == 0)
-                it.remove();
+        List<Hotel> c = hotelService.findByCityAndName(temp.getCity(), keyWord);
+//        Iterator<Hotel> it = c.iterator();
+//        while (it.hasNext()) {
+//            Hotel h = it.next();
+//            List<Room> rooms = roomservice.findRoomByHotelId(h.getHotelId());
+//            List<Room> r = roomservice.getRemainBetween(rooms, arr, dep, b);
+//            if (r.size() == 0)
+//                it.remove();
+//        }
+
+        for (int i = 0; i < c.size(); i++) {
+            double distance = getDistance(mySearch.getLongitude(), mySearch.getLatitude(), c.get(i).getLongitude(), c.get(i).getLatitude());
+            c.get(i).setDistance((double) Math.round(distance * 100) / 100);
         }
 
 
@@ -86,6 +92,7 @@ public class SearchController {
         int b = 0;
         Date arr = null;
         Date dep = null;
+        if(cookies!=null){
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("b")) {
                 if (cookie.getValue() != null)
@@ -98,6 +105,7 @@ public class SearchController {
                     dep = formatter.parse(cookie.getValue());
             }
         }
+        }
         Hotel hotel = hotelService.findHotelByKey(hotelId);
         List<Room> rooms = roomservice.findRoomByHotelId(hotelId);
         List<Room> result = new ArrayList<>();
@@ -107,7 +115,7 @@ public class SearchController {
             Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
             cookie.setPath("/");
             response.addCookie(cookie);
-            if (num > 0)
+           // if (num > 0)
                 result.add(room);
         }
         model.addAttribute("search", new MySearch());
@@ -145,12 +153,24 @@ public class SearchController {
         return "/hotel_room.html";
     }
 
-    @GetMapping("/calculate")
-    public String Calculate(Model model, @RequestParam(value = "langitude", required = false) double langitude, @RequestParam(value = "latitude", required = false) double latitude) {
-
-        System.out.println("jingwei");
-        return "/hotel_room.html";
-
+    // 计算距离
+    public static double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
+        // 纬度
+        double lat1 = Math.toRadians(latitude1);
+        double lat2 = Math.toRadians(latitude2);
+        // 经度
+        double lng1 = Math.toRadians(longitude1);
+        double lng2 = Math.toRadians(longitude2);
+        // 纬度之差
+        double a = lat1 - lat2;
+        // 经度之差
+        double b = lng1 - lng2;
+        // 计算两点距离的公式
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+                Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(b / 2), 2)));
+        // 弧长乘地球半径, 返回单位: 千米
+        s = s * EARTH_RADIUS;
+        return s;
     }
 }
 
