@@ -47,6 +47,14 @@
             font-size: 120%;
         }
 
+        a.ex:link{
+            color: #9e9e9e;
+        }
+
+        a.ex:hover, a.ex:active {
+            color: green;
+        }
+
     </style>
 
 </head>
@@ -64,21 +72,22 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
                 <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item" ><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/enter" id="denglu">登录</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
                 <script>
-                    var name="uName";//Cookies名字
-                    this.GetCookie = function(name) {
+                    var name = "uName";//Cookies名字
+                    this.GetCookie = function (name) {
                         var ck = document.cookie;
                         var exp1 = new RegExp(name + "=.*?(?=;|$)");
                         var mch = ck.match(exp1);
                         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
                     }
-                    if(GetCookie(name)!=null){
-                        document.getElementById("denglu").innerText="您好，"+GetCookie(name);
-                        document.getElementById("denglu").href="";
-                        document.getElementById("zhuce").innerText="退出登录";
-                        document.getElementById("zhuce").href="/enter/logout";}
+                    if (GetCookie(name) != null) {
+                        document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
+                        document.getElementById("denglu").href = "";
+                        document.getElementById("zhuce").innerText = "退出登录";
+                        document.getElementById("zhuce").href = "/enter/logout";
+                    }
                 </script>
             </ul>
         </div>
@@ -98,13 +107,13 @@
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
-    <h2 class="display-4 border-bottom probootstrap-section-heading text-center"  th:text="${hotel.hotelName}">酒店详情</h2>
+    <h2 class="display-4 border-bottom probootstrap-section-heading text-center" th:text="${hotel.hotelName}">酒店详情</h2>
     <div class="row probootstrap-animate">
         <div class="col-md-12">
             <div class="owl-carousel js-owl-carousel">
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <span style="width:280px;">
-                        <img  th:src="${hotel.photo1}"  >
+                        <img th:src="${hotel.photo1}">
                     </span>
                     <br><br>
                     <em>酒店图片</em>
@@ -150,27 +159,28 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <!--  <div class="col-md probootstrap-animate">-->
-            <table >
-                <tr >
+                <table>
+                    <tr>
                         <td width="500px">酒店名：&nbsp<span th:text="${hotel.hotelName}"></span></td>
                         <td width="100px">星级：&nbsp<span th:text="${hotel.starRating}"></span></td>
                         <td width="100px">评分：&nbsp<span th:text="${hotel.ratingAverage}"></span></td>
-                </tr>
-                <tr >
+                    </tr>
+                    <tr>
                         <td colspan="2">地址：&nbsp<span th:text="${hotel.addressline}"></span>
-<!--                            <p id="demo"></p></td>-->
+                            <!--                            <p id="demo"></p></td>-->
                         <td>
                             <button class="ion-location" onclick="getLocation()"
                                     style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">&nbsp&nbsp查看地图
                             </button>
                         </td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td colspan="3">详情：&nbsp<span th:text="${hotel.overview}"></span></td>
-                </tr>
+                    </tr>
                 </table>
 
-                <form th:action="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}" class="probootstrap-form" style="padding: 20px;margin-bottom: 0px;" method="post" th:object="${search}" id="myForm">
+                <form th:action="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}" class="probootstrap-form"
+                      style="padding: 20px;margin-bottom: 0px;" method="post" th:object="${search}" id="myForm">
                     <div class="form-group">
                         <div class="row mb-3">
                             <div class="col-md">
@@ -179,7 +189,7 @@
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
                                         <input autocomplete=“off” type="text" id="probootstrap-date-arrival"
-                                               class="form-control" placeholder="" name="start"  th:field="*{start}">
+                                               class="form-control" placeholder="" name="start" th:field="*{start}">
                                     </div>
                                 </div>
                             </div>
@@ -203,42 +213,99 @@
                         </div>
                     </div>
                 </form>
+                <script>
+                    function getNowFormatDate() {
+                        var date = new Date();
+                        var seperator1 = "-";
+                        var year = date.getFullYear();
+                        var month = date.getMonth() + 1;
+                        var strDate = date.getDate();
+                        if (month >= 1 && month <= 9) {
+                            month = "0" + month;
+                        }
+                        if (strDate >= 0 && strDate <= 9) {
+                            strDate = "0" + strDate;
+                        }
+                        var currentdate = year + seperator1 + month + seperator1 + strDate;
+                        return currentdate;
+                    }
 
+                    function mySub2() {
+                        var arr = document.getElementById("probootstrap-date-arrival").value;
+                        var dep = document.getElementById("probootstrap-date-departure").value;
+                        if (arr == "") {
+                            arr = getNowFormatDate();
+                            document.getElementById("probootstrap-date-arrival").value = arr;
+                        }
+                        if (dep == "") {
+                            dep = getNowFormatDate();
+                            document.getElementById("probootstrap-date-departure").value = dep;
+                        }
+                        var b = (new Date(dep) - new Date(arr)) / (60 * 60 * 24 * 1000);
+                        document.cookie = "arr=" + arr;
+                        document.cookie = "dep=" + dep;
+                        document.cookie = "b=" + b;
+                        var form = document.getElementById("myForm");
+                        form.submit();
+                    }
+                </script>
                 <table id="roomDetail">
-                <tr >
-                    <th >房间类型</th>
-                    <th >早餐</th>
-                    <th>价格</th>
-                    <th>剩余房间数量</th>
-                    <th>操作</th>
-                </tr>
-                <tr th:each="room:${rooms}">
-                    <td th:text="${room.roomType}">房间类型</td>
-                    <td th:text="${room.breakfast}">早餐</td>
-                    <td th:text="${room.price}">价格</td>
-                    <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
-                    <td ></td>
-                    <td><a th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}" >下单</a></td>
-                </tr>
-            </table>
-                <table>
-
-            <br>
-            <div class="col-md">
-                <br>
-                <br>
-                <p><a class="ex2" style="float:right;" href="javascript:history.back(-1)">返回酒店列表</a></p>
-                <br>
-                <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
-            </div>
+                    <tr>
+                        <th>房间类型</th>
+                        <th class="text-center">早餐</th>
+                        <th class="text-center">价格</th>
+                        <th class="text-center">剩余房间数量</th>
+                        <th class="text-center" width="60px">操作</th>
+                    </tr>
+                    <tr th:each="room:${rooms}">
+                        <td th:text="${room.roomType}">房间类型</td>
+                        <td th:text="${room.breakfast}">早餐</td>
+                        <td th:text="${room.price}">价格</td>
+                        <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>
+                        <td></td>
+                        <td align="center" valign="middle"><a class="btn ex"
+                                th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}">预定
+                            <!--<button>下单</button>-->
+                        </a></td>
+                    </tr>
                 </table>
+
+                <table>
+                    <script type="text/javascript">
+                        this.GetCookie = function (name) {
+                            var ck = document.cookie;
+                            var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                            var mch = ck.match(exp1);
+                            return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                        }
+                        var tab = document.getElementById("roomDetail")
+                        var ck = document.cookie;
+                        if (ck) {
+                            for (var i = 1; i < tab.rows.length; i++) {
+                                var name = tab.rows[i].cells[3].innerText;
+                                tab.rows[i].cells[4].innerHTML = GetCookie(name);
+
+                            }
+                        }
+                    </script>
+                    <br>
+                    <div class="col-md">
+                        <br>
+                        <br>
+                        <p><a class="ex2" style="float:right;" href="javascript:history.back(-1)">返回酒店列表</a></p>
+                        <br>
+                        <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
+                    </div>
+                </table>
+            </div>
         </div>
-        </div></div>
+    </div>
 
     </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
         <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-        </div></section>
+    </div>
+</section>
 
 
 <script src="/assets/js/jquery.min.js"></script>
@@ -246,7 +313,7 @@
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/owl.carousel.min.js"></script>
-        <script src="/assets/js/bootstrap-datepicker.js"></script>
+<script src="/assets/js/bootstrap-datepicker.js"></script>
 
 <script src="/assets/js/jquery.waypoints.min.js"></script>
 <script src="/assets/js/jquery.easing.1.3.js"></script>
@@ -254,63 +321,12 @@
 <script src="/assets/js/select2.min.js"></script>
 
 <script src="/assets/js/main.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
-                $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
-            });
-        </script>
-
-<script type="text/javascript">
-    this.GetCookie = function(name) {
-        var ck = document.cookie;
-        var exp1 = new RegExp(name + "=.*?(?=;|$)");
-        var mch = ck.match(exp1);
-        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
-    }
-    var tab=document.getElementById("roomDetail")
-    var ck = document.cookie;
-    if(ck){
-        for(var i=1 ;i<tab.rows.length;i++)
-        {
-            var name=tab.rows[i].cells[3].innerText;
-            tab.rows[i].cells[4].innerHTML=GetCookie(name);
-
-        }}</script>
 <script>
-    function getNowFormatDate() {
-        var date = new Date();
-        var seperator1 = "-";
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = year + seperator1 + month + seperator1 + strDate;
-        return currentdate;
-    }
-    function mySub2(){
-        var arr = document.getElementById("probootstrap-date-arrival").value;
-        var dep = document.getElementById("probootstrap-date-departure").value;
-        if(arr==""){
-            arr=getNowFormatDate();
-            document.getElementById("probootstrap-date-arrival").value=arr;
-        }
-        if(dep==""){
-            dep=getNowFormatDate();
-            document.getElementById("probootstrap-date-departure").value=dep;
-        }
-        var b=(new Date(dep)- new Date(arr))/(60*60*24*1000);
-        document.cookie="arr="+arr;
-        document.cookie="dep="+dep;
-        document.cookie="b="+b;
-        var form= document.getElementById("myForm");
-        form.submit();
-    }
+    $(document).ready(function () {
+        $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+        $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+    });
 </script>
+
 </body>
 </html>

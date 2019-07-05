@@ -1,11 +1,12 @@
 package net.suncaper.demo.controller;
 
-import net.suncaper.demo.domain.OrderOutput;
-import net.suncaper.demo.domain.User;
+import net.suncaper.demo.domain.*;
 import net.suncaper.demo.mapper.R_orderMapper;
 import net.suncaper.demo.mapper.UserMapper;
 import net.suncaper.demo.service.OrderService;
 import net.suncaper.demo.service.OrderServicelmpl;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.util.List;
 
 
@@ -129,13 +129,12 @@ public class AdminController {
         if ((cookies != null)) {// 如果登录信息不为空则返回所有用户
             for (Cookie cookie : cookies)
                 if (cookie.getValue().equals("1")) {
-                    List<User> list=userService.GetAllUsers();
-                    model.addAttribute("users", list);
+                    model.addAttribute("users", userService.GetAllUsers());
                     return "/admin_user.html";
                 }
         }
         // 登陆信息为空则返回空的用户列表
-        model.addAttribute("users", null);
+        model.addAttribute("users", userService.findUserByUIid(0));
         return "/admin_user.html";
     }
 
@@ -162,7 +161,7 @@ public class AdminController {
         int oId = Integer.parseInt(request.getQueryString());
         r_orderMapper.deleteByPrimaryKey(oId);
 
-        return "redirect:/admin/order";
+        return "/redirect:/admin/order";
     }
 
     // 强制退订
@@ -171,7 +170,7 @@ public class AdminController {
         int oId = Integer.parseInt(request.getQueryString());
         r_orderMapper.forcecheckout(oId);
 
-        return "redirect:/admin/order";
+        return "/redirect:/admin/order";
     }
 
 }

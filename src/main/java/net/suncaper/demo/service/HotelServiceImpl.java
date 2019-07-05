@@ -47,7 +47,6 @@ public  class HotelServiceImpl implements HotelService {
             for(int i=0;i<stringList.size();++i)
             {
                 example.or().andHotelNameLike("%"+stringList.get(i)+"%").andCityIdEqualTo(c.getCityId());
-               // example.createCriteria().andHotelNameGreaterThanOrEqualTo(stringList.get(i));
             }
         }
         else {

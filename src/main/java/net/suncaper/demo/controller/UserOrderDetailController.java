@@ -1,6 +1,7 @@
 package net.suncaper.demo.controller;
 
 import net.suncaper.demo.domain.OrderOutput;
+import net.suncaper.demo.mapper.R_orderMapper;
 import net.suncaper.demo.service.OrderService;
 import net.suncaper.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserOrderDetailController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private R_orderMapper r_orderMapper;
+
     //
     @GetMapping("/detail")
     public String getDetail(Model model, HttpServletRequest request) {
@@ -31,6 +35,14 @@ public class UserOrderDetailController {
         return "/user_order_detail.html";
     }
 
+
+    @GetMapping("/checkout")
+    public String checkOut(Model model, HttpServletRequest request) {
+        int oId = Integer.parseInt(request.getQueryString());
+        r_orderMapper.updateStatus(oId);
+
+        return "redirect:/userorder";
+    }
 
     @GetMapping("/delete")
     public String delete(Model model, HttpServletRequest request) {

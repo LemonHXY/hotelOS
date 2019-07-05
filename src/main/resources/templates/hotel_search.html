@@ -117,7 +117,7 @@
                                     </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="hotel_keyword">酒店关键字</label>
+                                        <label for="keyword">酒店关键字</label>
                                         <div>
                                             <input type="text" class="form-control" id="keyword"
                                                    placeholder="" name="name" th:field="*{name}">
@@ -278,7 +278,7 @@
     var array = [];
     for (var i = 1; i < tr.length; i++) {
         array.push(tr[i]);
-            }
+    }
     /*    document.getElementById("sort").value="评分优先";*/
 
     $(document).ready(function () {
@@ -287,6 +287,10 @@
         $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
         $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
         });
+
+    $(document).ready(function () {
+        calculate();
+    });
 
     $(document).ready(function () {
         setTimeout(test, 450);
@@ -460,7 +464,7 @@
                 var mk = new BMap.Marker(r.point);
                 var langitude = r.point.lng;
                 var latitude = r.point.lat;
-                window.location.href = "/search/calculate?langitude="+langitude+"&latitude="+latitude;
+                window.location.href = "/search/calculate?room="+langitude+"&latitude="+latitude;
 //                alert('您的位置：'+r.point.lng+','+r.point.lat);
             }
             else {

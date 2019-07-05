@@ -39,7 +39,7 @@
 
         a.ex2:hover, a.ex2:active {
             color: green;
-            font-size: 150%;
+            font-size: 120%;
         }
 
     </style>
@@ -94,12 +94,8 @@
                     <div class="col-md-2 probootstrap-form" style="margin:auto;" >
                         <p></p>
                         <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/orderdetail/delete?' + ${orderOutput.oId}}"><button>详情</button></a>
+                            <a th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}"><button>退订</button></a>
                         </td>
-
-                        <p></p>
-                        <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">再次预订
-                    </button>
                     </div>
                 </div>
                 <div class="col-md">

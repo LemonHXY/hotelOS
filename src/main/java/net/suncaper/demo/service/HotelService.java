@@ -8,8 +8,11 @@ import java.util.List;
 
 public interface HotelService {
     public List<Hotel> findHotelByCityId(int city);
+
     public Hotel findHotelByKey(int hotelId);
+
     public City finCityByString(String name);
-    public List<Hotel> findByCityAndName(String  city,List<String> stringList);
+
+    public List<Hotel> findByCityAndName(String city, List<String> stringList);
 
 }
