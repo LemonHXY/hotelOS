@@ -74,7 +74,6 @@
         var mch = ck.match(exp1);
         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
     }
-    var ck=document.cookie;
     if(GetCookie(name)==null)
     {
         alert("您还没登录");

@@ -110,6 +110,36 @@ public class SearchController {
             if(num>0)
                 result.add(room);
         }
+        model.addAttribute("search",new MySearch());
+        model.addAttribute("hotel",hotel);
+        model.addAttribute("rooms",result);
+        return "/hotel_room.html";
+    }
+    @PostMapping("/room")
+    public String SearchPageByPost(MySearch search,Model model, HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        int hotelId=Integer.parseInt(request.getQueryString());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Cookie []cookies=request.getCookies();
+        int b=0;
+        String a1=search.getStart();
+        String d1=search.getEnd();
+        Date arr=formatter.parse(a1);
+        Date dep=formatter.parse(d1);
+
+        Hotel hotel=hotelService.findHotelByKey(hotelId);
+        List<Room> rooms=roomservice.findRoomByHotelId(hotelId);
+        List<Room> result=new ArrayList<>();
+        // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
+        for (Room room:rooms)
+        {
+            int num=roomservice.getRemainNumBetween(room.getRoomId(),arr,dep);
+            Cookie cookie=new Cookie(String.valueOf(room.getRoomId()),String.valueOf(num));
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            if(num>0)
+                result.add(room);
+        }
+        model.addAttribute("search",new MySearch());
         model.addAttribute("hotel",hotel);
         model.addAttribute("rooms",result);
         return "/hotel_room.html";

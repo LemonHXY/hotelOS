@@ -52,7 +52,6 @@
                       var mch = ck.match(exp1);
                       return mch ? unescape(mch[0].substring(name.length + 1)) : null;
                   }
-                  var ck = document.cookie;
                   if(GetCookie(name)!=null){
                   document.getElementById("denglu").innerText="您好，"+GetCookie(name);
                   document.getElementById("denglu").href="";
