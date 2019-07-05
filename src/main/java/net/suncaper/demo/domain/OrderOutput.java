@@ -14,7 +14,7 @@ public class OrderOutput {
     private int totalPrice;
     private String uName;
     private String uPhone;
-    private Long oId;
+    private int oId;
     private String oStatus;
 
     public OrderOutput() {
@@ -27,7 +27,7 @@ public class OrderOutput {
         this.totalPrice = 0;
         this.uName = null;
         this.uPhone = null;
-        this.oId = 0L;
+        this.oId = 0;
         this.oStatus = null;
     }
 
@@ -95,11 +95,11 @@ public class OrderOutput {
         this.quantity = quantity;
     }
 
-    public Long getoId() {
+    public int getoId() {
         return oId;
     }
 
-    public void setoId(Long oId) {
+    public void setoId(int oId) {
         this.oId = oId;
     }
 

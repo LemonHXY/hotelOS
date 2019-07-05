@@ -19,5 +19,7 @@ public interface UserService {
 
      public List<Guest> findGuest(User user);//寻找某uid的同伴guest 的信息列表
 
+     public List<User> GetAllUsers();
+
 
 }

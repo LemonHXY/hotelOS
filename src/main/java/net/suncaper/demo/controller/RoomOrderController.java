@@ -85,6 +85,8 @@ public class RoomOrderController {
         return "/hotel_room_order.html";
     }
 
+    //待修改
+    //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
     public String saveUser(List<Hotel> d, Model model) {
 
@@ -109,7 +111,6 @@ public class RoomOrderController {
         int oneprice=Integer.parseInt(temp);
         int totalPrice=quantity*oneprice;
         String oStatus="未入住";
-        Long oId=1l;
         R_order newOrder=new R_order(uId,  roomId,  oTime, arr, dep, quantity, totalPrice, uName, uPhone, oStatus);
         /*存入订单之前需要检查房源数量*/
         int remain=roomService.getRemainNumBetween(roomId,arr,dep);

@@ -9,6 +9,8 @@ import java.util.List;
 @Service
 public interface OrderService {
     public List<OrderOutput> GetOrderLists(int uId);
-    public OrderOutput GetOrderLists2(Long oId) ;
+    public OrderOutput GetOrderLists2(int oId) ;
     public void saveOne(R_order order);
+    public List<OrderOutput> GetAllOrderOutput();
+    public List<OrderOutput> GetAllByCheckOut();
 }

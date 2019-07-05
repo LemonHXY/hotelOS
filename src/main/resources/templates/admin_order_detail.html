@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>麦味·我的订单</title>
+    <title>后台订单详情</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
 
-    <link href="/https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
@@ -41,10 +41,11 @@
             color: green;
             font-size: 150%;
         }
+
     </style>
 
 </head>
-<tr>
+<body>
 
 
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
@@ -56,10 +57,10 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin">管理员登陆</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/admin/order">后台订单列表</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/checkoutlist">退房信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/user">后台用户管理</a></li>
             </ul>
         </div>
     </div>
@@ -71,56 +72,53 @@
          data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
     <div class="container">
-        <!-- <div class="row align-items-center"> -->
-        <!-- <div class="col-md"> -->
 
-
-        <h2 class="display-4 border-bottom probootstrap-section-heading text-center">我的订单</h2>
-
+        <h2 class="display-4 border-bottom probootstrap-section-heading text-center">订单详情</h2>
 
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
-
             <div class="media-body">
-                <table>
-                    <tr>
-                    <th>酒店名</th>
-                    <th>房型</th>
-                    <th>入住</th>
-                    <th>离店</th>
-                    <th>间数</th>
-                    <th>总价</th>
-                    <th>状态</th>
-                    <th>详情</th>
-                    </tr>
-                    <tr th:each="r_order : ${orders}" >
-                        <td class="text-center" th:text="${r_order.hotelName}"></td>
-                        <td class="text-center" th:text="${r_order.roomType}"></td>
-                        <td class="text-center" th:text="${r_order.arrDate}"></td>
-                        <td class="text-center" th:text="${r_order.depDate}"></td>
-                        <td class="text-center" th:text="${r_order.quantity}"></td>
-                        <td class="text-center" th:text="${r_order.totalPrice}"></td>
-                        <td class="text-center" th:text="${r_order.oStatus}"></td>
+                <div class="row">
+                    <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                        <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
+                        <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
+                        <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}"></span></p>
+                        <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate"
+                                                                                   th:text="*{depDate}"></span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间
+                        </p>
+                        <p>总价：<span name="totalPrice" th:text="*{totalPrice}"></span></p>
+                    </div>
+                    <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                        <p>入住人：<span name="uName" th:text="*{uName}"></span></p>
+                        <p>手机号：<span name="uPhone" th:text="*{uPhone}"></span></p>
+                        <p>订单号：<span name="oId" th:text="*{oId}"></span></p>
+                        <p>状态：<span name="oStatus" th:text="*{oStatus}"></span></p>
+                    </div>
+                    <div class="col-md-2 probootstrap-form" style="margin:auto;">
+                        <p></p>
                         <td align="center" valign="middle">
-                           <!-- <a href="http://localhost:8280/orderdetail/get">
-                                <button>详情</button>
-                                encodeURI("http://localhost:8280/orderdetail/detail?" + oId);
-                            </a>-->
-                            <a th:href="@{'http://localhost:8280/orderdetail/detail?' + ${r_order.oId}}"><button>详情</button></a>
+                            <a th:href="@{'http://localhost:8280/admin/forcecheckout?' + ${orderOutput.oId}}">
+                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">强制退订</button>
+                            </a>
                         </td>
-                    </tr>
-                </table>
-                <!-- </div>  -->
-                <!-- </div> -->
+                        <td align="center" valign="middle">
+                            <a th:href="@{'http://localhost:8280/admin/delete?' + ${orderOutput.oId}}">
+                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">删除</button>
+                            </a>
+                        </td>
+                    </div>
+                </div>
                 <div class="col-md">
                     <br>
                     <br>
-                    <label style="float:right;"><a class="ex2" href="index1.html">返回首页</a></label>
+                    <p><a class="ex2" style="float:right;" href="index1.html">返回我的订单</a></p>
+                    <br>
+                    <p><a class="ex2" style="float:right;" href="index1.html">返回首页</a></p>
                 </div>
             </div>
+
         </div>
     </div>
-
-    </br></br></br></br></br></br></br></br></br></br>
+    </br></br></br></br></br></br></br>
     <div class="col-md-12 text-center">
         <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
     </div>
@@ -132,12 +130,10 @@
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/owl.carousel.min.js"></script>
-
 <script src="/assets/js/jquery.waypoints.min.js"></script>
 <script src="/assets/js/jquery.easing.1.3.js"></script>
-
 <script src="/assets/js/select2.min.js"></script>
-
 <script src="/assets/js/main.js"></script>
+
 </body>
 </html>

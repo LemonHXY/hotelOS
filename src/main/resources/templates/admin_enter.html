@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>麦味·登录</title>
+    <title>管理员登录界面</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -53,10 +53,10 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder" >我的订单</a></li>
-                <li class="nav-item active"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/admin">管理员登陆</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/order" >后台订单列表</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/checkoutlist">退票信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/user">后台用户管理</a></li>
             </ul>
         </div>
     </div>
@@ -64,19 +64,17 @@
 <!-- END nav -->
 
 
-
-
 <section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5" id="section-home">
     <div class="overlay"></div>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md">
-                <h2 class="heading mb-2 display-4 font-light probootstrap-animate text-center">欢迎登录麦味！</h2>
+                <h2 class="heading mb-2 display-4 font-light probootstrap-animate text-center">管理员登陆</h2>
                 </br></br></br></br></br>
             </div>
             <div class="col-md probootstrap-animate">
 
-                <form action="/enter/login" class="probootstrap-form" method="post" th:object="${user}">
+                <form action="/admin" class="probootstrap-form" method="post" th:object="${user}">
 
                     <div class="form-group">
                         <label for="user_id"  required="true" class="sr-only sr-only-focusable">用户名</label>
@@ -95,8 +93,7 @@
                             <div class="form-group">
                                 <span th:text="${msg1}" + !></span>
                                 <br>
-                                <label>还没有账号？快去 <a class="ex2" href="http://localhost:8280/register/get" color="black">注册</a>
-                                    吧。</label>
+                                <label>还没有账号？快去 <a class="ex2" href="http://localhost:8280/register/get" color="black">注册</a> 吧。</label>
                                 <label style="float:right;"><a class="ex2" href="forget_pwd.html">忘记密码？</a></label>
                                 <br>
                                 <input type="submit" value="登录" class="btn btn-primary btn-block"/>
@@ -104,13 +101,12 @@
                         </div>
                     </div>
                 </form>
-                </div>
-    </div>
-    </br></br></br></br></br></br></br>
-    </div>
-    <div class="col-md-12 text-center">
-        <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-    </div>
+            </div>
+        </div>
+        </br></br></br></br></br></br></br>
+        <div class="col-md-12 text-center">
+            <p style="color:white;" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+        </div>
 </section>
 <!-- END section -->
 
