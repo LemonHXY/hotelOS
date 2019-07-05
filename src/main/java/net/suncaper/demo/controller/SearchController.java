@@ -33,12 +33,6 @@ public class SearchController {
         return "/hotel_search.html";
     }
 
-    @GetMapping("/calcaule")
-    public  String calculate(Model model, @RequestParam("langitude") String langitude,@RequestParam("latitude")String latitude){
-
-        return "/hotel_search.html";
-    }
-
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
     public String greetingSubmit(MySearch mySearch, Model model , HttpServletRequest request) {
@@ -66,7 +60,6 @@ public class SearchController {
         model.addAttribute("rooms",rooms);
         return "/hotel_room.html";
     }
-
 }
 
 
