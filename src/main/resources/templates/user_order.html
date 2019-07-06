@@ -84,7 +84,7 @@
                     }
                     if(GetCookie(name)!=null){
                         document.getElementById("denglu").innerText="您好，"+GetCookie(name);
-                        document.getElementById("denglu").href="";
+                        document.getElementById("denglu").removeAttribute("href");
                         document.getElementById("zhuce").innerText="退出登录";
                         document.getElementById("zhuce").href="/enter/logout";}
                 </script>
@@ -144,7 +144,7 @@
                 <div class="col-md">
                     <br>
                     <br>
-                    <label style="float:right;"><a class="ex2" href="index">返回首页</a></label>
+                    <label style="float:right;"><a class="ex2" href="http://localhost:8280">返回首页</a></label>
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@
                     }
                     if (GetCookie(name) != null) {
                         document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
-                        document.getElementById("denglu").href = "";
+                        document.getElementById("denglu").removeAttribute("href");
                         document.getElementById("order").href = "/userorder";
                         document.getElementById("order").onclick = "";
                         document.getElementById("zhuce").innerText = "退出登录";

@@ -76,7 +76,7 @@
                     }
                     if (GetCookie(name)) {
                         document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
-                        document.getElementById("denglu").href = "";
+                        document.getElementById("denglu").removeAttribute("href");
                         document.getElementById("order").href = "/userorder";
                         document.getElementById("order").onclick = "";
                         document.getElementById("zhuce").innerText = "退出登录";
@@ -127,7 +127,7 @@
                     <br>
                     <p><a class="ex2" style="float:right;" href="/userorder">返回我的订单</a></p>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="/index">返回首页</a></p>
+                    <p><a class="ex2" style="float:right;" href="http://localhost:8280">返回首页</a></p>
                 </div>
             </div>
 
