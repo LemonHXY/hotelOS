@@ -109,7 +109,7 @@
                                     <label for="probootstrap-date-arrival">入住日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input required="true" autocomplete="off" type="text"
+                                        <input readonly="readonly" required="true" autocomplete="off" type="text"
                                                id="probootstrap-date-arrival"
                                                class="form-control" placeholder="" name="start" th:field="*{start}">
                                     </div>
@@ -120,7 +120,7 @@
                                     <label for="probootstrap-date-departure">离店日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input required="true" autocomplete="off" type="text"
+                                        <input readonly="readonly" required="true" autocomplete="off" type="text"
                                                id="probootstrap-date-departure"
                                                class="form-control" placeholder="" name="end" th:field="*{end}">
                                     </div>
@@ -134,7 +134,7 @@
 
                         <div class="row">
                             <div class="col-md">
-                                <input type="submit" value="搜索" id="hsubmit" onclick="mySub2()"
+                                <input type="submit" value="搜索" id="hsubmit"
                                        class="btn btn-primary btn-block">
                             </div>
                         </div>
@@ -190,10 +190,16 @@
 
 
     $('#hsubmit').click(function () {
-        if (localStorage.getItem("arr")) {
+        if (localStorage.getItem("city")) {
             localStorage.removeItem("city");
+        }
+        if (localStorage.getItem("keyword")) {
             localStorage.removeItem("keyword");
+        }
+        if (localStorage.getItem("arr")) {
             localStorage.removeItem("arr");
+        }
+        if (localStorage.getItem("dep")){
             localStorage.removeItem("dep");
         }
         localStorage.setItem("city", $('#city').val());
@@ -253,24 +259,24 @@
         return currentdate;
     }
 
-    function mySub2() {
-        var arr = document.getElementById("probootstrap-date-arrival").value;
-        var dep = document.getElementById("probootstrap-date-departure").value;
-        if (arr == "") {
-            arr = getNowFormatDate();
-            document.getElementById("probootstrap-date-arrival").value = arr;
-        }
-        if (dep == "") {
-            dep = getNowFormatDate();
-            document.getElementById("probootstrap-date-departure").value = dep;
-        }
-        var b = (new Date(dep) - new Date(arr)) / (60 * 60 * 24 * 1000);
-        document.cookie = "arr=" + arr;
-        document.cookie = "dep=" + dep;
-        document.cookie = "b=" + b;
-        var form = document.getElementById("myForm");
-        form.submit();
-    }
+    /*    function mySub2() {
+            var arr = document.getElementById("probootstrap-date-arrival").value;
+            var dep = document.getElementById("probootstrap-date-departure").value;
+            if (arr == "") {
+                arr = getNowFormatDate();
+                document.getElementById("probootstrap-date-arrival").value = arr;
+            }
+            if (dep == "") {
+                dep = getNowFormatDate();
+                document.getElementById("probootstrap-date-departure").value = dep;
+            }
+            var b = (new Date(dep) - new Date(arr)) / (60 * 60 * 24 * 1000);
+            document.cookie="arr="+arr;path=/";
+            document.cookie="dep="+dep;path=/";
+            document.cookie="b="+b;path=/";
+            var form = document.getElementById("myForm");
+            form.submit();
+        }*/
 </script>
 </body>
 </html>

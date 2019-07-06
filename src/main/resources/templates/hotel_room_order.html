@@ -67,17 +67,16 @@
 </nav>
 <!-- END nav -->
 <script>
-    var name="uName";//Cookies名字
-    GetCookie = function(name) {
+    var name = "uName";//Cookies名字
+    GetCookie = function (name) {
         var ck = document.cookie;
         var exp1 = new RegExp(name + "=.*?(?=;|$)");
         var mch = ck.match(exp1);
         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
     }
-    if(GetCookie(name)==null)
-    {
+    if (GetCookie(name) == null) {
         alert("您还没登录");
-        window.location.href="http://localhost:8280/enter";
+        window.location.href = "http://localhost:8280/enter";
     }
 </script>
 
@@ -91,16 +90,19 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                    <div class="col-md-4 probootstrap-form" style="margin:auto;"  >
+                    <div class="col-md-5 probootstrap-form" style="margin:auto;">
                         <p>酒店名：<span th:text="${hotelName}"></span></p>
-                        <p><span  th:text="${arr}" id="arr"></span>到<span th:text="${dep}" id="dep"></span>&nbsp;共<span  th:text="${nNight}" id="b"></span>晚</p>
+                        <p><span th:text="${arr}" id="arr"></span>到<span th:text="${dep}" id="dep"></span>&nbsp;共<span
+                                th:text="${nNight}" id="b"></span>晚</p>
                         <p><span th:text="${roomType}"></span>&nbsp;<span th:text="${breakfast}"></span></p>
                         <p><span th:text="${result}"></span></p>
+                        <p>单价：<span id="oneprice" th:text="${oneprice}"></span>元</p>
                         <br>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                        <form  id="order" action="/roomorder/sure",method="post">
-                            <label for quantity >房间数：</label>
+                        <form id="order" action="/roomorder/sure" ,method="post">
+                            <p>入住信息填写：</p>
+                            <label for quantity>房间数：</label>
                             <label for="quantity">
                                 <select class="js-example-basic-single js-states form-control" id="quantity"
                                         style="width:60px;" name="quantity">
@@ -114,30 +116,33 @@
                                     <option value="8">8</option>
                                 </select>
                             </label>
-                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                                    id="gbtn">
-                                常用入住人
-                            </button>
+                            <!--                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
+                                                                id="gbtn">
+                                                            常用入住人
+                                                        </button>-->
                             <br>
                             <label for guest_name>入住人：</label>
                             <label for guest_name>
-                                <input type="text" class="form-control" required="true" id="uName" name="uName" >
+                                <input type="text" class="form-control" required="true" id="uName" name="uName">
                             </label>
                             <br>
                             <label for guest_phone>手机号：</label>
                             <label for guest_phone>
-                                <input type="text" class="form-control" required="true" id="uPhone"  name="uPhone" >
+                                <input type="text" class="form-control" required="true" id="uPhone" name="uPhone">
                             </label>
+
                         </form>
                     </div>
-
-                <br>
-                <div class="col-md-2 probootstrap-form" style="margin:auto;">
-                        <p>单价：<span id="oneprice" th:text="${oneprice}">元</span></p>
-                        <p>总价：<span id="total_price" ></span></p>
-                        <button id="btn1" style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;" onclick="buy()">确认订单</button>
                 </div>
-            </div>
+                <div class="col-md-11" style="margin:auto;">
+
+                    <br>
+                    <label>总价：<span id="total_price"></span></label>
+                    <button id="btn1" style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;"
+                            onclick="buy()">确认订单
+                    </button>
+                </div>
+
 
                 <div class="col-md">
                     <br>
@@ -172,56 +177,75 @@
 
 <script>
     /**/
-    function caculate() {
-        var num=document.getElementById("quantity").value;
-        var price=[[${oneprice}]];
-        var total_price=document.getElementById("total_price");
-        total_price.innerHTML=price*num+"元";//改变总价
+
+    var quantity = document.getElementById("quantity");
+    quantity.onchange = function () {
+        var num = document.getElementById("quantity").value;
+        var price = [[${oneprice}]];
+        var total_price = document.getElementById("total_price");
+        total_price.innerHTML = price * num + "元";//改变总价
     }
+
+    $(document).ready(function () {
+        var num = document.getElementById("quantity").value;
+        var price = [[${oneprice}]];
+        var total_price = document.getElementById("total_price");
+        total_price.innerHTML = price * num + "元";//改变总价
+    });
+
 </script>
 <script th:inline="javascript">
     /*创表并提交
     * 需要日期，roomid，name，phone*/
-    var name="uId";//Cookies名字
-    this.GetCookie = function(name) {
+    var name = "uId";//Cookies名字
+    this.GetCookie = function (name) {
         var ck = document.cookie;
         var exp1 = new RegExp(name + "=.*?(?=;|$)");
         var mch = ck.match(exp1);
         return mch ? unescape(mch[0].substring(name.length + 1)) : null;
     }
-    function  sure() {
-        var makeForm=document.getElementById("order");
-        var input1=document.createElement("input");
-        var input2=document.createElement("input");
-        var input3=document.createElement("input");
-        var input4=document.createElement("input");
-        var input5=document.createElement("input");
+
+    function sure() {
+        var makeForm = document.getElementById("order");
+        var input1 = document.createElement("input");
+        var input2 = document.createElement("input");
+        var input3 = document.createElement("input");
+        var input4 = document.createElement("input");
+        var input5 = document.createElement("input");
 
         input1.type = "text";
         input1.name = "roomId";
         input1.value = [[${roomId1}]];
+        input1.style.display = "none";
 
         input2.type = "text";
         input2.name = "arr";
         input2.value = [[${arr}]];
+        input2.style.display = "none";
+
         input3.type = "text";
         input3.name = "dep";
         input3.value = [[${dep}]];
+        input3.style.display = "none";
+
         input4.type = "text";
         input4.name = "uId";
+        input4.value = GetCookie(name);
+        input4.style.display = "none";
 
-        input4.value=GetCookie(name);
         input5.type = "text";
         input5.name = "oneprice";
         input5.value = [[${oneprice}]];
+        input5.style.display = "none";
+
         makeForm.appendChild(input1);
         makeForm.appendChild(input2);
         makeForm.appendChild(input3);
         makeForm.appendChild(input4);
         makeForm.appendChild(input5);
 
-        makeForm.method="post";
-        makeForm.action="/roomorder/sure";
+        makeForm.method = "post";
+        makeForm.action = "/roomorder/sure";
         makeForm.submit();
     }
 </script>
@@ -235,10 +259,10 @@
         var gbtn = document.getElementById("gbtn");
         var order = document.getElementById("order");
         if (btn1.innerHTML.match("确认订单")) {
-            if (gname.value == ""||gname.value == null) {
+            if (gname.value == "" || gname.value == null) {
                 window.alert("请填写入住人姓名！");
             }
-            else if (gphone.value == ""||gphone.value ==null) {
+            else if (gphone.value == "" || gphone.value == null) {
                 window.alert("请填写入住人手机号！");
             }
             else {

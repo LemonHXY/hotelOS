@@ -151,7 +151,7 @@ public class AdminController {
     public String delete(Model model, HttpServletRequest request) {
         int oId = Integer.parseInt(request.getQueryString());
         orderService.deleteOrderByPrimaryKey(oId);
-        return "/redirect:/admin/order";
+        return "redirect:/admin/order";
     }
 
     // 强制退订
@@ -159,7 +159,7 @@ public class AdminController {
     public String forceCheckOut(Model Model ,HttpServletRequest request) {
         int oId = Integer.parseInt(request.getQueryString());
         OrderOutput orderOutput=orderService.GetOrderLists2(oId);
-        if(orderOutput.getoStatus().equals("已完成"))
+        if(orderOutput.getoStatus().equals("已退订"))
         {
             return "redirect:/admin/order";
 

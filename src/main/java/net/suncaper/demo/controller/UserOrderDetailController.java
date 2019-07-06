@@ -22,8 +22,6 @@ public class UserOrderDetailController {
     @Autowired
     private UserService userService;
 
-
-    //
     @GetMapping("/detail")
     public String getDetail(Model model, HttpServletRequest request) {
         int temp=Integer.parseInt(request.getQueryString());

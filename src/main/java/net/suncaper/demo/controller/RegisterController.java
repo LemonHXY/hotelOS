@@ -31,6 +31,7 @@ public class RegisterController {
         User temp=userService.findUserByUIid(user1.getuId());
         if(temp==null)
         {
+            user1.setUstatus("正常");
             userService.saveUser(user1);
             return "redirect:/enter";
         }

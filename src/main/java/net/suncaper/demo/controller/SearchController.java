@@ -35,12 +35,25 @@ public class SearchController {
 
     //从home接受信息传入此方法 并进行处理 显示在页面上
     @PostMapping
-    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request) throws ParseException {
+    public String greetingSubmit(MySearch mySearch, Model model, HttpServletRequest request,HttpServletResponse response) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         City temp = hotelService.finCityByString(mySearch.getCity());
         Date arr = formatter.parse(mySearch.getStart());
         Date dep = formatter.parse(mySearch.getEnd());
+        long nNight=(long)((dep.getTime()-arr.getTime())/(1000*60*60*24)+0.5);
 
+        Cookie cookie1=new Cookie("arr",mySearch.getStart());
+        Cookie cookie2=new Cookie("dep",mySearch.getEnd());
+        Cookie cookie3=new Cookie("b",String.valueOf(nNight));
+
+        cookie1.setPath("/");
+        cookie2.setPath("/");
+        cookie3.setPath("/");
+
+
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+        response.addCookie(cookie3);
         // 判断登陆状态
         Cookie[] cookies = request.getCookies();
         int b = 0;
@@ -112,9 +125,10 @@ public class SearchController {
         // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
         for (Room room : rooms) {
             int num = roomservice.getRemainNumBetween(room.getRoomId(), arr, dep);
-            Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
+/*            Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
             cookie.setPath("/");
-            response.addCookie(cookie);
+            response.addCookie(cookie);*/
+            room.setAmout(num);
            // if (num > 0)
                 result.add(room);
         }
@@ -134,6 +148,21 @@ public class SearchController {
         String d1 = search.getEnd();
         Date arr = formatter.parse(a1);
         Date dep = formatter.parse(d1);
+        long nNight=(long)((dep.getTime()-arr.getTime())/(1000*60*60*24)+0.5);
+
+        Cookie cookie1=new Cookie("arr",a1);
+        Cookie cookie2=new Cookie("dep",d1);
+        Cookie cookie3=new Cookie("b",String.valueOf(nNight));
+
+        cookie1.setPath("/");
+        cookie2.setPath("/");
+        cookie3.setPath("/");
+
+
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+        response.addCookie(cookie3);
+
 
         Hotel hotel = hotelService.findHotelByKey(hotelId);
         List<Room> rooms = roomservice.findRoomByHotelId(hotelId);
@@ -141,10 +170,11 @@ public class SearchController {
         // List<Room> r= roomservice.getRemainBetween(rooms,arr,dep,b);
         for (Room room : rooms) {
             int num = roomservice.getRemainNumBetween(room.getRoomId(), arr, dep);
-            Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
+         /*   Cookie cookie = new Cookie(String.valueOf(room.getRoomId()), String.valueOf(num));
             cookie.setPath("/");
-            response.addCookie(cookie);
-            if (num > 0)
+            response.addCookie(cookie);*/
+          //  if (num > 0)
+            room.setAmout(num);
                 result.add(room);
         }
         model.addAttribute("search", new MySearch());
