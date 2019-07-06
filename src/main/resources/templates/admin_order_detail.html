@@ -38,8 +38,13 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
-            font-size: 150%;
+            color: #149d5b;
+            font-size: 120%;
+        }
+
+        a.ex:hover, a.ex:active {
+            color: #00ca4c;
+            font-size: 100%;
         }
 
     </style>
@@ -78,42 +83,39 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                    <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                    <div class="col-md-5 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
                         <p>酒店名：<span name="HotelName" th:text="*{HotelName}"></span></p>
                         <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
                         <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}"></span></p>
-                        <p><span name="arrDate" th:text="*{arrDate}"></span>到<span name="depDate"
-                                                                                   th:text="*{depDate}"></span>&nbsp;共<span>1</span>晚*&nbsp;<span>1</span>间
+                        <p><span name="arrDate" th:text="*{arrDateStr}"></span>到<span name="depDate"
+                                                                                   th:text="*{depDateStr}"></span>&nbsp;共<span
+                                th:text="${nNight}">1</span>晚*&nbsp;<span th:text="${quantity}">1</span>间
                         </p>
                         <p>总价：<span name="totalPrice" th:text="*{totalPrice}"></span></p>
                     </div>
-                    <div class="col-md-4 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
+                    <div class="col-md-5 probootstrap-form" style="margin:auto;" th:object="${orderOutput}">
                         <p>入住人：<span name="uName" th:text="*{uName}"></span></p>
                         <p>手机号：<span name="uPhone" th:text="*{uPhone}"></span></p>
                         <p>订单号：<span name="oId" th:text="*{oId}"></span></p>
-                        <p>状态：<span name="oStatus" th:text="*{oStatus}"></span></p>
-                    </div>
-                    <div class="col-md-2 probootstrap-form" style="margin:auto;">
-                        <p></p>
-                        <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/admin/forcecheckout?' + ${orderOutput.oId}}">
-                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;margin: auto">强制退订</button>
+                        <p>状态：<span id="s" name="oStatus" th:text="*{oStatus}"></span></p>
+                        <label id="stu">
+                            <a class="ex btn btn-primary" height="20px"
+                               th:href="@{'http://localhost:8280/admin/forcecheckout?' + ${orderOutput.oId}}">
+                                强制退订
                             </a>
-                        </td>
-                        <p></p>
-                        <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/admin/delete?' + ${orderOutput.oId}}">
-                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;margin: auto">&nbsp删&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp</button>
-                            </a>
-                        </td>
+                        </label>
+                        <label style="float: right">
+                            <a class="ex btn btn-primary" height="20px"
+                               th:href="@{'http://localhost:8280/admin/delete?' + ${orderOutput.oId}}">
+                                &nbsp;删&nbsp;&nbsp;除&nbsp;
+                            </a></label>
                     </div>
                 </div>
                 <div class="col-md">
                     <br>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index1.html">返回我的订单</a></p>
+                    <p><a class="ex2" style="float:right;" href="/admin/order">返回订单列表</a></p>
                     <br>
-                    <p><a class="ex2" style="float:right;" href="index1.html">返回首页</a></p>
                 </div>
             </div>
 
@@ -135,6 +137,18 @@
 <script src="/assets/js/jquery.easing.1.3.js"></script>
 <script src="/assets/js/select2.min.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        if ($('#s').text() == "已退订") {
+            $('#stu').text("订单已关闭")
+        }
+        else if ($('#s').text() == "已完成") {
+            $('#stu').text("订单已完成")
+        }
+        else
+            return;
+    });
+</script>
 
 </body>
 </html>

@@ -80,6 +80,9 @@ public class OrderServicelmpl implements OrderService {
             orderOutput.setQuantity(order.getQuantity());
             orderOutput.setTotalPrice(order.getTotalPrice());
             orderOutput.setoStatus(order.getoStatus());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日") ; //使用了默认的格式创建了一个日期格式化对象。
+            orderOutput.setArrDateStr(dateFormat.format(order.getArrDate()));
+            orderOutput.setDepDateStr(dateFormat.format(order.getDepDate()));
             orderList.add(orderOutput);
         }
         return orderList;
@@ -107,6 +110,9 @@ public class OrderServicelmpl implements OrderService {
             orderOutput.setQuantity(order.getQuantity());
             orderOutput.setTotalPrice(order.getTotalPrice());
             orderOutput.setoStatus(order.getoStatus());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日") ; //使用了默认的格式创建了一个日期格式化对象。
+            orderOutput.setArrDateStr(dateFormat.format(order.getArrDate()));
+            orderOutput.setDepDateStr(dateFormat.format(order.getDepDate()));
             orderList.add(orderOutput);
         }
         return orderList;

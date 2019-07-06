@@ -38,8 +38,8 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
-            font-size: 150%;
+            color: #149d5b;
+            font-size: 101%;
         }
     </style>
 
@@ -94,13 +94,13 @@
                         <tr th:each="r_order : ${orders}" >
                             <td class="text-center" th:text="${r_order.hotelName}"></td>
                             <td class="text-center" th:text="${r_order.roomType}"></td>
-                            <td class="text-center" th:text="${r_order.arrDate}"></td>
-                            <td class="text-center" th:text="${r_order.depDate}"></td>
+                            <td class="text-center" th:text="${r_order.arrDateStr}"></td>
+                            <td class="text-center" th:text="${r_order.depDateStr}"></td>
                             <td class="text-center" th:text="${r_order.quantity}"></td>
                             <td class="text-center" th:text="${r_order.totalPrice}"></td>
                             <td class="text-center" th:text="${r_order.oStatus}"></td>
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}"><button>详情</button></a>
+                                <a class="ex2" th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">详情</a>
                             </td>
                         </tr>
                     </table>

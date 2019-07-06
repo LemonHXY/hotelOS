@@ -38,7 +38,7 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
+            color: #149d5b;
             font-size: 120%;
         }
     </style>
@@ -113,16 +113,16 @@
                     <tr>
                     <th>酒店名</th>
                     <th>房型</th>
-                    <th>入住</th>
-                    <th>离店</th>
-                    <th>间数</th>
-                    <th>总价</th>
-                    <th>状态</th>
-                    <th>详情</th>
+                    <th class="text-center">入住</th>
+                    <th class="text-center">离店</th>
+                    <th class="text-center">间数</th>
+                    <th class="text-center">总价</th>
+                    <th class="text-center">状态</th>
+                    <th class="text-center">详情</th>
                     </tr>
                     <tr th:each="r_order : ${orders}" >
-                        <td class="text-center" th:text="${r_order.hotelName}"></td>
-                        <td class="text-center" th:text="${r_order.roomType}"></td>
+                        <td th:text="${r_order.hotelName}"></td>
+                        <td th:text="${r_order.roomType}"></td>
                         <td class="text-center" th:text="${r_order.arrDateStr}"></td>
                         <td class="text-center" th:text="${r_order.depDateStr}"></td>
                         <td class="text-center" th:text="${r_order.quantity}"></td>
@@ -133,7 +133,9 @@
                                 <button>详情</button>
                                 encodeURI("http://localhost:8280/orderdetail/detail?" + oId);
                             </a>-->
-                            <a th:href="@{'http://localhost:8280/orderdetail/detail?' + ${r_order.oId}}"><button>详情</button></a>
+                            <a class="ex2" th:href="@{'http://localhost:8280/orderdetail/detail?' + ${r_order.oId}}">查看详情
+                                <!--<button>详情</button>-->
+                            </a>
                         </td>
                     </tr>
                 </table>

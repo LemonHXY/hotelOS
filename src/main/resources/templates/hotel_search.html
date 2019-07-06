@@ -10,7 +10,7 @@
     <meta name="keywords" content="">
 
 
-    <link href="/https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
@@ -50,6 +50,11 @@
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";
+        }
+
+        a.ex2:hover, a.ex2:active {
+            color: #149d5b;
+            font-size: 120%;
         }
     </style>
 
@@ -252,16 +257,21 @@
                             <td th:text="${hotel.latitude}" style="display: none;"></td>
                             <!-- <td th:text="${hotel.overview}"></td>-->
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}">
-                                    <button id="toroom">详情</button>
+                                <a class="ex2" id="toroom" th:href="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}">
+                                    查看详情
+                                    <!--<button>详情</button>-->
                                 </a>
                             </td>
                         </tr>
                     </table>
-                    <p></p>
                     <div class="col-md-12" id="map">
                         <!--<img src="/assets/images/bg_1.jpg" width="100%">-->
                         <div id="allmap"></div>
+                    </div>
+                    <div class="col-md">
+                        <br>
+                        <br>
+                        <label style="float:right;"><a class="ex2" href="#">回到顶部</a></label>
                     </div>
                 </div>
             </div>
@@ -303,7 +313,7 @@
 
 <script>
     var sort = document.getElementById('sort');
-    var table = document.getElementsByTagName('table')[0];
+    var table = document.getElementById('table');
     var tr = table.getElementsByTagName('tr');
     var array = [];
     for (var i = 1; i < tr.length; i++) {
@@ -355,7 +365,7 @@
     map.addControl(geolocationControl);
 
     var opts = {
-        width: 300,     // 信息窗口宽度
+        width: 200,     // 信息窗口宽度
         //height: 120,     // 信息窗口高度
         title: "酒店信息", // 信息窗口标题
         enableMessage: true//设置允许信息窗发送短息

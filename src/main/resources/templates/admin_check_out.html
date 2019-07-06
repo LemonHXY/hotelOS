@@ -38,14 +38,12 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
-            font-size: 150%;
+            color: #149d5b;
+            font-size: 120%;
         }
     </style>
 
 </head>
-<tr>
-
 
     <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
         <div class="container">
@@ -100,17 +98,12 @@
                             <td class="text-center" th:text="${r_order.totalPrice}"></td>
                             <td class="text-center" th:text="${r_order.oStatus}"></td>
                             <td align="center" valign="middle">
-                                <a th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}"><button>详情</button></a>
+                                <a class="ex2" th:href="@{'http://localhost:8280/admin/orderdetail?' + ${r_order.oId}}">详情</a>
                             </td>
                         </tr>
                     </table>
                     <!-- </div>  -->
                     <!-- </div> -->
-                    <div class="col-md">
-                        <br>
-                        <br>
-                        <label style="float:right;"><a class="ex2" href="index1.html">返回首页</a></label>
-                    </div>
                 </div>
             </div>
         </div>

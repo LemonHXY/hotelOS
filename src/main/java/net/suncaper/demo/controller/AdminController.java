@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 
 // 系统管理员控制模块
@@ -92,7 +93,16 @@ public class AdminController {
     public String AdminOrderDetail(Model model, HttpServletRequest request) {
         int oId = Integer.parseInt(request.getQueryString());
         OrderOutput orderOutput = orderService.GetOrderLists2(oId);
+
+        Date arr=orderOutput.getArrDate();
+        Date dep=orderOutput.getDepDate();
+        long nNight=(long)((dep.getTime()-arr.getTime())/(1000*60*60*24)+0.5);
+        int q=orderService.getQuantityInOrder(oId);
+
+        model.addAttribute("quantity",q);
+        model.addAttribute("nNight",nNight);
         model.addAttribute("orderOutput", orderOutput);
+
         return "/admin_order_detail.html";
     }
 

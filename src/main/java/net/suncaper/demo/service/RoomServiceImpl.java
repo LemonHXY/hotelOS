@@ -108,7 +108,7 @@ public class RoomServiceImpl implements RoomService {
         Room_quantityKey key = new Room_quantityKey(id, date);
         Room room = roomMapper.selectByPrimaryKey(id);
         Room_quantity q = room_quantityMapper.selectByPrimaryKey(key);
-        if (q.getRemain() + num < room.getAmout()) {
+        if (q.getRemain() + num <= room.getAmout()) {
             q.setRemain(q.getRemain() + num);
             room_quantityMapper.updateByPrimaryKey(q);
             return false;

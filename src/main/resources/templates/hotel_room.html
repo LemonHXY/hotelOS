@@ -251,19 +251,18 @@
                     </div>
                 </form>
 
-                <table id="roomDetail">
+                <table id="room">
                     <tr>
-                        <th>房间类型</th>
+                        <th class="text-center">房间类型</th>
                         <th class="text-center">早餐</th>
                         <th class="text-center">价格</th>
-                        <th class="text-center">剩余房间数量</th>
+                        <th class="text-center">剩余数量</th>
                         <th class="text-center" width="60px">操作</th>
                     </tr>
                     <tr th:each="room:${rooms}">
-                        <td th:text="${room.roomType}">房间类型</td>
+                        <td class="text-center" th:text="${room.roomType}">房间类型</td>
                         <td class="text-center" th:text="${room.breakfast}">早餐</td>
                         <td class="text-center" th:text="${room.price}">价格</td>
-                       <!-- <td th:id="${room.roomId}" th:text="${room.roomId}" hidden="hidden"></td>-->
                         <td class="text-center" th:text="${room.amout}">数量</td>
                         <td align="center" valign="middle"><a class="btn ex2"
                                                               th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}">预定
@@ -309,6 +308,22 @@
 <script src="/assets/js/main.js"></script>
 
 <script th:inline="javascript">
+
+    var table = document.getElementById('room');
+    var tr = table.getElementsByTagName('tr');
+    var array = [];
+    for (var i = 1; i < tr.length; i++) {
+        array.push(tr[i]);
+    }
+
+    $(document).ready(function () {
+        for (var i = 0; i < array.length; i++) {
+            if (Number(array[i].getElementsByTagName('td')[3].innerText) == 0) {
+                array[i].getElementsByTagName('td')[4].innerText="无房";
+            }
+        }
+    });
+
     $(document).ready(function () {
         $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
         $('#probootstrap-date-departure').val(localStorage.getItem("dep"));

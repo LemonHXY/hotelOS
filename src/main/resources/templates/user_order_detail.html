@@ -38,8 +38,13 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
+            color: #149d5b;
             font-size: 120%;
+        }
+
+        a.ex:hover, a.ex:active {
+            color: #00ca4c;
+            font-size: 100%;
         }
 
     </style>
@@ -100,7 +105,7 @@
                         <p>地&nbsp;&nbsp;&nbsp;址：<span name="HotelAddress" th:text="*{HotelAddress}">123</span></p>
                         <p>房&nbsp;&nbsp;&nbsp;型：<span name="roomType" th:text="*{roomType}">无早</span></p>
                         <p><span name="arrDateStr" th:text="*{arrDateStr}"></span>到<span name="depDateStr"
-                                                                                   th:text="*{depDateStr}"></span>&nbsp;共<span
+                                                                                         th:text="*{depDateStr}"></span>&nbsp;共<span
                                 th:text="${nNight}"></span>晚 *&nbsp;<span th:text="${quantity}"></span>间</p>
                         <p>总价：<span name="totalPrice" th:text="*{totalPrice}">元</span></p>
                     </div>
@@ -108,14 +113,13 @@
                         <p>入住人：<span name="uName" th:text="*{uName}"></span></p>
                         <p>手机号：<span name="uPhone" th:text="*{uPhone}"></span></p>
                         <p>订单号：<span name="oId" th:text="*{oId}">123</span></p>
-                        <p>状态：<span name="oStatus" th:text="*{oStatus}"></span></p>
-                        <td align="center" valign="middle">
-                            <a th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}">
-                                <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C; float:right">
-                                    退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房
-                                </button>
+                        <p>状态：<span id="s" name="oStatus" th:text="*{oStatus}"></span></p>
+                        <p id="stu" align="center" valign="middle">
+                            <a id="o" class="ex btn btn-primary" style="color: #fff;float:right"
+                               th:href="@{'http://localhost:8280/orderdetail/checkout?' + ${orderOutput.oId}}">
+                                退 订
                             </a>
-                        </td>
+                        </p>
                     </div>
                 </div>
                 <div class="col-md">
@@ -145,6 +149,22 @@
 <script src="/assets/js/jquery.easing.1.3.js"></script>
 <script src="/assets/js/select2.min.js"></script>
 <script src="/assets/js/main.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        if($('#s').text()=="已退订"){
+            $('#stu').text("订单已关闭")
+        }
+        else if($('#s').text()=="待付款"){
+            $('#o').text("支付")
+        }
+        else if($('#s').text()=="已完成"){
+            $('#stu').text("订单已完成")
+        }
+        else
+            return;
+    });
+</script>
 
 </body>
 </html>
