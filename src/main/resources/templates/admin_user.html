@@ -83,15 +83,15 @@
                 <div class="media-body">
                     <table>
                         <tr>
-                            <th>用户ID</th>
-                            <th>用户名</th>
-                            <th>用户状态</th>
-                            <th>设为异常</th>
-                            <th>恢复正常</th>
+                            <th class="text-center">用户ID</th>
+                            <th class="text-center">用户名</th>
+                            <th class="text-center">用户状态</th>
+                            <th class="text-center">设为异常</th>
+                            <th class="text-center">恢复正常</th>
                         </tr>
-                        <tr th:each="user:${users}">
+                        <tr th:each="user:${users}" th:if="${user.uId != 1}" >
                             <!--三个信息-->
-                            <td class="text-center" th:text="${user.uId}"></td>
+                            <td class="text-center" th:text="${user.uId}" ></td>
                             <td class="text-center" th:text="${user.uName}"></td>
                             <td class="text-center" th:text="${user.ustatus}"></td>
                             <!--二个按钮-->
