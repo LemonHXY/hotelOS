@@ -33,6 +33,9 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/waiter.css">
 
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=7LZ9FcsaUv2q5CbfrPp4uQR8pEgMnGf0"></script>
+
     <style type="text/css">
         table, th, td {
             border: 1px solid #E4E4E4;
@@ -46,6 +49,43 @@
             color: green;
             font-size: 120%;
         }
+
+        #allmap {
+            width: 100%;
+            height: 95%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed; /* 固定定位 */
+            z-index: 1; /* 设置在顶层 */
+            left: 0;
+            top: 0;
+            width: 70%;
+            height: 60%;
+            overflow: auto;
+            /*            background-color: rgb(255, 255, 255);*/
+            background-color: rgb(200, 200, 200);
+            margin: auto;
+        }
+
+        /* 关闭按钮 */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -54,7 +94,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
     <div class="container">
-        <a class="navbar-brand" href="/index1.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu"
                 aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span><i class="ion-navicon"></i></span>
@@ -63,8 +103,23 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
                 <li class="nav-item"><a class="nav-link" href="/userorder">我的订单</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/enter" id="denglu">登录</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" id="zhuce">注册</a></li>
+                <script>
+                    var name = "uName";//Cookies名字
+                    this.GetCookie = function (name) {
+                        var ck = document.cookie;
+                        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+                        var mch = ck.match(exp1);
+                        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+                    }
+                    if (GetCookie(name) != null) {
+                        document.getElementById("denglu").innerText = "您好，" + GetCookie(name);
+                        document.getElementById("denglu").href = "";
+                        document.getElementById("zhuce").innerText = "退出登录";
+                        document.getElementById("zhuce").href = "/enter/logout";
+                    }
+                </script>
             </ul>
         </div>
     </div>
@@ -88,39 +143,39 @@
         <div class="col-md-12">
             <div class="owl-carousel js-owl-carousel">
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
-                    <span style="width:280px;">
-                        <img th:src="${hotel.photo1}">
+                    <span style="width:320px;height: 240px">
+                        <img style="width: 100%;height: 100%" th:src="${hotel.photo1}">
                     </span>
                     <br><br>
                     <em>酒店图片</em>
                 </a>
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
-                    <span style="width:280px;">
-                        <img th:src="${hotel.photo2}">
+                    <span style="width:320px;height: 240px">
+                        <img style="width: 100%;height: 100%" th:src="${hotel.photo2}">
                     </span>
                     <br><br>
                     <em>环境图片</em>
                 </a>
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span style="width:280px;">
-                        <img th:src="${hotel.photo3}">
+                    <span style="width:320px;height: 240px">
+                        <img style="width: 100%;height: 100%" th:src="${hotel.photo3}">
                     </span>
                     <br><br>
                     <em>环境图片</em>
                 </a>
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span style="width:280px;">
-                        <img th:src="${hotel.photo4}">
+                    <span style="width:320px;height: 240px">
+                        <img style="width: 100%;height: 100%" th:src="${hotel.photo4}">
                     </span>
                     <br><br>
                     <em>环境图片</em>
                 </a>
                 <a class="probootstrap-slide media probootstrap-media d-block align-items-stretch mb-4 probootstrap-animate">
                     <!--  <img src="http://pix3.agoda.net/hotelimages/718/71800/71800_14032615370018863225.jpg?s=312x" weight="60px"/>-->
-                    <span style="width:280px;">
-                        <img th:src="${hotel.photo5}">
+                    <span style="width:320px;height: 240px">
+                        <img style="width: 100%;height: 100%" th:src="${hotel.photo5}">
                     </span>
                     <br><br>
                     <em>环境图片</em>
@@ -143,19 +198,24 @@
                     </tr>
                     <tr>
                         <td colspan="2">地址：&nbsp<span th:text="${hotel.addressline}"></span>
-<!--                            <p id="demo"></p></td>-->
                         <td>
-                            <button class="ion-location" onclick="getLocation()"
+                            <button class="ion-location" id="myBtn"
                                     style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;">&nbsp&nbsp查看地图
                             </button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3">详情：&nbsp<span></span></td>
+                        <td colspan="3">详情：&nbsp<span th:text="${hotel.overview}"></span></td>
                     </tr>
                 </table>
 
-                <form action="#" class="probootstrap-form" style="padding: 20px;margin-bottom: 0px;" method="post">
+                <div id="myModal" class="modal">
+                    <span id="mapspan" class="close">&times;</span>
+                    <div id="allmap"></div>
+                </div>
+
+                <form th:action="@{'http://localhost:8280/search/room?' + ${hotel.hotelId}}" class="probootstrap-form"
+                      style="padding: 20px;margin-bottom: 0px;" method="post" th:object="${search}" id="myForm">
                     <div class="form-group">
                         <div class="row mb-3">
                             <div class="col-md">
@@ -163,7 +223,8 @@
                                     <label for="probootstrap-date-arrival">入住日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input autocomplete=“off” type="text" id="probootstrap-date-arrival"
+                                        <input readonly="readonly" required="true" autocomplete=“off” type="text"
+                                               id="probootstrap-date-arrival"
                                                class="form-control" placeholder="" name="start">
                                     </div>
                                 </div>
@@ -173,7 +234,8 @@
                                     <label for="probootstrap-date-departure">离店日期</label>
                                     <div class="probootstrap-date-wrap">
                                         <span class="icon ion-calendar"></span>
-                                        <input autocomplete=“off” type="text" id="probootstrap-date-departure"
+                                        <input readonly="readonly" required="true" autocomplete=“off” type="text"
+                                               id="probootstrap-date-departure"
                                                class="form-control" placeholder="" name="end">
                                     </div>
                                 </div>
@@ -182,29 +244,35 @@
                             </div>
                             <div class="col-md">
                                 <br>
-                                <input type="submit" value="确定" class="btn btn-primary btn-block">
+                                <input type="submit" value="确定" id="roomq" class="btn btn-primary btn-block">
                             </div>
+
                         </div>
                     </div>
                 </form>
 
-                <table>
+                <table id="room">
                     <tr>
-                        <th>房间类型</th>
-                        <th>早餐</th>
-                        <th>价格</th>
-                        <th>状态</th>
-                        <th>操作</th>
+                        <th class="text-center">房间类型</th>
+                        <th class="text-center">早餐</th>
+                        <th class="text-center">价格</th>
+                        <th class="text-center">剩余数量</th>
+                        <th class="text-center" width="60px">操作</th>
                     </tr>
                     <tr th:each="room:${rooms}">
-                        <th th:text="${room.roomType}">房间类型</th>
-                        <th th:text="${room.breakfast}">早餐</th>
-                        <th th:text="${room.price}">价格</th>
-                        <th>状态</th>
-                        <th>操作</th>
+                        <td class="text-center" th:text="${room.roomType}">房间类型</td>
+                        <td class="text-center" th:text="${room.breakfast}">早餐</td>
+                        <td class="text-center" th:text="${room.price}">价格</td>
+                        <td class="text-center" th:text="${room.amout}">数量</td>
+                        <td align="center" valign="middle"><a class="btn ex2"
+                                                              th:href="@{'http://localhost:8280/roomorder?' + ${room.roomId}}">预定
+                            <!--<button>下单</button>-->
+                        </a></td>
                     </tr>
                 </table>
+
                 <table>
+
                     <br>
                     <div class="col-md">
                         <br>
@@ -216,26 +284,197 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    </br></br></br></br></br></br></br>
+    <div class="col-md-12 text-center">
+        <p style="color: white" class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
+    </div>
+</section>
 
 
-        </br></br></br></br></br></br></br>
-        <div class="col-md-12 text-center">
-            <p class="probootstrap_font-14">Copyright © 2019 . My Way 麦味 · 酒店订购</p>
-        </div>
+<script src="/assets/js/jquery.min.js"></script>
 
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/bootstrap-datepicker.js"></script>
 
-        <script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
 
-        <script src="/assets/js/popper.min.js"></script>
-        <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/owl.carousel.min.js"></script>
-        <script src="/assets/js/bootstrap-datepicker.js"></script>
+<script src="/assets/js/select2.min.js"></script>
 
-        <script src="/assets/js/jquery.waypoints.min.js"></script>
-        <script src="/assets/js/jquery.easing.1.3.js"></script>
+<script src="/assets/js/main.js"></script>
 
-        <script src="/assets/js/select2.min.js"></script>
+<script th:inline="javascript">
 
-        <script src="/assets/js/main.js"></script>
+    var table = document.getElementById('room');
+    var tr = table.getElementsByTagName('tr');
+    var array = [];
+    for (var i = 1; i < tr.length; i++) {
+        array.push(tr[i]);
+    }
+
+    $(document).ready(function () {
+        for (var i = 0; i < array.length; i++) {
+            if (Number(array[i].getElementsByTagName('td')[3].innerText) == 0) {
+                array[i].getElementsByTagName('td')[4].innerText="无房";
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+        $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+    });
+
+    $('#roomq').click(function () {
+        if (localStorage.getItem("arr")) {
+            localStorage.removeItem("arr");
+        }
+        if (localStorage.getItem("arr")) {
+            localStorage.removeItem("dep");
+        }
+        localStorage.setItem("arr", $('#probootstrap-date-arrival').val());
+        localStorage.setItem("dep", $('#probootstrap-date-departure').val());
+    })
+
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.querySelector('' +
+        '.close');
+    btn.onclick = function () {
+        modal.style.display = "block";
+        var x = [[${hotel.longitude}]];
+        var y = [[${hotel.latitude}]];
+        var point = new BMap.Point(x, y);
+
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(point, 15);
+        var marker = new BMap.Marker(point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        var label = new BMap.Label([[${hotel.hotelName}]], {offset: new BMap.Size(20, -10)});
+        marker.setLabel(label);
+        var opts = {
+            width: 200,     // 信息窗口宽度
+            height: 100,     // 信息窗口高度
+            title: [[${hotel.hotelName}]], // 信息窗口标题
+            enableMessage: true,//设置允许信息窗发送短息
+            message: "地址"
+        }
+        var infoWindow = new BMap.InfoWindow("地址：" + [[${hotel.addressline}]], opts);  // 创建信息窗口对象
+        marker.addEventListener("click", function () {
+            map.openInfoWindow(infoWindow, point); //开启信息窗口
+        });
+        var navigationControl = new BMap.NavigationControl({
+            // 靠左上角位置
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            // LARGE类型
+            type: BMAP_NAVIGATION_CONTROL_LARGE,
+            // 启用显示定位
+            enableGeolocation: true
+        });
+        map.addControl(navigationControl);
+        // 添加定位控件
+        var geolocationControl = new BMap.GeolocationControl();
+        geolocationControl.addEventListener("locationSuccess", function (e) {
+            // 定位成功事件
+            var address = '';
+            address += e.addressComponent.province;
+            address += e.addressComponent.city;
+            address += e.addressComponent.district;
+            address += e.addressComponent.street;
+            address += e.addressComponent.streetNumber;
+            alert("当前定位地址为：" + address);
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function (r) {
+                if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                    var point1 = new BMap.Point(r.point.lng, r.point.lat);
+                    var distance = map.getDistance(point, point1).toFixed(0) / 1000 + "千米。";
+                    alert('从您的位置到' + [[${hotel.hotelName}]] + "的距离是：" + (distance));  //获取两点距离,保留小数点后两位
+                    var polyline = new BMap.Polyline([point, point1], {
+                        strokeColor: "blue",
+                        strokeWeight: 6,
+                        strokeOpacity: 0.5
+                    });  //定义折线
+                    map.addOverlay(polyline);
+                    var label = new BMap.Label(distance, {offset: new BMap.Size(20, 20)});
+                    marker.setLabel(label);
+                }
+                else {
+                    alert("距离计算失败！");
+                }
+            }, {enableHighAccuracy: true})
+        });
+        geolocationControl.addEventListener("locationError", function (e) {
+            // 定位失败事件
+            alert("定位失败！");
+        });
+        map.addControl(geolocationControl);
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+<!--<script type="text/javascript">
+    this.GetCookie = function (name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+    var tab = document.getElementById("roomDetail")
+    var ck = document.cookie;
+    if (ck) {
+        for (var i = 1; i < tab.rows.length; i++) {
+            var name = tab.rows[i].cells[3].innerText;
+            tab.rows[i].cells[4].innerHTML = GetCookie(name);
+
+        }
+    }
+</script>-->
+<script>
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+
+    /*    function mySub2() {
+            var arr = document.getElementById("probootstrap-date-arrival").value;
+            var dep = document.getElementById("probootstrap-date-departure").value;
+            if (arr == "") {
+                arr = getNowFormatDate();
+                document.getElementById("probootstrap-date-arrival").value = arr;
+            }
+            if (dep == "") {
+                dep = getNowFormatDate();
+                document.getElementById("probootstrap-date-departure").value = dep;
+            }
+            var b = (new Date(dep) - new Date(arr)) / (60 * 60 * 24 * 1000);
+            document.cookie="arr="+arr;path=/";
+            document.cookie="dep="+dep;path=/";
+            document.cookie="b="+b;path=/";
+            var form = document.getElementById("myForm");
+            form.submit();
+        }*/
+</script>
 </body>
 </html>

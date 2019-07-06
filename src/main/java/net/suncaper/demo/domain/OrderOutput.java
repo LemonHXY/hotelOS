@@ -16,6 +16,25 @@ public class OrderOutput {
     private String uPhone;
     private int oId;
     private String oStatus;
+    private String arrDateStr;
+    private String depDateStr;
+
+    public String getArrDateStr() {
+        return arrDateStr;
+    }
+
+    public void setArrDateStr(String arrDateStr) {
+        this.arrDateStr = arrDateStr;
+    }
+
+    public String getDepDateStr() {
+        return depDateStr;
+    }
+
+    public void setDepDateStr(String depDateStr) {
+        this.depDateStr = depDateStr;
+    }
+
 
     public OrderOutput() {
         this.HotelName = null;

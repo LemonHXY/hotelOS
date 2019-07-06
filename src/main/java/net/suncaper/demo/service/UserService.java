@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-     public List<User> findUser(int uid);//通过id寻找一位用户
+     public List<User> findUser(int uid);//通过id寻找一列用户
 
      void saveUser(User customer);//保存用户信息的  id name password
 
@@ -19,5 +19,9 @@ public interface UserService {
 
      public List<Guest> findGuest(User user);//寻找某uid的同伴guest 的信息列表
 
+     public List<User> GetAllUsers();
+
+     public void setAbnormalByUid(int uId);
+     public void setNormalByUid(int uId);
 
 }

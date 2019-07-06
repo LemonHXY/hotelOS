@@ -3,7 +3,6 @@ package net.suncaper.demo.service;
 
 //import net.suncaper.demo.domain.Customer;
 //import net.suncaper.demo.domain.CustomerExample;
-
 import net.suncaper.demo.domain.User;
 import net.suncaper.demo.domain.UserExample;
 import net.suncaper.demo.domain.Guest;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public  class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -28,15 +27,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findUser(int id) {
         UserExample example = new UserExample();
-        if (id > 0) {
+        if(id>0) {
             example.createCriteria().andUIdEqualTo(id);//Like("%" + name + "%");
+
         }
         return userMapper.selectByExample(example);
     }
 
     @Override
     public void saveUser(User user) {
-        if (user.getuId() == null || user.getuId() < 0) {
+        if(user.getuId() == null || user.getuId()<0) {
 
         } else {
             userMapper.insert(user);
@@ -55,10 +55,25 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<Guest> findGuest(User user) {
-        GuestExample example = new GuestExample();
+    public List<Guest> findGuest(User user){
+        GuestExample example=new GuestExample();
         example.createCriteria().andUIdEqualTo(user.getuId());
         return guestMapper.selectByExample(example);
     }
 
+    @Override
+    public List<User> GetAllUsers() {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUIdIsNotNull();
+        List<User> userList = userMapper.selectByExample(userExample);
+        return userList;
+    }
+
+    public void setAbnormalByUid(int uId) {
+        userMapper.updateAbnormal(uId);
+    }
+
+    public void setNormalByUid(int uId) {
+        userMapper.updatenormal(uId);
+    }
 }

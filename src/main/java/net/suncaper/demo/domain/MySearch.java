@@ -1,13 +1,29 @@
 package net.suncaper.demo.domain;
 
-import java.sql.Date;
-
 public class MySearch {
 
     private String city;
     private String name;
     private String start;
     private String end;
+    private double longitude=116.331398;
+    private double latitude=39.897445;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     public MySearch(String city, String name, String start, String end) {
         this.city = city;
@@ -15,7 +31,6 @@ public class MySearch {
         this.start = start;
         this.end = end;
     }
-
     public MySearch() {
         super();
     }
@@ -53,4 +68,6 @@ public class MySearch {
     public void setEnd(String end) {
         this.end = end;
     }
+
+
 }

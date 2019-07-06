@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -38,8 +38,8 @@
         }
 
         a.ex2:hover, a.ex2:active {
-            color: green;
-            font-size: 150%;
+            color: #149d5b;
+            font-size: 120%;
         }
 
     </style>
@@ -58,15 +58,27 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/index">首页</a></li>
-                <li class="nav-item"><a class="nav-link" href="/userorder/get">我的订单</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/userorder">我的订单</a></li>
                 <li class="nav-item"><a class="nav-link" href="/enter">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register/get">注册</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
-
+<script>
+    var name = "uName";//Cookies名字
+    GetCookie = function (name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+    if (GetCookie(name) == null) {
+        alert("您还没登录");
+        window.location.href = "http://localhost:8280/enter";
+    }
+</script>
 
 <section class="probootstrap-cover overflow-hidden relative" style="background-image: url('/assets/images/bg_1.jpg');"
          data-stellar-background-ratio="0.5" id="section-home">
@@ -78,18 +90,22 @@
         <div class="media probootstrap-media d-flex align-items-stretch mb-4 probootstrap-animate fadeInUp probootstrap-animated">
             <div class="media-body">
                 <div class="row">
-                    <div class="col-md-4 probootstrap-form" style="margin:auto;">
-                        <p>酒店名：<span>123</span></p>
-                        <p><span>2019-6-30</span>到<span>2019-7-1</span>&nbsp;共<span>1</span>晚</p>
-                        <p><span>豪华大床房</span>&nbsp;<span>无早</span></p>
-                        <br>
+                    <div class="col-md-5 probootstrap-form" style="margin:auto;">
+                        <p>酒店名：<span th:text="${hotelName}"></span></p>
+                        <p><span th:text="${arr}" id="arr"></span>到<span th:text="${dep}" id="dep"></span>&nbsp;共<span
+                                th:text="${nNight}" id="b"></span>晚</p>
+                        <p><span th:text="${roomType}"></span>&nbsp;<span th:text="${breakfast}"></span></p>
+                        <p><span th:text="${result}"></span></p>
+                        <p>单价：<span id="oneprice" th:text="${oneprice}"></span>元</p>
+                        <p id="rem" name="quantity" th:text="'该房间还剩'+${remain}+'间'"></p>
                     </div>
                     <div class="col-md-5 probootstrap-form" style="margin:auto;">
-                        <form id="order">
+                        <form id="order" action="/roomorder/sure" ,method="post">
+                            <p>入住信息填写：</p>
                             <label for quantity>房间数：</label>
                             <label for="quantity">
-                                <select class="js-example-basic-single js-states form-control" id="quantity"
-                                        style="width:60px;" name="quantity">
+                                <select class="js-example-basic-single js-states form-control"
+                                        style="width:60px;" name="quantity" id="quantity">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -100,31 +116,30 @@
                                     <option value="8">8</option>
                                 </select>
                             </label>
-                            <button style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float:right;"
-                                    id="gbtn">
-                                常用入住人
-                            </button>
                             <br>
                             <label for guest_name>入住人：</label>
                             <label for guest_name>
-                                <input type="text" class="form-control" required="true" id="gname">
+                                <input type="text" class="form-control" required="true" id="uName" name="uName">
                             </label>
                             <br>
                             <label for guest_phone>手机号：</label>
                             <label for guest_phone>
-                                <input type="text" class="form-control" required="true" id="gphone">
+                                <input type="text" class="form-control" required="true" id="uPhone" name="uPhone">
                             </label>
+
                         </form>
                     </div>
+                </div>
+                <div class="col-md-11" style="margin:auto;">
 
                     <br>
-                    <div class="col-md-2 probootstrap-form" style="margin:auto;">
-                        <p>总价：<span>233元</span></p>
-                        <input type="button"
-                               style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;"
-                               id="btn1" value="确认订单" onclick="buy()">
-                    </div>
+                    <label>总价：<span id="total_price"></span></label>
+                    <button id="btn1" style="color: #fff;background-color: #00CA4C;border-color: #00CA4C;float: right;"
+                            onclick="buy()">确认订单
+                    </button>
                 </div>
+
+
                 <div class="col-md">
                     <br>
                     <br>
@@ -156,23 +171,114 @@
 
 <script src="/assets/js/main.js"></script>
 
+<script th:inline="javascript">
+
+    var x = [[${remain}]];
+    $('#quantity').change(function () {
+       if($('#quantity').val()>x)
+       {
+           alert("只剩下"+x+"间房了，不能再订更多了。")
+           $('#quantity').val(x);
+       }
+       else
+           return;
+    });
+
+
+</script>
+
+<script>
+    /**/
+
+    var quantity = document.getElementById("quantity");
+    quantity.onchange = function () {
+        var num = document.getElementById("quantity").value;
+        var price = [[${oneprice}]];
+        var total_price = document.getElementById("total_price");
+        total_price.innerHTML = price * num + "元";//改变总价
+    }
+
+    $(document).ready(function () {
+        var num = document.getElementById("quantity").value;
+        var price = [[${oneprice}]];
+        var total_price = document.getElementById("total_price");
+        total_price.innerHTML = price * num + "元";//改变总价
+    });
+
+</script>
+<script th:inline="javascript">
+    /*创表并提交
+    * 需要日期，roomid，name，phone*/
+    var name = "uId";//Cookies名字
+    this.GetCookie = function (name) {
+        var ck = document.cookie;
+        var exp1 = new RegExp(name + "=.*?(?=;|$)");
+        var mch = ck.match(exp1);
+        return mch ? unescape(mch[0].substring(name.length + 1)) : null;
+    }
+
+    function sure() {
+        var makeForm = document.getElementById("order");
+        var input1 = document.createElement("input");
+        var input2 = document.createElement("input");
+        var input3 = document.createElement("input");
+        var input4 = document.createElement("input");
+        var input5 = document.createElement("input");
+
+        input1.type = "text";
+        input1.name = "roomId";
+        input1.value = [[${roomId1}]];
+        input1.style.display = "none";
+
+        input2.type = "text";
+        input2.name = "arr";
+        input2.value = [[${arr}]];
+        input2.style.display = "none";
+
+        input3.type = "text";
+        input3.name = "dep";
+        input3.value = [[${dep}]];
+        input3.style.display = "none";
+
+        input4.type = "text";
+        input4.name = "uId";
+        input4.value = GetCookie(name);
+        input4.style.display = "none";
+
+        input5.type = "text";
+        input5.name = "oneprice";
+        input5.value = [[${oneprice}]];
+        input5.style.display = "none";
+
+        makeForm.appendChild(input1);
+        makeForm.appendChild(input2);
+        makeForm.appendChild(input3);
+        makeForm.appendChild(input4);
+        makeForm.appendChild(input5);
+
+        makeForm.method = "post";
+        makeForm.action = "/roomorder/sure";
+        makeForm.submit();
+    }
+</script>
+
 <script>
     function buy() {
         var btn1 = document.getElementById("btn1");
         var quan = document.getElementById("quantity");
-        var gname = document.getElementById("gname");
-        var gphone = document.getElementById("gphone");
+        var gname = document.getElementById("uName");
+        var gphone = document.getElementById("uPhone");
         var gbtn = document.getElementById("gbtn");
         var order = document.getElementById("order");
-        if (btn1.value.match("确认订单")) {
-            if (gname.value == ""||gname.value == null) {
+        if (btn1.innerHTML.match("确认订单")) {
+            if (gname.value == "" || gname.value == null) {
                 window.alert("请填写入住人姓名！");
             }
-            else if (gphone.value == ""||gphone.value ==null) {
+            else if (gphone.value == "" || gphone.value == null) {
                 window.alert("请填写入住人手机号！");
             }
             else {
-                btn1.value = "支付";
+                btn1.innerHTML = "支付";
                 quan.disabled = true;
                 gname.disabled = true;
                 gphone.disabled = true;
@@ -183,9 +289,11 @@
             quan.disabled = false;
             gname.disabled = false;
             gphone.disabled = false;
-            order.submit();
+            sure();
+            /// /order.submit();
         }
     };
+
 </script>
 </body>
 </html>
