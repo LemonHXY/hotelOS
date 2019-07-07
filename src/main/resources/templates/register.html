@@ -40,7 +40,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">My Way</a>
+        <a class="navbar-brand" href="/index">My Way</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
         </button>
@@ -96,7 +96,7 @@
 
                     <div class="form-group">
 					<label >已有账号？请 <a class="ex2" href="/enter" color="black">登录</a> 。</label>
-					<input type="submit" value="注册" class="btn btn-primary btn-block" onclick="secondCheck()">
+					<input type="button" value="注册" class="btn btn-primary btn-block" onclick="secondCheck()">
             </div>
           </div>
          </div>
@@ -116,7 +116,7 @@
                     function secondCheck() {
                         var pwd1 = document.getElementById("u_password").value;
                         var pwd2 = document.getElementById("u_password1").value;
-                        if(pwd1!=pwd2)
+                        if(pwd1!=pwd2 || pwd1==""||pwd2=="")
                         {
                             document.getElementById("check").innerHTML="<font color='red'>两次密码不相同</font>";
                         }

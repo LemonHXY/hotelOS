@@ -10,3 +10,10 @@ spring:
      username: root
      password: admin
      driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
+
+
+logging:
+  level:
+    org.thymeleaf: debug

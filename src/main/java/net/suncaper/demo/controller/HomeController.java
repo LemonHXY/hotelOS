@@ -25,7 +25,7 @@ public class HomeController {
 
         model.addAttribute("search",new MySearch());
 
-        return "/index.html";
+        return "/index";
     }
 
 

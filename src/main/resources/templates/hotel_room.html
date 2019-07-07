@@ -457,6 +457,7 @@
         return currentdate;
     }
 
+
     /*    function mySub2() {
             var arr = document.getElementById("probootstrap-date-arrival").value;
             var dep = document.getElementById("probootstrap-date-departure").value;
@@ -475,6 +476,22 @@
             var form = document.getElementById("myForm");
             form.submit();
         }*/
+</script>
+<script>
+    $('#probootstrap-date-arrival').change(function () {
+        if($('#probootstrap-date-arrival').val()=="")
+        {
+            $('#probootstrap-date-arrival').val(localStorage.getItem("arr"));
+        }
+    })
+
+
+    $('#probootstrap-date-departure').change(function () {
+        if($('#probootstrap-date-departure').val()=="")
+        {
+            $('#probootstrap-date-departure').val(localStorage.getItem("dep"));
+        }
+    })
 </script>
 </body>
 </html>
